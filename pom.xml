@@ -118,6 +118,8 @@
 		<module>api-gateway</module>
 		<module>discovery-registry</module>
 		<module>config-server</module>
+		<module>Project-Management</module>
+		<module>WorkflowEngineService</module>
 </modules>
 
 	<dependencyManagement>
