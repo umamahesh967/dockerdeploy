@@ -1,4 +1,4 @@
-package com.workflow.engine.service;
+package com.workflow.engine.controller;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -22,6 +22,10 @@ import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.workflow.engine.exception.FileGenerationError;
+import com.workflow.engine.exception.InternalUnixCommandException;
+import com.workflow.engine.exception.JgitInternalException;
 
 @RestController
 public class CloneProject {
@@ -71,18 +75,8 @@ public class CloneProject {
 	 * */
 	private File cloned_repo_path = new File("./cloned_repo"); 
 	@RequestMapping("/clone")
-	public Object cloneIt() throws IOException, InvalidRemoteException, TransportException, GitAPIException {
-        //StringBuffer output = new StringBuffer("the cloned output is : ") ; 
-        /*
-     // Create a new repository; the path must exist
-        Repository newlyCreatedRepo = FileRepositoryBuilder.create(
-            new File("/tmp/new_repo/.git"));
-
-        // Open an existing repository
-        Repository existingRepo = new FileRepositoryBuilder()
-            .setGitDir(new File("my_repo/.git"))
-            .build();
-            */
+	public Object cloneIt() throws InternalUnixCommandException, JgitInternalException {
+		
 		
 		// remove the present /cloned_repo folder
 		if (cloned_repo_path.exists()) {
@@ -90,11 +84,19 @@ public class CloneProject {
 		}
 		
 		
-        Git git = Git.cloneRepository()
-        		  .setURI( project_url1 )
-        		  .setDirectory( cloned_repo_path )
-        		  .setCloneAllBranches( true )
-        		  .call();
+        Git git;
+		try {
+			git = Git.cloneRepository()
+					  .setURI( project_url1 )
+					  .setDirectory( cloned_repo_path )
+					  .setCloneAllBranches( true )
+					  .call();
+		} catch (GitAPIException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new JgitInternalException(e.getMessage());
+			
+		}
 //        Git git_open = Git.open( new F‌ile( "/path/to/repo/.git" ) );
 
         return git;
@@ -103,7 +105,7 @@ public class CloneProject {
 	
 	private File jenkinsfile_path = new File("./jenkinsFolder/Jenkinsfile"); 
 	@RequestMapping("/generateJenkinsfile")
-	public Object generateJenkinsFile() throws IOException {
+	public Object generateJenkinsFile() throws FileGenerationError {
 		createfile(jenkinsfile_path);
 		BufferedWriter writer = null;
 		FileWriter fw = null;
@@ -148,6 +150,7 @@ public class CloneProject {
 //				e.printStackTrace();
 				System.out.println("Unable to generate files and folder.");
 	
+				throw new FileGenerationError(e.getMessage());
 			} finally {
 	
 				try {
@@ -172,7 +175,7 @@ public class CloneProject {
 	}
 	
 	
-	public void createfile(File path) throws IOException {
+	public void createfile(File path) throws FileGenerationError {
 		/* create the dir first */
 
 		// if the directory does not exist, create it
@@ -193,14 +196,18 @@ public class CloneProject {
 		    } 
 		    catch(SecurityException se){
 		        //handle it
-		    }        
+		    	throw new FileGenerationError(se.getMessage());
+		    } 
+		    catch(IOException e) {
+		    	throw new FileGenerationError(e.getMessage());
+		    }
 		    if(result) {    
 		        System.out.println("DIR created");  
 		    }
 		}
 	}
 	
-	public void copyJenkinsfileToRepo(File JenkinsfileInRepo, File jenkinsfilePath) throws IOException {
+	public void copyJenkinsfileToRepo(File JenkinsfileInRepo, File jenkinsfilePath) throws FileGenerationError {
 		/*
 		try {
 			
@@ -219,13 +226,21 @@ public class CloneProject {
 	        while ((length = is.read(buffer)) > 0) {
 	            os.write(buffer, 0, length);
 	        }
+	    }catch(IOException e) {
+	    	throw new FileGenerationError(e.getMessage());
 	    } finally {
-	        is.close();
-	        os.close();
+	    	try {
+	    		 is.close();
+	 	        os.close();
+	    	}
+	    	catch(IOException e) {
+	    		throw new FileGenerationError(e.getMessage());
+	    	}
+	       
 	    }
 	}
 	
-	public boolean runUnixCommand(String cmd) {
+	public boolean runUnixCommand(String cmd) throws InternalUnixCommandException {
         try {
 //            String target = new String("./test.sh");
             //String target = new String("mkdir stackOver");
@@ -242,7 +257,7 @@ public class CloneProject {
             return true;
 	    } catch (Throwable t) {
 	            t.printStackTrace();
-	           return false;
+	            throw new InternalUnixCommandException(t.getMessage());
 	    }
 	}
  
