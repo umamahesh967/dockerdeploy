@@ -110,15 +110,32 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.springframework.kafka/spring-kafka -->
+		<dependency>
+		    <groupId>org.springframework.kafka</groupId>
+		    <artifactId>spring-kafka</artifactId>
+		    <version>1.0.1.RELEASE</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-jpa -->
+		<dependency>
+		    <groupId>org.springframework.data</groupId>
+		    <artifactId>spring-data-jpa</artifactId>
+		    <version>2.0.0.RELEASE</version>
+		</dependency>
+				
+				
 
 	</dependencies>
 
 	<!-- TODO: add modules here -->
-<modules>
-		<module>api-gateway</module>
-		<module>discovery-registry</module>
-		<module>config-server</module>
-</modules>
+	<modules>
+			<module>api-gateway</module>
+			<module>discovery-registry</module>
+			<module>config-server</module>
+			<module>WorkflowEngineService</module>
+	</modules>
 
 	<dependencyManagement>
 		<dependencies>
