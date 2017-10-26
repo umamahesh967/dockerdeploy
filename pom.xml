@@ -130,12 +130,13 @@
 	</dependencies>
 
 	<!-- TODO: add modules here -->
-	<modules>
-			<module>api-gateway</module>
-			<module>discovery-registry</module>
-			<module>config-server</module>
-			<module>WorkflowEngineService</module>
-	</modules>
+    <modules>
+    		<module>api-gateway</module>
+    		<module>discovery-registry</module>
+    		<module>config-server</module>
+    		<module>Project-Management</module>
+    		<module>WorkflowEngineService</module>
+    </modules>
 
 	<dependencyManagement>
 		<dependencies>
