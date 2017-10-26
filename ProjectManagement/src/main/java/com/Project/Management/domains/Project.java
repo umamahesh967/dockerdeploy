@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -15,25 +16,32 @@ public class Project {
 	
 	@Id
 	@ApiModelProperty
+	@NotNull
 	private String id;
 
 	@ApiModelProperty
+	@NotNull
 	private String productId;
 	
 	@ApiModelProperty
+	@NotNull
 	private String versionId;
 	
 	
 	@ApiModelProperty
+	@NotNull
 	private ArrayList<String> owner;
 	
 	@ApiModelProperty
+	@NotNull
 	private ArrayList<String>developer;
 	
 	@ApiModelProperty
+	@NotNull
 	private ArrayList<String>stakeholder;
 	
 	@ApiModelProperty
+	@NotNull
 	private String Url;
 	//constructors
 

@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.Project.Management.Exceptions.InternalRepositoryException;
+import com.Project.Management.Exceptions.UrlNotRepositoryException;
 import com.Project.Management.domains.Project;
 import com.Project.Management.services.ProjectService;
 
@@ -46,17 +48,21 @@ public class ProjectController {
 	
 	
 	@GetMapping(value="/list", produces= {"application/json"})
-	public ResponseEntity<List<Project>> list(){
+	public ResponseEntity<?> list()throws UrlNotRepositoryException, InternalRepositoryException {
 		List<Project> Project=new ArrayList<>();
 		
 		Project=projectservice.getAll();
+		
 		return new ResponseEntity<List<Project>>(Project,HttpStatus.OK);
+		
+		 
+   
     }
 	
 	
 	@PostMapping(value="/addproject",consumes= {"application/json"})
 	@ApiOperation(value = "Add a project")
-	public ResponseEntity<String> projectadd(@RequestBody Project project){
+	public ResponseEntity<String> projectadd(@RequestBody Project project)throws UrlNotRepositoryException, InternalRepositoryException {
         Project projecta=projectservice.updateProject(project);
 		
 		if(projecta.equals(project)) {
@@ -68,7 +74,7 @@ public class ProjectController {
 	
 	@PutMapping(value="/updateproject",consumes= {"application/json"})
 	@ApiOperation(value = "Update a project")
-	public ResponseEntity<String> projectupdate(@RequestBody Project project){
+	public ResponseEntity<String> projectupdate(@RequestBody Project project)throws UrlNotRepositoryException, InternalRepositoryException {
 		Project projecta=projectservice.updateProject(project);
 		
 		if(projecta.equals(project)) {
@@ -82,18 +88,25 @@ public class ProjectController {
 	
 	@GetMapping(value="/show/{id}", produces= {"application/json"})
 	@ApiOperation(value = "Search  project with an ID",response = Project.class)
-	public ResponseEntity<Project> getone(@PathVariable("id")  String id){
+	public ResponseEntity<?> getone(@PathVariable("id")  String id)throws UrlNotRepositoryException, InternalRepositoryException {
 		
 		Project project=projectservice.getByid(id);
+		
 		return new ResponseEntity<Project>(project,HttpStatus.OK);
+
+		
 	}
 	
 	
 	@ApiOperation(value = "Delete a project")
 	@DeleteMapping(value="/delete/{id}", consumes="application/json")
-	  public ResponseEntity<String> delete(@PathVariable("id")  String id){
+	  public ResponseEntity<String> delete(@PathVariable("id")  String id)throws UrlNotRepositoryException, InternalRepositoryException {
 		projectservice.deleteProject(id);
+		
 		return new ResponseEntity<String>("Deleted succesfully",HttpStatus.OK);
-	}
+	 
+			
+    
+		}
 
 }
