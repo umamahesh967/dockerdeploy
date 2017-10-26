@@ -23,6 +23,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.workflow.engine.exception.InternalUnixCommandException;
+
 @RestController
 public class CloneProject {
 	@Value("${build: default value something}")
@@ -71,7 +73,7 @@ public class CloneProject {
 	 * */
 	private File cloned_repo_path = new File("./cloned_repo"); 
 	@RequestMapping("/clone")
-	public Object cloneIt() throws IOException, InvalidRemoteException, TransportException, GitAPIException {
+	public Object cloneIt() throws IOException, InvalidRemoteException, TransportException, GitAPIException, InternalUnixCommandException {
         //StringBuffer output = new StringBuffer("the cloned output is : ") ; 
         /*
      // Create a new repository; the path must exist
@@ -225,7 +227,7 @@ public class CloneProject {
 	    }
 	}
 	
-	public boolean runUnixCommand(String cmd) {
+	public boolean runUnixCommand(String cmd) throws InternalUnixCommandException {
         try {
 //            String target = new String("./test.sh");
             //String target = new String("mkdir stackOver");
@@ -242,7 +244,7 @@ public class CloneProject {
             return true;
 	    } catch (Throwable t) {
 	            t.printStackTrace();
-	           return false;
+	            throw new InternalUnixCommandException(t.getMessage());
 	    }
 	}
  

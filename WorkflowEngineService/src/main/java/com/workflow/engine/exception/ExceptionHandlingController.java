@@ -40,9 +40,21 @@ public class ExceptionHandlingController {
 	public ResponseEntity<CustomExceptionResponse> urlNotRepositoryException(UrlNotRepositoryException exception) {
         CustomExceptionResponse exceptionresponse = new CustomExceptionResponse();
         
-        exceptionresponse.setErrorMessage("Repository Error.");
+        exceptionresponse.setErrorMessage("URL Error.");
         exceptionresponse.setErrors(exception.getErrormessage());
         
         return new ResponseEntity<CustomExceptionResponse>(exceptionresponse, HttpStatus.SERVICE_UNAVAILABLE);
 	}
+	
+	
+	@ExceptionHandler(InternalUnixCommandException.class)
+	public ResponseEntity<CustomExceptionResponse> unixCommandException(InternalUnixCommandException exception) {
+        CustomExceptionResponse exceptionresponse = new CustomExceptionResponse();
+        
+        exceptionresponse.setErrorMessage("Unix command not able to run : Error.");
+        exceptionresponse.setErrors(exception.getErrormessage());
+        
+        return new ResponseEntity<CustomExceptionResponse>(exceptionresponse, HttpStatus.SERVICE_UNAVAILABLE);
+	}
+	
 }
