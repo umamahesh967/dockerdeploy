@@ -57,4 +57,16 @@ public class ExceptionHandlingController {
         return new ResponseEntity<CustomExceptionResponse>(exceptionresponse, HttpStatus.SERVICE_UNAVAILABLE);
 	}
 	
+	
+	@ExceptionHandler(FileGenerationError.class)
+	public ResponseEntity<CustomExceptionResponse> fileGenerationError(FileGenerationError exception) {
+        CustomExceptionResponse exceptionresponse = new CustomExceptionResponse();
+        
+        exceptionresponse.setErrorMessage("File not able to generate not able to generate.");
+        exceptionresponse.setErrors(exception.getErrormessage());
+        
+        return new ResponseEntity<CustomExceptionResponse>(exceptionresponse, HttpStatus.SERVICE_UNAVAILABLE);
+	}
+		
+	
 }
