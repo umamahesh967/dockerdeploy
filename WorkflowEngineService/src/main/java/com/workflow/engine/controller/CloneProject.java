@@ -86,8 +86,14 @@ public class CloneProject {
 	// TODO : get from db 
 	private String project_url = "https://github.com/Shekharrajak/Trigger-Jenkins-Server"; 
 	private String project_url1 = "https://github.com/Shekharrajak/PipelineExecution";
-
-
+	
+	/*
+	 * This method is created to send data to kafka.
+	 * It clones the git url into cloned_repo folder of the working directory.
+	 * Generates the jenkinsfile using given commands.
+	 * Put the jenkinsfile into JenkinsFolder and copy the same into cloned_repo folder.
+	 * 
+	 * */
     @ApiOperation(value = "Clone the git repo url and put jenkins file into cloned_repo ",response = Iterable.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully cloned the repo and jenkinsfile done"),
