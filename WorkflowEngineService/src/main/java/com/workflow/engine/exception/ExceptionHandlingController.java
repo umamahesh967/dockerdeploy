@@ -58,8 +58,8 @@ public class ExceptionHandlingController {
 	}
 	
 	
-	@ExceptionHandler(FileGenerationError.class)
-	public ResponseEntity<CustomExceptionResponse> fileGenerationError(FileGenerationError exception) {
+	@ExceptionHandler(FileGenerationException.class)
+	public ResponseEntity<CustomExceptionResponse> fileGenerationError(FileGenerationException exception) {
         CustomExceptionResponse exceptionresponse = new CustomExceptionResponse();
         
         exceptionresponse.setErrorMessage("File not able to generate not able to generate.");

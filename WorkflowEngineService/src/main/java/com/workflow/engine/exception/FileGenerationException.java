@@ -1,11 +1,11 @@
 package com.workflow.engine.exception;
 
-public class FileGenerationError extends Exception{
+public class FileGenerationException extends Exception{
 //	static final long serialVersionUID = 42L;
 	
 	private String errormessage;
 	
-	public FileGenerationError(String errormessage) {
+	public FileGenerationException(String errormessage) {
 		super(errormessage);
 		this.errormessage = errormessage;
 	}

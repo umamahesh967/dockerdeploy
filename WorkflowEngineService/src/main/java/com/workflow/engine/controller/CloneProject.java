@@ -23,10 +23,43 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.workflow.engine.exception.FileGenerationError;
+import com.workflow.engine.exception.FileGenerationException;
 import com.workflow.engine.exception.InternalUnixCommandException;
 import com.workflow.engine.exception.JgitInternalException;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+/*
+ * 
+ * This class responsible for cloning , creating jenkinsfile
+ * and putting it into the cloned_repo folder as well as save the
+ * same jenkins file in JenkinsFolder for future use.
+ * 
+ * Internally it uses the mongo db for the commands table and put the path
+ * of the project in one table.
+ * 
+ * returns
+ * -------
+ * Also create model with project id, version id, build id, 
+ * path of the cloned_repo attributes.
+ * 
+ * input
+ * ------
+ * URL, list of commands (run , build , test, comiple)
+ * 
+ * 
+ * */
+
+@RequestMapping("/workflow")
+@Api(
+		value="gitclone", 
+		description=
+			"Cloning the git repo (gitlab or github) into the newly " + 
+			"created cloned_repo folder in working  directory with generated " + 
+			"jenkinsfile using the commands given."
+)
 @RestController
 public class CloneProject {
 	@Value("${build: default value something}")
@@ -45,6 +78,9 @@ public class CloneProject {
 	private String project_url = "https://github.com/Shekharrajak/Trigger-Jenkins-Server"; 
 	private String project_url1 = "https://github.com/Shekharrajak/PipelineExecution";
 
+	/*
+	 * Clone from the git clone command. (Currently it is not using it)
+	 * */
 	@RequestMapping("/cloneFormGitCommand")
 	public Object cloneItFromGitCommand() {
         StringBuffer output = new StringBuffer("the cloned output is : ") ; 
@@ -73,7 +109,19 @@ public class CloneProject {
 	/*
 	 * helpful link : http://www.codeaffine.com/2015/11/30/jgit-clone-repository/
 	 * */
+	/*
+	 * Clone the git url into cloned_repo folder of the working directory.
+	 * */
 	private File cloned_repo_path = new File("./cloned_repo"); 
+	
+    @ApiOperation(value = "Clone the git repo url ",response = Iterable.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully cloned the repo"),
+            @ApiResponse(code = 401, message = "You are not authorized to access the resource"),
+            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+    }
+    )
 	@RequestMapping("/clone")
 	public Object cloneIt() throws InternalUnixCommandException, JgitInternalException {
 		
@@ -103,9 +151,25 @@ public class CloneProject {
 
 	}
 	
+	/*
+	 * Generate jenkinfile from the given commands into the jenkinsFolder
+	 * in the working direcotry.
+	 * Also copy the same file into cloned_repo folder
+	 * 
+	 * */
 	private File jenkinsfile_path = new File("./jenkinsFolder/Jenkinsfile"); 
+	
+	@ApiOperation(value = "Clone the git repo url ",response = Iterable.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully cloned the repo"),
+            @ApiResponse(code = 401, message = "You are not authorized to access the resource"),
+            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+    }
+    )
+	
 	@RequestMapping("/generateJenkinsfile")
-	public Object generateJenkinsFile() throws FileGenerationError {
+	public Object generateJenkinsFile() throws FileGenerationException {
 		createfile(jenkinsfile_path);
 		BufferedWriter writer = null;
 		FileWriter fw = null;
@@ -150,7 +214,7 @@ public class CloneProject {
 //				e.printStackTrace();
 				System.out.println("Unable to generate files and folder.");
 	
-				throw new FileGenerationError(e.getMessage());
+				throw new FileGenerationException(e.getMessage());
 			} finally {
 	
 				try {
@@ -174,8 +238,10 @@ public class CloneProject {
 	
 	}
 	
-	
-	public void createfile(File path) throws FileGenerationError {
+	/*
+	 * create the file on the given path.handles all the exceptions as well.
+	 * */
+	public void createfile(File path) throws FileGenerationException {
 		/* create the dir first */
 
 		// if the directory does not exist, create it
@@ -196,10 +262,10 @@ public class CloneProject {
 		    } 
 		    catch(SecurityException se){
 		        //handle it
-		    	throw new FileGenerationError(se.getMessage());
+		    	throw new FileGenerationException(se.getMessage());
 		    } 
 		    catch(IOException e) {
-		    	throw new FileGenerationError(e.getMessage());
+		    	throw new FileGenerationException(e.getMessage());
 		    }
 		    if(result) {    
 		        System.out.println("DIR created");  
@@ -207,7 +273,12 @@ public class CloneProject {
 		}
 	}
 	
-	public void copyJenkinsfileToRepo(File JenkinsfileInRepo, File jenkinsfilePath) throws FileGenerationError {
+	/*
+	 * copying the jenkinfile from the JenkinsFolder to the cloned_repo 
+	 * folder.
+	 * 
+	 * */
+	public void copyJenkinsfileToRepo(File JenkinsfileInRepo, File jenkinsfilePath) throws FileGenerationException {
 		/*
 		try {
 			
@@ -227,19 +298,23 @@ public class CloneProject {
 	            os.write(buffer, 0, length);
 	        }
 	    }catch(IOException e) {
-	    	throw new FileGenerationError(e.getMessage());
+	    	throw new FileGenerationException(e.getMessage());
 	    } finally {
 	    	try {
 	    		 is.close();
 	 	        os.close();
 	    	}
 	    	catch(IOException e) {
-	    		throw new FileGenerationError(e.getMessage());
+	    		throw new FileGenerationException(e.getMessage());
 	    	}
 	       
 	    }
 	}
 	
+	/*
+	 * Run the given `cmd` unix command.
+	 * 
+	 * */
 	public boolean runUnixCommand(String cmd) throws InternalUnixCommandException {
         try {
 //            String target = new String("./test.sh");

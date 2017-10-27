@@ -1,20 +1,15 @@
-package com.workflow.engine.service;
+package com.workflow.engine.controller;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import com.workflow.engine.controller.CloneProject;
 import com.workflow.engine.exception.InternalUnixCommandException;
 
-public class cloneProjectTest {
+public class CloneProjectTest {
 
-//	@Test
-//	public void test() {
-//		fail("Not yet implemented");
-//	}
-	
 	private static CloneProject cp;
 
 	@Before
@@ -35,5 +30,4 @@ public class cloneProjectTest {
 				cp.runUnixCommand("pwd"));
 		assertTrue(cp.runUnixCommand("pwd"));
 	}
-
 }
