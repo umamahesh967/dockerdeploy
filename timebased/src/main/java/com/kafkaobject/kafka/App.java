@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 import com.kafkaobject.model.ProjectInfo;
 import com.kafkaobject.exception.SendingDataException;
@@ -11,6 +12,7 @@ import com.kafkaobject.kafka.producer.KafkaProducer;;
  
  
 @SpringBootApplication
+@EnableDiscoveryClient
 public class App implements CommandLineRunner{
  
 	public static void main(String[] args) {
