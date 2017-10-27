@@ -106,13 +106,10 @@ public class CloneProjectController {
 			throws InternalUnixCommandException, 
 			JgitInternalException, 
 			FileGenerationException {
-		
-<<<<<<< 86e5297eff56fad042f31d044d1a19841f2dc27b:WorkflowEngineService/src/main/java/com/stackroute/deploymentdashboard/controller/CloneProjectController.java
-    	workflowService.init_commands(build, test, run, compile);
+			workflowService.init_commands(build, test, run, compile);
     	
-=======
 //    	workflowService.init_commands(build, test, run, compile);
->>>>>>> changes for kafka:WorkflowEngineService/src/main/java/com/workflow/engine/controller/CloneProject.java
+
 		// remove the present /cloned_repo folder
   //  	workflowService.deleteFolder(cloned_repo_path);
 //		
