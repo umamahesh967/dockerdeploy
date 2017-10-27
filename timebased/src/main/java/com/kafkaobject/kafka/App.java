@@ -8,7 +8,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 import com.kafkaobject.model.ProjectInfo;
 import com.kafkaobject.exception.SendingDataException;
-import com.kafkaobject.kafka.producer.KafkaProducer;;
+import com.kafkaobject.kafka.producer.Sender;;
  
  
 @SpringBootApplication
@@ -20,14 +20,14 @@ public class App implements CommandLineRunner{
 	}
 	
 	@Autowired
-	KafkaProducer producer;
+	Sender producer;
 	
 	@Override
 	public void run(String... arg0) throws Exception {
 		try {
 		// Send fb customer
 		ProjectInfo facebook = new ProjectInfo("fb.com", 31);
-		producer.send(facebook);
+		producer.send("receiver", facebook);
 		}
 		catch (Exception e) {
 			
@@ -36,7 +36,7 @@ public class App implements CommandLineRunner{
 		try {
 		// Send Peter customer
 		ProjectInfo peter = new ProjectInfo("spiderman.com", 24);
-		producer.send(peter);
+		producer.send("receiver",peter);
 		}catch (Exception e) {
 			
 			throw new SendingDataException("Problem sending data");
