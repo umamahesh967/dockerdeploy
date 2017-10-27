@@ -27,6 +27,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.workflow.engine.exception.FileGenerationException;
 import com.workflow.engine.exception.InternalUnixCommandException;
 import com.workflow.engine.exception.JgitInternalException;
+import com.workflow.engine.messenger.ReportingServiceProducer;
+import com.workflow.engine.model.ModelForJenkins;
 import com.workflow.engine.service.WorkflowService;
 
 import io.swagger.annotations.Api;
@@ -65,7 +67,7 @@ import io.swagger.annotations.ApiResponses;
 @RestController
 public class CloneProject {
 	
-
+	// TODO: these values from properties file or db
 	@Value("${build: mvn build}")
 	private String build;
 	
@@ -111,6 +113,9 @@ public class CloneProject {
 		// generate jenkins file
 		generateJenkinsFile();
 		
+		ReportingServiceProducer producer = new ReportingServiceProducer();
+		ModelForJenkins model = new ModelForJenkins(111);
+		producer.send("jjjj");
 		return ResponseEntity.ok("Repo cloned and Jenkinsfile is put into the cloned-repo");
 	}
     
