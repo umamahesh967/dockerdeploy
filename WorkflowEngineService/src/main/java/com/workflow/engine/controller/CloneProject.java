@@ -78,33 +78,6 @@ public class CloneProject {
 	private String project_url = "https://github.com/Shekharrajak/Trigger-Jenkins-Server"; 
 	private String project_url1 = "https://github.com/Shekharrajak/PipelineExecution";
 
-	/*
-	 * Clone from the git clone command. (Currently it is not using it)
-	 * */
-	@RequestMapping("/cloneFormGitCommand")
-	public Object cloneItFromGitCommand() {
-        StringBuffer output = new StringBuffer("the cloned output is : ") ; 
-        try {
-        	// git should be installed in system
-        		String target = new String("git clone " + project_url);
-        		//String target = new String("mkdir stackOver");
-		        Runtime rt = Runtime.getRuntime();
-		        Process proc = rt.exec(target);
-		        proc.waitFor();
-
-		        BufferedReader reader = new BufferedReader(new InputStreamReader(proc.getInputStream()));
-		        String line = "";                       
-		        while ((line = reader.readLine())!= null) {
-		                output.append(line + "\n");
-		        }
-//		        System.out.println("### " + output);
-		        return output;
-		} catch (Throwable t) {
-		        t.printStackTrace();
-		}
-		return output;
-
-	}
 	
 	/*
 	 * helpful link : http://www.codeaffine.com/2015/11/30/jgit-clone-repository/
@@ -336,6 +309,37 @@ public class CloneProject {
 	    }
 	}
  
+	/*
+	 * Clone from the git clone command. (Currently it is not in use)
+	 * */
+	@ApiOperation(
+			value = "Clone the git repo url  using git command ",
+			response = Iterable.class,
+			hidden = true)
+	@RequestMapping("/cloneFromGitCommand")
+	public Object cloneItFromGitCommand() {
+        StringBuffer output = new StringBuffer("the cloned output is : ") ; 
+        try {
+        	// git should be installed in system
+        		String target = new String("git clone " + project_url);
+        		//String target = new String("mkdir stackOver");
+		        Runtime rt = Runtime.getRuntime();
+		        Process proc = rt.exec(target);
+		        proc.waitFor();
+
+		        BufferedReader reader = new BufferedReader(new InputStreamReader(proc.getInputStream()));
+		        String line = "";                       
+		        while ((line = reader.readLine())!= null) {
+		                output.append(line + "\n");
+		        }
+//		        System.out.println("### " + output);
+		        return output;
+		} catch (Throwable t) {
+		        t.printStackTrace();
+		}
+		return output;
+
+	}
 //	@RequestMapping("/doAll")
 //	public Object doIt() {
 //		
