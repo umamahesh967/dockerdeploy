@@ -34,7 +34,7 @@ public class ProjectControllerTest {
     Project project;
     @Before
     public void setUp() throws Exception {
-         project = new Project("3","mail","goutham",null, null, null, project1);
+         project = new Project("3","mail","goutham",null, null, null, null, project1, project1);
     }
     private String createURLWithPort(String uri) {
         return "http://localhost:" + port + uri;

@@ -2,14 +2,14 @@
 package com.Project.Management.Exceptions;
 
 public class CustomExceptionResponse extends Exception {
-    private String errorMessage;
+    private String errorDescription;
     private String error;
 	
 	public String getErrorMessage() {
-		return errorMessage;
+		return errorDescription;
 	}
 	public void setErrorMessage(String errorMessage) {
-		this.errorMessage = errorMessage;
+		this.errorDescription = errorMessage;
 	}
 	
 	public String getErrors() {
