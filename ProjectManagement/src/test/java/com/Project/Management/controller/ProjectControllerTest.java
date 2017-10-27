@@ -19,8 +19,8 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.Project.Management.Application;
-import com.Project.Management.domains.Project;
+import com.stackroute.deploymentdashboard.Application;
+import com.stackroute.deploymentdashboard.domains.ProjectManagementObject;
 
 
 @RunWith(SpringRunner.class)
@@ -31,10 +31,10 @@ public class ProjectControllerTest {
     private int port;
     TestRestTemplate restTemplate = new TestRestTemplate();
     HttpHeaders headers = new HttpHeaders();
-    Project project;
+    ProjectManagementObject projectManagementObject;
     @Before
     public void setUp() throws Exception {
-         project = new Project("3","mail","goutham",null, null, null, null, project1, project1);
+         projectManagementObject = new ProjectManagementObject("3","mail","goutham",null, null, null, null, project1, project1);
     }
     private String createURLWithPort(String uri) {
         return "http://localhost:" + port + uri;
@@ -44,7 +44,7 @@ public class ProjectControllerTest {
     }
     @Test
     public void testSaveProject() throws Exception {
-        HttpEntity<Project> entity = new HttpEntity<Project>(project, headers);
+        HttpEntity<ProjectManagementObject> entity = new HttpEntity<ProjectManagementObject>(projectManagementObject, headers);
         ResponseEntity<String> response = restTemplate.exchange(
                 createURLWithPort("/Project/addproject"),
                 HttpMethod.POST, entity, String.class);
@@ -56,7 +56,7 @@ public class ProjectControllerTest {
 
    @Test
     public void testdelete() throws Exception {
-        HttpEntity<Project> entity = new HttpEntity<Project>(project, headers);
+        HttpEntity<ProjectManagementObject> entity = new HttpEntity<ProjectManagementObject>(projectManagementObject, headers);
         ResponseEntity<String> response = restTemplate.exchange(
                 createURLWithPort("/Project/delete/3"),
                 HttpMethod.DELETE, entity, String.class);
@@ -67,7 +67,7 @@ public class ProjectControllerTest {
     }  
    @Test
     public void testupdate() throws Exception {
-        HttpEntity<Project> entity = new HttpEntity<Project>(project, headers);
+        HttpEntity<ProjectManagementObject> entity = new HttpEntity<ProjectManagementObject>(projectManagementObject, headers);
         ResponseEntity<String> response = restTemplate.exchange(
                 createURLWithPort("/Project/updateproject"),
                 HttpMethod.PUT, entity, String.class);
@@ -80,10 +80,10 @@ public class ProjectControllerTest {
    
    @Test
     public void testEGetProjectByExistingId() throws Exception {
-        HttpEntity<Project> entity = new HttpEntity<Project>(project, headers);
-        ResponseEntity<Project> response = restTemplate.exchange(
+        HttpEntity<ProjectManagementObject> entity = new HttpEntity<ProjectManagementObject>(projectManagementObject, headers);
+        ResponseEntity<ProjectManagementObject> response = restTemplate.exchange(
                 createURLWithPort("/Project/show/3"),
-                HttpMethod.GET, entity, Project.class);
+                HttpMethod.GET, entity, ProjectManagementObject.class);
         
       assertNotNull("Expected some value but found null",response);
         assertEquals("Status code is not as expected",HttpStatus.OK,response.getStatusCode());      
