@@ -27,6 +27,8 @@ import com.workflow.engine.exception.FileGenerationException;
 import com.workflow.engine.exception.InternalUnixCommandException;
 import com.workflow.engine.exception.JgitInternalException;
 
+import io.swagger.annotations.Api;
+
 /*
  * 
  * This class responsible for cloning , creating jenkinsfile
@@ -47,6 +49,8 @@ import com.workflow.engine.exception.JgitInternalException;
  * 
  * 
  * */
+
+@Api(value="gitclone", description="Cloning the git repo (gitlab or github) into the newly created cloned_repo folder in working  directory with generated jenkinsfile using the commands given")
 @RestController
 public class CloneProject {
 	@Value("${build: default value something}")
