@@ -1,0 +1,5 @@
+<job _class="hudson.model.FreeStyleProject">
+<name>prick</name>
+<url>http://localhost:8080/job/prick/</url>
+<color>notbuilt</color>
+</job>
