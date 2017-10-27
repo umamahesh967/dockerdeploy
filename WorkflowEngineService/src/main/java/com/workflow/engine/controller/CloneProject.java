@@ -28,7 +28,9 @@ import com.workflow.engine.exception.InternalUnixCommandException;
 import com.workflow.engine.exception.JgitInternalException;
 
 import io.swagger.annotations.Api;
-
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 /*
  * 
  * This class responsible for cloning , creating jenkinsfile
@@ -50,7 +52,14 @@ import io.swagger.annotations.Api;
  * 
  * */
 
-@Api(value="gitclone", description="Cloning the git repo (gitlab or github) into the newly created cloned_repo folder in working  directory with generated jenkinsfile using the commands given")
+@RequestMapping("/workflow")
+@Api(
+		value="gitclone", 
+		description=
+			"Cloning the git repo (gitlab or github) into the newly " + 
+			"created cloned_repo folder in working  directory with generated " + 
+			"jenkinsfile using the commands given."
+)
 @RestController
 public class CloneProject {
 	@Value("${build: default value something}")
@@ -104,6 +113,15 @@ public class CloneProject {
 	 * Clone the git url into cloned_repo folder of the working directory.
 	 * */
 	private File cloned_repo_path = new File("./cloned_repo"); 
+	
+    @ApiOperation(value = "Clone the git repo url ",response = Iterable.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully cloned the repo"),
+            @ApiResponse(code = 401, message = "You are not authorized to access the resource"),
+            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+    }
+    )
 	@RequestMapping("/clone")
 	public Object cloneIt() throws InternalUnixCommandException, JgitInternalException {
 		
@@ -140,6 +158,16 @@ public class CloneProject {
 	 * 
 	 * */
 	private File jenkinsfile_path = new File("./jenkinsFolder/Jenkinsfile"); 
+	
+	@ApiOperation(value = "Clone the git repo url ",response = Iterable.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully cloned the repo"),
+            @ApiResponse(code = 401, message = "You are not authorized to access the resource"),
+            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+    }
+    )
+	
 	@RequestMapping("/generateJenkinsfile")
 	public Object generateJenkinsFile() throws FileGenerationException {
 		createfile(jenkinsfile_path);

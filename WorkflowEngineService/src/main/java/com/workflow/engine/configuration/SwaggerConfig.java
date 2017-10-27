@@ -16,11 +16,11 @@ import static springfox.documentation.builders.PathSelectors.regex;
 @EnableSwagger2
 public class SwaggerConfig {
     @Bean
-    public Docket productApi() {
+    public Docket cloneApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.workflow.engine.controller"))
-                .paths(regex("/clone"))
+                .paths(regex("/workflow.*"))
                 .build();
     }
     
