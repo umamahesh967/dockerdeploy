@@ -24,7 +24,6 @@ public class SwaggerConfig {
                 .build();
     }
     
-    @Bean
     private ApiInfo metaData() {
         ApiInfo apiInfo = new ApiInfo(
                 "Workflow Engine Service",
