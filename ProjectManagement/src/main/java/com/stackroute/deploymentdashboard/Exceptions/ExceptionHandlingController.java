@@ -10,8 +10,8 @@ package com.stackroute.deploymentdashboard.Exceptions;
 	@ControllerAdvice
 	public class ExceptionHandlingController extends Exception {
 		
-		@ExceptionHandler(MethodArgumentNotValidException.class)
-		public ResponseEntity<CustomExceptionResponse> invalidInput(MethodArgumentNotValidException exception) {
+		@ExceptionHandler(CustomExceptionResponse .class)
+		public ResponseEntity<CustomExceptionResponse> invalidInput(CustomExceptionResponse  exception) throws Exception{
 			
 			BindingResult result = exception.getBindingResult();
 	        CustomExceptionResponse exceptionresponse = new CustomExceptionResponse();
@@ -24,14 +24,5 @@ package com.stackroute.deploymentdashboard.Exceptions;
 		
 		
 
-		@ExceptionHandler(UrlNotRepositoryException.class)
-		public ResponseEntity<CustomExceptionResponse> urlNotRepositoryException(UrlNotRepositoryException exception) {
-	        CustomExceptionResponse exceptionresponse = new CustomExceptionResponse();
-	        
-	        exceptionresponse.setErrorMessage("Repository Error.");
-	        exceptionresponse.setErrors(exception.getErrorDescription());
-	        
-	        return new ResponseEntity<CustomExceptionResponse>(exceptionresponse, HttpStatus.SERVICE_UNAVAILABLE);
-		}
 		
 	}

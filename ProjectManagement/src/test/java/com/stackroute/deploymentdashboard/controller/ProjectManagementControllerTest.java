@@ -1,4 +1,4 @@
-package com.Project.Management.controller;
+package com.stackroute.deploymentdashboard.controller;
 
 
 
@@ -25,7 +25,7 @@ import com.stackroute.deploymentdashboard.domains.ProjectManagementObject;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class ProjectControllerTest {
+public class ProjectManagementControllerTest {
     String project1;
     @LocalServerPort
     private int port;

@@ -1,4 +1,4 @@
-package com.Project.Management.services;
+package com.stackroute.deploymentdashboard.services;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -9,17 +9,17 @@ import org.mockito.MockitoAnnotations;
 
 import com.stackroute.deploymentdashboard.domains.ProjectManagementObject;
 import com.stackroute.deploymentdashboard.repository.ProjectManagementCRUDRepository;
-import com.stackroute.deploymentdashboard.services.ProjectManagementService;
+import com.stackroute.deploymentdashboard.services.ProjectManagementServiceImpl;
 
 import static org.mockito.Mockito.*;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class ProjectServiceTest {
+public class ProjectManagementServiceImplTest {
 
 
-   private ProjectManagementService projectManagementService;
+   private ProjectManagementServiceImpl projectManagementServiceImpl;
     @Mock
     private ProjectManagementCRUDRepository projectManagementCRUDRepository;
     @Mock
@@ -27,15 +27,15 @@ public class ProjectServiceTest {
     @Before
     public void setupMock() {
         MockitoAnnotations.initMocks(this);
-        projectManagementService=new ProjectManagementService();
-        projectManagementService.setProjectrepository(projectManagementCRUDRepository);
+        projectManagementServiceImpl=new ProjectManagementServiceImpl();
+        projectManagementServiceImpl.setProjectrepository(projectManagementCRUDRepository);
     }
     @Test
     public void shouldReturnProject_whenGetProjectByIdIsCalled() throws Exception {
         // Arrange
         when(projectManagementCRUDRepository.findOne("1")).thenReturn(projectManagementObject);
         // Act
-        ProjectManagementObject retrievedProject = projectManagementService.getByid("1");
+        ProjectManagementObject retrievedProject = projectManagementServiceImpl.getByid("1");
         // Assert
         assertThat(retrievedProject, is(equalTo(projectManagementObject)));
 
@@ -48,7 +48,7 @@ public class ProjectServiceTest {
         doNothing().when(projectManagementCRUDRepository).delete("3");
         ProjectManagementCRUDRepository my = Mockito.mock(ProjectManagementCRUDRepository.class);
         // Act
-        projectManagementService.deleteProject("3");
+        projectManagementServiceImpl.deleteProject("3");
         // Assert
         verify(projectManagementCRUDRepository, times(1)).delete("3");
    }
@@ -58,7 +58,7 @@ public class ProjectServiceTest {
        // Arrange
        when(projectManagementCRUDRepository.save(projectManagementObject)).thenReturn(projectManagementObject);
        // Act
-       ProjectManagementObject retrievedProject = projectManagementService.updateProject(projectManagementObject);
+       ProjectManagementObject retrievedProject = projectManagementServiceImpl.updateProject(projectManagementObject);
        // Assert
        assertThat(retrievedProject, is(equalTo(projectManagementObject)));
 
@@ -69,7 +69,7 @@ public class ProjectServiceTest {
        // Arrange
 	   when(projectManagementCRUDRepository.save(projectManagementObject)).thenReturn(projectManagementObject);
        // Act
-       ProjectManagementObject retrievedProject = projectManagementService.add(projectManagementObject);
+       ProjectManagementObject retrievedProject = projectManagementServiceImpl.add(projectManagementObject);
        // Assert
        assertThat(retrievedProject, is(equalTo(projectManagementObject)));
   }
