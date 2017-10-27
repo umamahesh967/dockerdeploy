@@ -1,4 +1,4 @@
-package com.Project.Management.Exceptions;
+package com.stackroute.deploymentdashboard.Exceptions;
 
 	import org.springframework.http.HttpStatus;
 	import org.springframework.http.ResponseEntity;
@@ -23,6 +23,15 @@ package com.Project.Management.Exceptions;
 		}
 		
 		
-		
+
+		@ExceptionHandler(UrlNotRepositoryException.class)
+		public ResponseEntity<CustomExceptionResponse> urlNotRepositoryException(UrlNotRepositoryException exception) {
+	        CustomExceptionResponse exceptionresponse = new CustomExceptionResponse();
+	        
+	        exceptionresponse.setErrorMessage("Repository Error.");
+	        exceptionresponse.setErrors(exception.getErrorDescription());
+	        
+	        return new ResponseEntity<CustomExceptionResponse>(exceptionresponse, HttpStatus.SERVICE_UNAVAILABLE);
+		}
 		
 	}

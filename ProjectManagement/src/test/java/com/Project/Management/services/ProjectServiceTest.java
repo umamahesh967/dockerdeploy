@@ -7,8 +7,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import com.Project.Management.domains.Project;
-import com.Project.Management.repository.ProjectRepository;
+import com.stackroute.deploymentdashboard.domains.ProjectManagementObject;
+import com.stackroute.deploymentdashboard.repository.ProjectManagementCRUDRepository;
+import com.stackroute.deploymentdashboard.services.ProjectManagementService;
 
 import static org.mockito.Mockito.*;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -18,25 +19,25 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class ProjectServiceTest {
 
 
-   private ProjectService projectService;
+   private ProjectManagementService projectManagementService;
     @Mock
-    private ProjectRepository projectRepository;
+    private ProjectManagementCRUDRepository projectManagementCRUDRepository;
     @Mock
-    private Project project;
+    private ProjectManagementObject projectManagementObject;
     @Before
     public void setupMock() {
         MockitoAnnotations.initMocks(this);
-        projectService=new ProjectService();
-        projectService.setProjectrepository(projectRepository);
+        projectManagementService=new ProjectManagementService();
+        projectManagementService.setProjectrepository(projectManagementCRUDRepository);
     }
     @Test
     public void shouldReturnProject_whenGetProjectByIdIsCalled() throws Exception {
         // Arrange
-        when(projectRepository.findOne("1")).thenReturn(project);
+        when(projectManagementCRUDRepository.findOne("1")).thenReturn(projectManagementObject);
         // Act
-        Project retrievedProject = projectService.getByid("1");
+        ProjectManagementObject retrievedProject = projectManagementService.getByid("1");
         // Assert
-        assertThat(retrievedProject, is(equalTo(project)));
+        assertThat(retrievedProject, is(equalTo(projectManagementObject)));
 
   }
     
@@ -44,33 +45,33 @@ public class ProjectServiceTest {
    @Test
     public void shouldCallDeleteMethodOfProjectRepository_whenDeleteProjectIsCalled() throws Exception {
         // Arrange
-        doNothing().when(projectRepository).delete("3");
-        ProjectRepository my = Mockito.mock(ProjectRepository.class);
+        doNothing().when(projectManagementCRUDRepository).delete("3");
+        ProjectManagementCRUDRepository my = Mockito.mock(ProjectManagementCRUDRepository.class);
         // Act
-        projectService.deleteProject("3");
+        projectManagementService.deleteProject("3");
         // Assert
-        verify(projectRepository, times(1)).delete("3");
+        verify(projectManagementCRUDRepository, times(1)).delete("3");
    }
    
    @Test
    public void shouldUpdateProject_whenUpdateProjectByIdIsCalled() throws Exception {
        // Arrange
-       when(projectRepository.save(project)).thenReturn(project);
+       when(projectManagementCRUDRepository.save(projectManagementObject)).thenReturn(projectManagementObject);
        // Act
-       Project retrievedProject = projectService.updateProject(project);
+       ProjectManagementObject retrievedProject = projectManagementService.updateProject(projectManagementObject);
        // Assert
-       assertThat(retrievedProject, is(equalTo(project)));
+       assertThat(retrievedProject, is(equalTo(projectManagementObject)));
 
  }
    
    @Test
    public void shouldCallAddMethodOfProjectRepository_whenAddProjectIsCalled() throws Exception {
        // Arrange
-	   when(projectRepository.save(project)).thenReturn(project);
+	   when(projectManagementCRUDRepository.save(projectManagementObject)).thenReturn(projectManagementObject);
        // Act
-       Project retrievedProject = projectService.add(project);
+       ProjectManagementObject retrievedProject = projectManagementService.add(projectManagementObject);
        // Assert
-       assertThat(retrievedProject, is(equalTo(project)));
+       assertThat(retrievedProject, is(equalTo(projectManagementObject)));
   }
    
    

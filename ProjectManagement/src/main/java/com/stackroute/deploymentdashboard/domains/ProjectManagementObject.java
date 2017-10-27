@@ -1,4 +1,4 @@
-package com.Project.Management.domains;
+package com.stackroute.deploymentdashboard.domains;
 
 import java.util.ArrayList;
 
@@ -17,7 +17,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 @Entity
 @Document(collection="Project")
-public class Project {
+public class ProjectManagementObject {
 	
 	@Id
 	private String id;
@@ -59,6 +59,12 @@ public class Project {
 
 	
 	
+	public ProjectManagementObject() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
 	public String getAccesstoken() {
 		return Accesstoken;
 	}
@@ -69,15 +75,7 @@ public class Project {
 	}
 
 
-	/*constructor*/
-	
-	public Project() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-
-	public Project(String id, String projectId, String versionId, ArrayList<String> owner, ArrayList<String> developer,
+	public ProjectManagementObject(String id, String projectId, String versionId, ArrayList<String> owner, ArrayList<String> developer,
 			ArrayList<String> stakeholder,ArrayList<String> commands, String url,String Accesstoken) {
 		super();
 		this.id = id;
@@ -90,6 +88,7 @@ public class Project {
 		
 		Url = url;
 	}
+	
 	
 	
 	/*

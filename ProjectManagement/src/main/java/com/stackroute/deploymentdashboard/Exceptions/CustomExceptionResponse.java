@@ -1,5 +1,5 @@
 
-package com.Project.Management.Exceptions;
+package com.stackroute.deploymentdashboard.Exceptions;
 
 public class CustomExceptionResponse extends Exception {
     private String errorDescription;
