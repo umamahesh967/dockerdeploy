@@ -1,5 +1,5 @@
-Infrastructure Micro Service(Devendra)
+manual-service (vamsi velivela)
 
-REST Endpoint Documentation
+##catch the data from kafka 
 
-Configure service and connecting other services.
+Gets the data from kafka in the form of json object.
