@@ -128,7 +128,7 @@
     		<module>Project-Management</module>
     		<module>WorkflowEngineService</module>
     		<module>manualService</module>
-    		<module>timebased</module>
+    		<module>JenkinsTimeBasedService</module>
     </modules>
 
 	<dependencyManagement>
