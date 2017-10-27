@@ -27,11 +27,11 @@ public class SwaggerConfig {
 
     private ApiInfo metaData() {
         ApiInfo apiInfo = new ApiInfo(
-                "Spring Boot REST API",
-                "Spring Boot REST API for Online Store",
+                "Workflow Engine Service",
+                "Get the repo url and lsit of stages for jenkins",
                 "1.0",
                 "Terms of service",
-                new Contact("John Thompson", "https://springframework.guru/about/", "john@springfrmework.guru"),
+                new Contact("Shekhar Prasad Rajak", "http://s-hacker.info/", "shekharrajak@live.com"),
                "Apache License Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0");
         return apiInfo;
