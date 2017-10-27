@@ -3,8 +3,7 @@ package com.stackroute.deploymentdashboard.controller;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
-<<<<<<< 86e5297eff56fad042f31d044d1a19841f2dc27b:WorkflowEngineService/src/main/java/com/stackroute/deploymentdashboard/controller/CloneProjectController.java
-=======
+
 import java.io.OutputStream;
 
 import org.apache.tomcat.util.http.fileupload.FileUtils;
@@ -15,7 +14,7 @@ import org.eclipse.jgit.api.errors.TransportException;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
->>>>>>> changes for kafka:WorkflowEngineService/src/main/java/com/workflow/engine/controller/CloneProject.java
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
