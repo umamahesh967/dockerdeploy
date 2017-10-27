@@ -36,8 +36,8 @@ public class ExceptionHandlingController {
 	
 	
 	
-	@ExceptionHandler(UrlNotRepositoryException.class)
-	public ResponseEntity<CustomExceptionResponse> urlNotRepositoryException(UrlNotRepositoryException exception) {
+	@ExceptionHandler(UrlException.class)
+	public ResponseEntity<CustomExceptionResponse> urlNotRepositoryException(UrlException exception) {
         CustomExceptionResponse exceptionresponse = new CustomExceptionResponse();
         
         exceptionresponse.setErrorMessage("URL Error.");

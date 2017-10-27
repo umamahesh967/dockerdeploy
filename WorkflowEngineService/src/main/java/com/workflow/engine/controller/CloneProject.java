@@ -20,12 +20,16 @@ import org.eclipse.jgit.api.errors.TransportException;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.workflow.engine.exception.FileGenerationException;
 import com.workflow.engine.exception.InternalUnixCommandException;
 import com.workflow.engine.exception.JgitInternalException;
+import com.workflow.engine.messenger.ReportingServiceProducer;
+import com.workflow.engine.model.ModelForJenkins;
+import com.workflow.engine.service.WorkflowService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -62,7 +66,9 @@ import io.swagger.annotations.ApiResponses;
 )
 @RestController
 public class CloneProject {
-	@Value("${build: default value something}")
+	
+	// TODO: these values from properties file or db
+	@Value("${build: mvn build}")
 	private String build;
 	
 	@Value("${test}")
@@ -73,15 +79,115 @@ public class CloneProject {
 	
 	@Value("${compile}")
 	private String compile;
-
 	
+	// service
+	private WorkflowService workflowService = new WorkflowService();
+	
+	// TODO : get from db 
 	private String project_url = "https://github.com/Shekharrajak/Trigger-Jenkins-Server"; 
 	private String project_url1 = "https://github.com/Shekharrajak/PipelineExecution";
 
+
+    @ApiOperation(value = "Clone the git repo url and put jenkins file into cloned_repo ",response = Iterable.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully cloned the repo and jenkinsfile done"),
+            @ApiResponse(code = 401, message = "You are not authorized to access the resource"),
+            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+    }
+    )
+
+    @RequestMapping("/returnToKafka")
+	public ResponseEntity<String> returnToKafka() 
+			throws InternalUnixCommandException, 
+			JgitInternalException, 
+			FileGenerationException {
+		
+    	workflowService.init_commands(build, test, run, compile);
+		// remove the present /cloned_repo folder
+    	workflowService.deleteFolder(cloned_repo_path);
+		
+		// clone the repo 
+    	workflowService.cloing_repo(project_url1, cloned_repo_path);
+		
+		// generate jenkins file
+		generateJenkinsFile();
+		
+		ReportingServiceProducer producer = new ReportingServiceProducer();
+		ModelForJenkins model = new ModelForJenkins(111);
+		producer.send("jjjj");
+		return ResponseEntity.ok("Repo cloned and Jenkinsfile is put into the cloned-repo");
+	}
+    
 	/*
-	 * Clone from the git clone command. (Currently it is not using it)
+	 * helpful link : http://www.codeaffine.com/2015/11/30/jgit-clone-repository/
 	 * */
-	@RequestMapping("/cloneFormGitCommand")
+	/*
+	 * Clone the git url into cloned_repo folder of the working directory.
+	 * */
+	private File cloned_repo_path = new File("./cloned_repo"); 
+	
+    @ApiOperation(value = "Clone the git repo url ",response = Iterable.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully cloned the repo"),
+            @ApiResponse(code = 401, message = "You are not authorized to access the resource"),
+            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+    }
+    )
+	@RequestMapping("/clone")
+	public ResponseEntity<String> cloneIt() throws InternalUnixCommandException, JgitInternalException {
+		
+		
+		// remove the present /cloned_repo folder
+    	workflowService.deleteFolder(cloned_repo_path);
+    	workflowService.cloing_repo(project_url1, cloned_repo_path);
+        return ResponseEntity.ok("done cloning..");
+
+	}
+
+	/*
+	 * Generate jenkinfile from the given commands into the jenkinsFolder
+	 * in the working direcotry.
+	 * Also copy the same file into cloned_repo folder
+	 * 
+	 * */
+	private File jenkinsfile_path = new File("./jenkinsFolder/Jenkinsfile"); 
+	
+	@ApiOperation(value = "Clone the git repo url ",response = Iterable.class)
+    @ApiResponses(value = {
+            @ApiResponse(
+            	code = 200, 
+            	message = 
+            	   "Successfully generated the Jenkinsfile and put into the cloned_repo folder"),
+            @ApiResponse(code = 401, message = "You are not authorized to access the resource"),
+            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+    }
+    )
+	
+	@RequestMapping("/generateJenkinsfile")
+	public Object generateJenkinsFile() throws FileGenerationException {
+		System.out.println("creating file" + jenkinsfile_path);
+		workflowService.createfile(jenkinsfile_path);
+		
+		System.out.println("generating jenkins file");
+		workflowService.createJenkinsFile(jenkinsfile_path);
+		
+		File Jenkinsfile_in_repo = new File("./cloned_repo/Jenkinsfile"); 
+		workflowService.copyJenkinsfileToRepo(Jenkinsfile_in_repo, jenkinsfile_path);
+		return jenkinsfile_path;
+	
+	}
+
+	/*
+	 * Clone from the git clone command. (Currently it is not in use)
+	 * */
+	@ApiOperation(
+			value = "Clone the git repo url  using git command ",
+			response = Iterable.class,
+			hidden = true)
+	@RequestMapping("/cloneFromGitCommand")
 	public Object cloneItFromGitCommand() {
         StringBuffer output = new StringBuffer("the cloned output is : ") ; 
         try {
@@ -105,237 +211,6 @@ public class CloneProject {
 		return output;
 
 	}
-	
-	/*
-	 * helpful link : http://www.codeaffine.com/2015/11/30/jgit-clone-repository/
-	 * */
-	/*
-	 * Clone the git url into cloned_repo folder of the working directory.
-	 * */
-	private File cloned_repo_path = new File("./cloned_repo"); 
-	
-    @ApiOperation(value = "Clone the git repo url ",response = Iterable.class)
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successfully cloned the repo"),
-            @ApiResponse(code = 401, message = "You are not authorized to access the resource"),
-            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
-            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
-    }
-    )
-	@RequestMapping("/clone")
-	public Object cloneIt() throws InternalUnixCommandException, JgitInternalException {
-		
-		
-		// remove the present /cloned_repo folder
-		if (cloned_repo_path.exists()) {
-			runUnixCommand("rm -rf " + cloned_repo_path);
-		}
-		
-		
-        Git git;
-		try {
-			git = Git.cloneRepository()
-					  .setURI( project_url1 )
-					  .setDirectory( cloned_repo_path )
-					  .setCloneAllBranches( true )
-					  .call();
-		} catch (GitAPIException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			throw new JgitInternalException(e.getMessage());
-			
-		}
-//        Git git_open = Git.open( new F‌ile( "/path/to/repo/.git" ) );
-
-        return git;
-
-	}
-	
-	/*
-	 * Generate jenkinfile from the given commands into the jenkinsFolder
-	 * in the working direcotry.
-	 * Also copy the same file into cloned_repo folder
-	 * 
-	 * */
-	private File jenkinsfile_path = new File("./jenkinsFolder/Jenkinsfile"); 
-	
-	@ApiOperation(value = "Clone the git repo url ",response = Iterable.class)
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successfully cloned the repo"),
-            @ApiResponse(code = 401, message = "You are not authorized to access the resource"),
-            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
-            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
-    }
-    )
-	
-	@RequestMapping("/generateJenkinsfile")
-	public Object generateJenkinsFile() throws FileGenerationException {
-		createfile(jenkinsfile_path);
-		BufferedWriter writer = null;
-		FileWriter fw = null;
-
-			try {
-	
-				fw = new FileWriter(jenkinsfile_path);
-				writer = new BufferedWriter(fw);
-				 StringBuilder sb = new StringBuilder();
-		          writer.append("pipeline {\n");
-		          writer.append("        agent { docker any }\n");
-		          writer.append("        stages {\n");
-		          writer.append("            steps {\n");
-
-
-		              if(build != null)
-		              {
-		                  writer.append("              sh '"+ build +"' \n");
-		              }
-		              if(compile != null)
-		              {
-		                  writer.append("              sh '"+ compile +"' \n");
-		              }
-		              
-		              if(test != null)
-		              {
-		                  writer.append("              sh '"+ test +"' \n");
-		              }
-		              
-		              if(run != null)
-		              {
-		                  writer.append("              sh '"+ run +"' \n");
-		              }
-		          writer.append("                       }\n");
-		          writer.append("               }\n");
-		          writer.append("         }\n");
-		    	
-				System.out.println("Done");
-	
-			} catch (IOException e) {
-	
-//				e.printStackTrace();
-				System.out.println("Unable to generate files and folder.");
-	
-				throw new FileGenerationException(e.getMessage());
-			} finally {
-	
-				try {
-	
-					if (writer != null)
-						writer.close();
-	
-					if (fw != null)
-						fw.close();
-	
-				} catch (IOException ex) {
-	
-					ex.printStackTrace();
-	
-				}
-	
-			}
-			File Jenkinsfile_in_repo = new File("./cloned_repo/Jenkinsfile"); 
-			copyJenkinsfileToRepo(Jenkinsfile_in_repo, jenkinsfile_path);
-			return jenkinsfile_path;
-	
-	}
-	
-	/*
-	 * create the file on the given path.handles all the exceptions as well.
-	 * */
-	public void createfile(File path) throws FileGenerationException {
-		/* create the dir first */
-
-		// if the directory does not exist, create it
-		if (!path.exists()) {
-		    System.out.println("creating directory: " + path.getName());
-		    boolean result = false;
-
-		    try{
-				if (!path.getParentFile().exists()) {
-					path.getParentFile().mkdirs();
-				}
-					
-				if (!path.exists()) {
-					path.createNewFile();
-				}
-				path.mkdir();
-		        result = true;
-		    } 
-		    catch(SecurityException se){
-		        //handle it
-		    	throw new FileGenerationException(se.getMessage());
-		    } 
-		    catch(IOException e) {
-		    	throw new FileGenerationException(e.getMessage());
-		    }
-		    if(result) {    
-		        System.out.println("DIR created");  
-		    }
-		}
-	}
-	
-	/*
-	 * copying the jenkinfile from the JenkinsFolder to the cloned_repo 
-	 * folder.
-	 * 
-	 * */
-	public void copyJenkinsfileToRepo(File JenkinsfileInRepo, File jenkinsfilePath) throws FileGenerationException {
-		/*
-		try {
-			
-		    FileUtils.copyFile(jenkinsfile_path, Jenkinsfile_in_repo);
-		} catch (IOException e) {
-		    e.printStackTrace();
-		}
-		*/
-	    FileInputStream is = null;
-	    OutputStream os = null;
-	    try {
-	        is = new FileInputStream(jenkinsfilePath);
-	        os = new FileOutputStream(JenkinsfileInRepo);
-	        byte[] buffer = new byte[1024];
-	        int length;
-	        while ((length = is.read(buffer)) > 0) {
-	            os.write(buffer, 0, length);
-	        }
-	    }catch(IOException e) {
-	    	throw new FileGenerationException(e.getMessage());
-	    } finally {
-	    	try {
-	    		 is.close();
-	 	        os.close();
-	    	}
-	    	catch(IOException e) {
-	    		throw new FileGenerationException(e.getMessage());
-	    	}
-	       
-	    }
-	}
-	
-	/*
-	 * Run the given `cmd` unix command.
-	 * 
-	 * */
-	public boolean runUnixCommand(String cmd) throws InternalUnixCommandException {
-        try {
-//            String target = new String("./test.sh");
-            //String target = new String("mkdir stackOver");
-            Runtime rt = Runtime.getRuntime();
-            Process proc = rt.exec(cmd);
-            proc.waitFor();
-            StringBuffer output = new StringBuffer();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(proc.getInputStream()));
-            String line = "";                       
-            while ((line = reader.readLine())!= null) {
-                    output.append(line + "\n");
-            }
-            System.out.println("### " + output);
-            return true;
-	    } catch (Throwable t) {
-	            t.printStackTrace();
-	            throw new InternalUnixCommandException(t.getMessage());
-	    }
-	}
- 
 //	@RequestMapping("/doAll")
 //	public Object doIt() {
 //		
