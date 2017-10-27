@@ -23,7 +23,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.workflow.engine.exception.FileGenerationError;
+import com.workflow.engine.exception.FileGenerationException;
 import com.workflow.engine.exception.InternalUnixCommandException;
 import com.workflow.engine.exception.JgitInternalException;
 
@@ -105,7 +105,7 @@ public class CloneProject {
 	
 	private File jenkinsfile_path = new File("./jenkinsFolder/Jenkinsfile"); 
 	@RequestMapping("/generateJenkinsfile")
-	public Object generateJenkinsFile() throws FileGenerationError {
+	public Object generateJenkinsFile() throws FileGenerationException {
 		createfile(jenkinsfile_path);
 		BufferedWriter writer = null;
 		FileWriter fw = null;
@@ -150,7 +150,7 @@ public class CloneProject {
 //				e.printStackTrace();
 				System.out.println("Unable to generate files and folder.");
 	
-				throw new FileGenerationError(e.getMessage());
+				throw new FileGenerationException(e.getMessage());
 			} finally {
 	
 				try {
@@ -175,7 +175,7 @@ public class CloneProject {
 	}
 	
 	
-	public void createfile(File path) throws FileGenerationError {
+	public void createfile(File path) throws FileGenerationException {
 		/* create the dir first */
 
 		// if the directory does not exist, create it
@@ -196,10 +196,10 @@ public class CloneProject {
 		    } 
 		    catch(SecurityException se){
 		        //handle it
-		    	throw new FileGenerationError(se.getMessage());
+		    	throw new FileGenerationException(se.getMessage());
 		    } 
 		    catch(IOException e) {
-		    	throw new FileGenerationError(e.getMessage());
+		    	throw new FileGenerationException(e.getMessage());
 		    }
 		    if(result) {    
 		        System.out.println("DIR created");  
@@ -207,7 +207,7 @@ public class CloneProject {
 		}
 	}
 	
-	public void copyJenkinsfileToRepo(File JenkinsfileInRepo, File jenkinsfilePath) throws FileGenerationError {
+	public void copyJenkinsfileToRepo(File JenkinsfileInRepo, File jenkinsfilePath) throws FileGenerationException {
 		/*
 		try {
 			
@@ -227,14 +227,14 @@ public class CloneProject {
 	            os.write(buffer, 0, length);
 	        }
 	    }catch(IOException e) {
-	    	throw new FileGenerationError(e.getMessage());
+	    	throw new FileGenerationException(e.getMessage());
 	    } finally {
 	    	try {
 	    		 is.close();
 	 	        os.close();
 	    	}
 	    	catch(IOException e) {
-	    		throw new FileGenerationError(e.getMessage());
+	    		throw new FileGenerationException(e.getMessage());
 	    	}
 	       
 	    }
