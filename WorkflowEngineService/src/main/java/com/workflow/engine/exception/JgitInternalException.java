@@ -1,6 +1,8 @@
 package com.workflow.engine.exception;
 
-public class JgitInternalException  extends Exception{
+import org.eclipse.jgit.api.errors.GitAPIException;
+
+public class JgitInternalException  extends GitAPIException{
 //	static final long serialVersionUID = 42L;
 	
 	private String errormessage;

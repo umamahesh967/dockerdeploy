@@ -16,18 +16,12 @@ public class CloneProjectTest {
 	public void init(){
 		cp = new CloneProject();
 	}
-
-	@Test
-	public void runUnixCommandTest1() throws InternalUnixCommandException {
-		assertNotNull("runUnixCommand must be true.",
-				cp.runUnixCommand("pwd"));
-		assertTrue(true);
-	}
-	
+/*	
 	@Test
 	public void runUnixCommandTest() throws InternalUnixCommandException {
 		assertNotNull("runUnixCommand must be true.",
 				cp.runUnixCommand("pwd"));
 		assertTrue(cp.runUnixCommand("pwd"));
 	}
+*/
 }

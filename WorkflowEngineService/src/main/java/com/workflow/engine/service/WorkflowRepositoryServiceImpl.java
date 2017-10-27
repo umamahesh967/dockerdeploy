@@ -4,7 +4,7 @@ import java.io.File;
 import org.springframework.stereotype.Service;
 
 import com.workflow.engine.exception.InternalRepositoryException;
-import com.workflow.engine.exception.UrlNotRepositoryException;
+import com.workflow.engine.exception.UrlException;
 import com.workflow.engine.model.ModelForJenkins;
 
 @Service
@@ -38,7 +38,7 @@ public class WorkflowRepositoryServiceImpl implements RepositoryService {
 
 
 	@Override
-	public boolean checkUrlValidity(String url) throws UrlNotRepositoryException {
+	public boolean checkUrlValidity(String url) throws UrlException {
 		// TODO Auto-generated method stub
 		return false;
 	}
