@@ -3,6 +3,19 @@ package com.stackroute.deploymentdashboard.controller;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
+<<<<<<< 86e5297eff56fad042f31d044d1a19841f2dc27b:WorkflowEngineService/src/main/java/com/stackroute/deploymentdashboard/controller/CloneProjectController.java
+=======
+import java.io.OutputStream;
+
+import org.apache.tomcat.util.http.fileupload.FileUtils;
+import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.api.errors.InvalidRemoteException;
+import org.eclipse.jgit.api.errors.TransportException;
+import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
+>>>>>>> changes for kafka:WorkflowEngineService/src/main/java/com/workflow/engine/controller/CloneProject.java
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +52,7 @@ import io.swagger.annotations.ApiResponses;
  * 
  * */
 
-@RequestMapping("/workflow")
+@RequestMapping("v1/workflow")
 @Api(
 		value="gitclone", 
 		description=
@@ -50,6 +63,8 @@ import io.swagger.annotations.ApiResponses;
 @RestController
 public class CloneProjectController {
 	
+	 @Autowired
+	 ReportingServiceProducer producer;
 	// TODO: these values from properties file or db
 	@Value("${build: mvn build}")
 	private String build;
@@ -86,26 +101,32 @@ public class CloneProjectController {
     }
     )
 
+   
     @RequestMapping("/returnToKafka")
 	public ResponseEntity<String> returnToKafka() 
 			throws InternalUnixCommandException, 
 			JgitInternalException, 
 			FileGenerationException {
 		
+<<<<<<< 86e5297eff56fad042f31d044d1a19841f2dc27b:WorkflowEngineService/src/main/java/com/stackroute/deploymentdashboard/controller/CloneProjectController.java
     	workflowService.init_commands(build, test, run, compile);
     	
+=======
+//    	workflowService.init_commands(build, test, run, compile);
+>>>>>>> changes for kafka:WorkflowEngineService/src/main/java/com/workflow/engine/controller/CloneProject.java
 		// remove the present /cloned_repo folder
-    	workflowService.deleteFolder(cloned_repo_path);
-		
-		// clone the repo 
-    	workflowService.cloing_repo(project_url1, cloned_repo_path);
-		
+  //  	workflowService.deleteFolder(cloned_repo_path);
+//		
+//		// clone the repo 
+    //	workflowService.cloing_repo(project_url1, cloned_repo_path);
+//		
 		// generate jenkins file
-		generateJenkinsFile();
+		//generateJenkinsFile();
 		
-		ReportingServiceProducer producer = new ReportingServiceProducer();
+		
 		ModelForJenkins model = new ModelForJenkins(111);
-		producer.send("jjjj");
+		// send to the kafka
+		producer.send(model.toString());
 		return ResponseEntity.ok("Repo cloned and Jenkinsfile is put into the cloned-repo");
 	}
     
