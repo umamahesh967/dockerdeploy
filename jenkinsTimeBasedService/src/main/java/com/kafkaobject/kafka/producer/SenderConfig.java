@@ -20,7 +20,7 @@ public class SenderConfig {
 	
 //	@Value("${spring.kafka.bootstrap-servers}")
 //	private String bootstrapServer;
-	
+	//server to produce to
 	  @Value("${kafka.bootstrap-servers}")
 	  private String bootstrapServer;
 //	

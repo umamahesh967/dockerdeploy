@@ -21,7 +21,7 @@ public class App implements CommandLineRunner{
 	
 	@Autowired
 	Sender producer;
-	
+	//for testing of send and receive
 	@Override
 	public void run(String... arg0) throws Exception {
 		try {

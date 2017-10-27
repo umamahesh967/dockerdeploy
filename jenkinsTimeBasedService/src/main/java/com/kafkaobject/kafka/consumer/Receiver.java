@@ -25,7 +25,7 @@ public class Receiver {
 //    public void processMessage(ProjectInfo customer) {
 //		System.out.println("received content = " + customer);
 //    }
-	  
+	  //KafkaListener for listening to topic as mentioned in application properties
 	  @KafkaListener(topics = "${kafka.topic.receiver}")
 	  public void receive(ProjectInfo payload) {
 	    LOGGER.info("received payload='{}'", payload);

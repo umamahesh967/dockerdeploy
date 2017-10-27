@@ -23,12 +23,12 @@ public class Sender {
 //	    kafkaTemplate.send(kafkaTopic, customer);
 //	}
 	  private static final Logger LOGGER = LoggerFactory.getLogger(Sender.class);
-
+	  //sending string, object instead of string, string
 	  @Autowired
 	  private KafkaTemplate<String, ProjectInfo> kafkaTemplate;
 		@Value("${kafka.topic.receiver}")
 		private String kafkaTopic;
-
+		//send function for producer
 	  public void send( ProjectInfo payload) {
 	    LOGGER.info("sending payload='{}'", payload);
 	    kafkaTemplate.send(kafkaTopic,payload);
