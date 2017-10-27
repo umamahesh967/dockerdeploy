@@ -27,7 +27,7 @@ public class App implements CommandLineRunner{
 		try {
 		// Send fb customer
 		ProjectInfo facebook = new ProjectInfo("fb.com", 31);
-		producer.send("receiver", facebook);
+		producer.send(facebook);
 		}
 		catch (Exception e) {
 			
@@ -36,7 +36,7 @@ public class App implements CommandLineRunner{
 		try {
 		// Send Peter customer
 		ProjectInfo peter = new ProjectInfo("spiderman.com", 24);
-		producer.send("receiver",peter);
+		producer.send(peter);
 		}catch (Exception e) {
 			
 			throw new SendingDataException("Problem sending data");

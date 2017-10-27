@@ -1,11 +1,18 @@
 package com.kafkaobject.model;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 public class ProjectInfo {
 	@NotNull(message="project url cannot be null")
 	private String url;
-	@NotNull(message="project id cannot be null")
+//	@NotNull(message="project id cannot be null")
+	@Min(1)
+//	@Size(@Min(1))
+//	@NotEmpty(message="project id cannot be null")
 	private int id;
 	
 	public ProjectInfo(){

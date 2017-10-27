@@ -26,9 +26,11 @@ public class Sender {
 
 	  @Autowired
 	  private KafkaTemplate<String, ProjectInfo> kafkaTemplate;
+		@Value("${kafka.topic.receiver}")
+		private String kafkaTopic;
 
-	  public void send(String topic, ProjectInfo payload) {
-	    LOGGER.info("sending payload='{}' to topic='{}'", payload, topic);
-	    kafkaTemplate.send(topic, payload);
+	  public void send( ProjectInfo payload) {
+	    LOGGER.info("sending payload='{}'", payload);
+	    kafkaTemplate.send(kafkaTopic,payload);
 	  }
 }

@@ -147,7 +147,7 @@ public class SenderTest {
     public void testReceive() throws Exception {
         
         ProjectInfo message = new ProjectInfo("git-lab.com",2);
-        sender.send("receiver", message); 
+        sender.send( message); 
         receiver.getLatch().await(3000, TimeUnit.MILLISECONDS);
         assertThat(receiver.getLatch().getCount()).isEqualTo(2);
       }

@@ -53,7 +53,7 @@ public class ProjectInfoTest {
 			System.err.println(actual);
 		}
 		
-		assertEquals("may not be null", actual);
+		assertEquals("project url cannot be null", actual);
 	}
 	
 	
@@ -63,13 +63,13 @@ public class ProjectInfoTest {
 		ProjectInfo repositorydetails = new ProjectInfo();
 		
 		repositorydetails.setUrl("www.github.com");
-		repositorydetails.setId((Integer) null);
+		repositorydetails.setId(0);
 		Set<ConstraintViolation<ProjectInfo>> violations = validator.validate(repositorydetails);
 		for(ConstraintViolation<ProjectInfo> violation : violations) {
 			actual = violation.getMessage();
 		}
 		
-		assertEquals("may not be null", actual);
+		assertEquals("must be greater than or equal to 1", actual);
 	}
 }
 
