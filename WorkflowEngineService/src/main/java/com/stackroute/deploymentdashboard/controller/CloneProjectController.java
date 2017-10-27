@@ -20,7 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.stackroute.deploymentdashboard.messenger.ReportingServiceProducer;
+//import com.stackroute.deploymentdashboard.messenger.ReportingServiceProducer;
 import com.stackroute.deploymentdashboard.model.ModelForJenkins;
 import com.stackroute.deploymentdashboard.service.WorkflowService;
 import com.workflow.engine.exception.FileGenerationException;
@@ -63,7 +63,7 @@ import io.swagger.annotations.ApiResponses;
 public class CloneProjectController {
 	
 	 @Autowired
-	 ReportingServiceProducer producer;
+//	 ReportingServiceProducer producer;
 	// TODO: these values from properties file or db
 	@Value("${build: mvn build}")
 	private String build;
@@ -108,21 +108,21 @@ public class CloneProjectController {
 			FileGenerationException {
 			workflowService.init_commands(build, test, run, compile);
     	
-//    	workflowService.init_commands(build, test, run, compile);
+    	workflowService.init_commands(build, test, run, compile);
 
 		// remove the present /cloned_repo folder
-  //  	workflowService.deleteFolder(cloned_repo_path);
+    	workflowService.deleteFolder(cloned_repo_path);
 //		
 //		// clone the repo 
-    //	workflowService.cloing_repo(project_url1, cloned_repo_path);
+    	workflowService.cloing_repo(project_url1, cloned_repo_path);
 //		
 		// generate jenkins file
-		//generateJenkinsFile();
+		generateJenkinsFile();
 		
 		
 		ModelForJenkins model = new ModelForJenkins(111);
 		// send to the kafka
-		producer.send(model.toString());
+		//producer.send(model.toString());
 		return ResponseEntity.ok("Repo cloned and Jenkinsfile is put into the cloned-repo");
 	}
     
