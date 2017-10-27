@@ -4,40 +4,72 @@ import java.util.ArrayList;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import io.swagger.annotations.ApiModelProperty;
+
+/*
+ Object class for the project  with attributes projectid ,version id,roles,commands,accesstoken
+  */
+
 
 @Entity
 @Document(collection="Project")
 public class Project {
 	
 	@Id
-	@ApiModelProperty
 	private String id;
 
 	@ApiModelProperty
-	private String productId;
+	@NotNull
+	private String projectId;
 	
 	@ApiModelProperty
+	@NotNull
 	private String versionId;
 	
 	
 	@ApiModelProperty
+	@NotNull
 	private ArrayList<String> owner;
 	
 	@ApiModelProperty
+	@NotNull
 	private ArrayList<String>developer;
 	
 	@ApiModelProperty
+	@NotNull
 	private ArrayList<String>stakeholder;
 	
+
 	@ApiModelProperty
+	@NotNull
+	private ArrayList<String>commands;
+	
+	@ApiModelProperty
+	@NotNull
 	private String Url;
+	
+	@ApiModelProperty
+	@NotNull
+	private String Accesstoken;
 	//constructors
 
 	
+	
+	public String getAccesstoken() {
+		return Accesstoken;
+	}
+
+
+	public void setAccesstoken(String accesstoken) {
+		Accesstoken = accesstoken;
+	}
+
+
+	/*constructor*/
 	
 	public Project() {
 		super();
@@ -45,18 +77,34 @@ public class Project {
 	}
 
 
-	public Project(String id, String productId, String versionId, ArrayList<String> owner, ArrayList<String> developer,
-			ArrayList<String> stakeholder, String url) {
+	public Project(String id, String projectId, String versionId, ArrayList<String> owner, ArrayList<String> developer,
+			ArrayList<String> stakeholder,ArrayList<String> commands, String url,String Accesstoken) {
 		super();
 		this.id = id;
-		this.productId = productId;
+		this.projectId = projectId;
 		this.versionId = versionId;
 		this.owner = owner;
 		this.developer = developer;
 		this.stakeholder = stakeholder;
+		this.commands = commands;
+		
 		Url = url;
 	}
 	
+	
+	/*
+	 * Getter and  setter methods for all attributes of PROJECT object
+	 * */
+
+	public ArrayList<String> getCommands() {
+		return commands;
+	}
+
+
+	public void setCommands(ArrayList<String> commands) {
+		this.commands = commands;
+	}
+
 
 	public String getId() {
 		return id;
@@ -66,12 +114,12 @@ public class Project {
 		this.id = id;
 	}
 
-	public String getProductId() {
-		return productId;
+	public String getprojectId() {
+		return projectId;
 	}
 
-	public void setProductId(String productId) {
-		this.productId = productId;
+	public void setprojectId(String projectId) {
+		this.projectId = projectId;
 	}
 
 	public String getVersionId() {

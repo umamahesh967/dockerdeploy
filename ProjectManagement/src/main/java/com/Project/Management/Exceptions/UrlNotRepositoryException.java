@@ -5,14 +5,14 @@ package com.Project.Management.Exceptions;
 public class UrlNotRepositoryException extends Exception {
 	static final long serialVersionUID = 43L;
 	
-	private String errormessage;
+	private String errorDescription;
 	
-	public UrlNotRepositoryException(String errormessage) {
-		super(errormessage);
-		this.errormessage = errormessage;
+	public UrlNotRepositoryException(String errorDescription) {
+		super(errorDescription);
+		this.errorDescription = errorDescription;
 	}
 	
-	public String getErrormessage() {
-		return errormessage;
+	public String getErrorDescription() {
+		return errorDescription;
 	}
 }

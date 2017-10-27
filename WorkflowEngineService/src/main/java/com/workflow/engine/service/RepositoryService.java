@@ -1,7 +1,7 @@
 package com.workflow.engine.service;
 
 import com.workflow.engine.exception.InternalRepositoryException;
-import com.workflow.engine.exception.UrlNotRepositoryException;
+import com.workflow.engine.exception.UrlException;
 import com.workflow.engine.model.ModelForJenkins;
 
 public interface RepositoryService {
@@ -14,7 +14,7 @@ public interface RepositoryService {
 	/*
 	check repository url validity
 	*/
-	public boolean checkUrlValidity(String url) throws UrlNotRepositoryException;
+	public boolean checkUrlValidity(String url) throws UrlException;
 	
 	
 	/*

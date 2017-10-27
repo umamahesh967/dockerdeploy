@@ -9,49 +9,72 @@ import org.springframework.stereotype.Service;
 import com.Project.Management.domains.*;
 import com.Project.Management.repository.*;
 
+/*
+ * Service for CRUD operations on PROJECT
+ * 
+ * */
+
 @Service
 public class ProjectService {
 	
 	@Autowired
-	private ProjectRepository productrepository;
+	private ProjectRepository projectrepository;
 
 
 	
 	
 	public ProjectRepository getProjectrepository() {
-		return productrepository;
+		return projectrepository;
 	}
 
-	public void setProjectrepository(ProjectRepository productrepository) {
-		this.productrepository = productrepository;
+	public void setProjectrepository(ProjectRepository projectrepository) {
+		this.projectrepository = projectrepository;
 	}
 
-	public Project add(Project product) {
+	
+	/*
+	 * Method for adding a Project
+	 * */
+	public Project add(Project project) {
 		
-		productrepository.save(product);
-		return product;
+		projectrepository.save(project);
+		return project;
 	}
 	
+	
+	
+	/*
+	 * Method for getting  a Project by Id
+	 * */
 	public Project getByid(String id){
 		
-		Project product =productrepository.findOne(id);
-		return product;
+		Project project =projectrepository.findOne(id);
+		return project;
 		
 	}
 	
-	public Project updateProject(Project product) {
-		productrepository.save(product);
-		return product;
-	}
+
+	/*
+	 * Method for updating  a Project
+	 * */
 	
+	public Project updateProject(Project project) {
+		projectrepository.save(project);
+		return project;
+	}
+	/*
+	 * Method for deleting a Project
+	 * */
 	public void deleteProject(String id) {
-		productrepository.delete(id);
+		projectrepository.delete(id);
 	}
-	
+	/*
+	 * Method for listing  a Project
+	 * */
 	public List<Project> getAll(){
-		List<Project> product=new ArrayList<>();
-		productrepository.findAll().forEach(product::add);
-		return product;
+		List<Project> project=new ArrayList<>();
+		projectrepository.findAll().forEach(project::add);
+		return project;
 	}
 
 }

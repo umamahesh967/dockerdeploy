@@ -36,8 +36,8 @@ public class ExceptionHandlingController {
 	
 	
 	
-	@ExceptionHandler(UrlNotRepositoryException.class)
-	public ResponseEntity<CustomExceptionResponse> urlNotRepositoryException(UrlNotRepositoryException exception) {
+	@ExceptionHandler(UrlException.class)
+	public ResponseEntity<CustomExceptionResponse> urlNotRepositoryException(UrlException exception) {
         CustomExceptionResponse exceptionresponse = new CustomExceptionResponse();
         
         exceptionresponse.setErrorMessage("URL Error.");
@@ -58,8 +58,8 @@ public class ExceptionHandlingController {
 	}
 	
 	
-	@ExceptionHandler(FileGenerationError.class)
-	public ResponseEntity<CustomExceptionResponse> fileGenerationError(FileGenerationError exception) {
+	@ExceptionHandler(FileGenerationException.class)
+	public ResponseEntity<CustomExceptionResponse> fileGenerationError(FileGenerationException exception) {
         CustomExceptionResponse exceptionresponse = new CustomExceptionResponse();
         
         exceptionresponse.setErrorMessage("File not able to generate not able to generate.");
