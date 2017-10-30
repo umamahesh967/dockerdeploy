@@ -9,6 +9,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.List;
 
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
@@ -33,7 +35,7 @@ public class WorkflowService {
 		 compile =comp;
 	}
 	// place to service
-	public void createJenkinsFile(File jenkinsFile_path_new) throws FileGenerationException {
+	public void createJenkinsFile(File jenkinsFile_path_new, HashMap<String,String> cmds) throws FileGenerationException {
 		BufferedWriter writer = null;
 		FileWriter fw = null;
 		
