@@ -17,6 +17,7 @@ import com.stackroute.deploymentdashboard.domains.*;
 public interface ProjectManagementCRUDRepository extends MongoRepository<ProjectManagementObject, String>{
 	
 	List<ProjectManagementObject>findByProjectId(String projectId);
+
 	
 
 

@@ -15,8 +15,8 @@ public class CustomExceptionResponse extends Exception{
     public int getErrorCode() {
         return errorCode;
     }
-    public void setErrorCode(int errorCode) {
-        this.errorCode = errorCode;
+    public void setErrorCode(int i) {
+        this.errorCode = i;
     }
     public String getErrorMessage() {
         return errorMessage;

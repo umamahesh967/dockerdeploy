@@ -133,8 +133,9 @@ public class ProjectManagementController {
 	
 	@ApiOperation(value = "Delete a project")
 	@DeleteMapping(value="/delete/{id}", consumes="application/json")
-	  public ResponseEntity<String> delete(@PathVariable("id")  String id){
+	  public ResponseEntity<String> delete(@PathVariable("id")  String id)throws ProjectNotFoundException{
 		projectservice.deleteProject(id);
+
 		return new ResponseEntity<String>("Deleted succesfully",HttpStatus.OK);
 	 
 			
