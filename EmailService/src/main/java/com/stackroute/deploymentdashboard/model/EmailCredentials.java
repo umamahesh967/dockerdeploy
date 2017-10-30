@@ -14,14 +14,14 @@ public class EmailCredentials {
 	@NotNull
 	private String emailid;
 	@NotNull
-	private Boolean build;
+	private String build;
 	
 		
 	public EmailCredentials() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public EmailCredentials(String userId, String projectId, String emailid, Boolean build) {
+	public EmailCredentials(String userId, String projectId, String emailid, String build) {
 		super();
 		this.userId = userId;
 		this.projectId = projectId;
@@ -46,10 +46,10 @@ public class EmailCredentials {
 	public void setEmailid(String emailid) {
 		this.emailid = emailid;
 	}
-	public Boolean getBuild() {
+	public String getBuild() {
 		return build;
 	}
-	public void setBuild(Boolean build) {
+	public void setBuild(String build) {
 		this.build = build;
 	}
 	

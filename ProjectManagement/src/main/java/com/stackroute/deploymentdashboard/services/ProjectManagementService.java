@@ -8,6 +8,7 @@ public interface ProjectManagementService {
 
 	ProjectManagementObject add();
 	 ProjectManagementObject getByid();
+	 ProjectManagementObject getproductid();
 	 ProjectManagementObject updateProject();
 	 void deleteProject();
 	 List<ProjectManagementObject> getAll();

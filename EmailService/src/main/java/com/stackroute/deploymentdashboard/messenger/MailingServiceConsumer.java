@@ -20,10 +20,11 @@ public class MailingServiceConsumer {
     public CountDownLatch getLatch() {
       return latch;
     }
-	@KafkaListener(topics = "testrun4", containerFactory = "reportKafkaListenerContainerFactory")
+	@KafkaListener(topics = "trigger2", containerFactory = "reportKafkaListenerContainerFactory")
 	public EmailCredentials reportlistener(EmailCredentials report) {
 	   
 		service.put(report);
+		System.out.println(report.getEmailid());
 		return report;
 	}
 
