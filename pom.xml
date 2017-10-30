@@ -130,7 +130,7 @@
     		<module>jenkinsManualService</module>
     		<module>JenkinsTimeBasedService</module>
     		<module>SocketEventRelay</module>
-    		<module>HTMLService</module>
+    		<module>HtmlService</module>
     		<module>ReportManager</module>
     		<module>EmailCommunicatorService</module>
     </modules>

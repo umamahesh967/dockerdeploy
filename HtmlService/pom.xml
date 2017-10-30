@@ -5,13 +5,14 @@
   <artifactId>HtmlService</artifactId>
   <name>HtmlService</name>
   <version>0.1.0</version>
-  <description>An application to connect to either svn, git repo and establish connection to it</description> 
+  <description>Microservice to sent reports to a html interface</description> 
   <packaging>jar</packaging>
     
     <parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.7.RELEASE</version>
+		<groupId>com.stackroute.deploymentdashboard</groupId>
+		<artifactId>deployment_dashboard</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
     
     <!-- https://mvnrepository.com/artifact/org.tmatesoft.svnkit/svnkit -->
