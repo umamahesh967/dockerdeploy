@@ -37,7 +37,7 @@ public class ConfigServiceTests {
     public void shouldStartEurekaServer() {
     	
         ResponseEntity<String> entity = this.testRestTemplate.getForEntity(
-                "http://localhost:" + this.port +"/apigateway/default" , String.class);
+                "http://localhost:" + this.port +"/reportmanager/default" , String.class);
 
         then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
     }

@@ -1,21 +1,28 @@
 
 package com.stackroute.deploymentdashboard.Exceptions;
 
-public class CustomExceptionResponse extends Exception {
-    private String errorDescription;
-    private String error;
-	
-	public String getErrorMessage() {
-		return errorDescription;
-	}
-	public void setErrorMessage(String errorMessage) {
-		this.errorDescription = errorMessage;
-	}
-	
-	public String getErrors() {
-		return error;
-	}
-	public void setErrors(String error) {
-		this.error = error;
-	}
+import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import com.stackroute.deploymentdashboard.Exceptions.*;
+
+
+
+public class CustomExceptionResponse extends Exception{
+    private int errorCode;
+    private String errorMessage;
+    
+    public int getErrorCode() {
+        return errorCode;
+    }
+    public void setErrorCode(int i) {
+        this.errorCode = i;
+    }
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
+ 
 }
