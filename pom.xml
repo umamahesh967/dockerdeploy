@@ -127,7 +127,7 @@
     		<module>config-server</module>
     		<module>Project-Management</module>
     		<module>WorkflowEngineService</module>
-    		<module>manualService</module>
+    		<module>manual-service</module>
     		<module>JenkinsTimeBasedService</module>
     </modules>
 
