@@ -35,9 +35,9 @@ import io.swagger.annotations.ApiResponses;
 @RequestMapping(value="/Project")
 @Api(value="project", description="Operations pertaining to Projects")
 public class ProjectManagementController {
-	
-	@Autowired
-	private ProjectManagementCRUDRepository projectManagementCRUDRepository;
+//	
+//	@Autowired
+//	private ProjectManagementCRUDRepository projectManagementCRUDRepository;
 	
 	@Autowired
 	private ProjectManagementServiceImpl projectservice;
@@ -122,12 +122,17 @@ public class ProjectManagementController {
 	@ApiOperation(value = "Search  project with an ID",response = ProjectManagementObject.class)
 	public ResponseEntity<?> getproductid(@PathVariable  String ProductId)throws ProjectNotFoundException{
 		
-		List<ProjectManagementObject> projectManagementObject=projectManagementCRUDRepository.findByProjectId(ProductId);
-		
-		return new ResponseEntity<List<ProjectManagementObject>>(projectManagementObject,HttpStatus.OK);
+		ProjectManagementObject projectManagementObject=projectservice.getproductid(ProductId);
 
+		if (projectManagementObject == null) {
+			throw new ProjectNotFoundException("Project not found");
+			//throw new ProjectNotFoundException()	;
+		}
+		else {
 		
-	}
+		return new ResponseEntity<ProjectManagementObject>(projectManagementObject,HttpStatus.OK);
+	
+		}}
 	
 	/* request handler for deleting a project by id*/
 	

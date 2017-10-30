@@ -16,7 +16,7 @@ import com.stackroute.deploymentdashboard.domains.*;
 @Transactional
 public interface ProjectManagementCRUDRepository extends MongoRepository<ProjectManagementObject, String>{
 	
-	List<ProjectManagementObject>findByProjectId(String projectId);
+	ProjectManagementObject findByProjectId(String projectId);
 
 	
 

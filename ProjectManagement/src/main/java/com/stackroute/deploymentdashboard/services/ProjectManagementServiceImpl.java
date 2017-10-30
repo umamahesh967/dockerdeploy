@@ -15,7 +15,7 @@ import com.stackroute.deploymentdashboard.repository.*;
  * */
 
 @Service
-public class ProjectManagementServiceImpl {
+public class ProjectManagementServiceImpl  {
 	
 	@Autowired
 	private ProjectManagementCRUDRepository projectrepository;
@@ -53,6 +53,17 @@ public class ProjectManagementServiceImpl {
 		
 	}
 	
+	
+	/*
+	 * Method for getting  a Project by ProjectId
+	 * */
+	
+	public ProjectManagementObject getproductid(String ProjectId){
+
+		ProjectManagementObject projectManagementObject =projectrepository.findByProjectId(ProjectId);
+		return projectManagementObject;
+		
+	}
 
 	/*
 	 * Method for updating  a Project
