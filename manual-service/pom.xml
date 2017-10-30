@@ -2,8 +2,8 @@
   <modelVersion>4.0.0</modelVersion>
   
   
-  <artifactId>manual-service</artifactId>
-  <name>manual-service</name>
+  <artifactId>jenkinsManualService</artifactId>
+  <name>jenkinsManualService</name>
   <description>An application to connect to either svn, git repo and establish connection to it</description> 
   <packaging>jar</packaging>
     
