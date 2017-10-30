@@ -19,8 +19,8 @@ import com.stackroute.application.model.ProduceManualModel;
 @Component
 public class ServiceManual {
 	
-	@Autowired
-	ProduceManualModel produceManualModel;
+	
+	ProduceManualModel produceManualModel=new ProduceManualModel(); 
 	
 	private String jobName;
 	
@@ -119,7 +119,7 @@ private List<ManualModel> storage = new ArrayList<ManualModel>();
         if(y.hasLastSuccessfulBuildRun())// if the build is success
         	buildResult="success"; // the we change the buildResult to success
 		
-		
+        
 		produceManualModel.setBuildSuccess(buildResult); //sets the buidlResult in produceMannualModel
 		return  produceManualModel;
 	}
