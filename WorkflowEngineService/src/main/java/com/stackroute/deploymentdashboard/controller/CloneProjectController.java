@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.InputStreamReader;
 
 import java.io.OutputStream;
+import java.util.List;
 
 import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.eclipse.jgit.api.Git;
@@ -18,12 +19,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.stackroute.deploymentdashboard.messenger.ReportingServiceProducer;
 //import com.stackroute.deploymentdashboard.messenger.ReportingServiceProducer;
 import com.stackroute.deploymentdashboard.model.ModelForJenkins;
+import com.stackroute.deploymentdashboard.model.ModelForWorkflowEngineService;
 import com.stackroute.deploymentdashboard.service.WorkflowService;
 import com.workflow.engine.exception.FileGenerationException;
 import com.workflow.engine.exception.InternalUnixCommandException;
@@ -104,15 +108,24 @@ public class CloneProjectController {
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     }
     )
-    @RequestMapping("/returnToKafka")
-	public ResponseEntity<String> returnToKafka() 
+    @RequestMapping(value="/returnToKafka", method = RequestMethod.POST)
+	public ResponseEntity<String> returnToKafka(@RequestBody ModelForWorkflowEngineService model) 
 			throws InternalUnixCommandException, 
 			JgitInternalException, 
 			FileGenerationException {
 			workflowService.init_commands(build, test, run, compile);
     	
-    	//workflowService.init_commands(build, test, run, compile);
+    	workflowService.init_commands(build, test, run, compile);
 
+    	String pid = model.getPid();
+    	String url = model.getUrl();
+    	String timespan = model.getTimespan();
+    	List<String> list_md = model.getList_cmd();
+    	
+    	System.out.println("url === " + url);
+    	for(String s:list_md) {
+    		System.out.println(s);
+    	}
 		// remove the present /cloned_repo folder
     	//workflowService.deleteFolder(cloned_repo_path);
 //		
@@ -124,10 +137,12 @@ public class CloneProjectController {
     	System.out.println("gene jenkin..");
 		
 		
-		ModelForJenkins model = new ModelForJenkins(111, "some path");
+		ModelForJenkins modelJenkins = new ModelForJenkins("113", 
+				"some path", 
+				"https://bitbucket.org/atlassianlabs/maven-project-example.git", "4th");
 		// send to the kafka
 		
-		producer.send(model);
+		producer.send(modelJenkins);
 		return ResponseEntity.ok("Repo cloned and Jenkinsfile is put into the cloned-repo");
 	}
     
