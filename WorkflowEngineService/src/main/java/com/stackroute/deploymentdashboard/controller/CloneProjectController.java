@@ -20,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.stackroute.deploymentdashboard.messenger.ReportingServiceProducer;
 //import com.stackroute.deploymentdashboard.messenger.ReportingServiceProducer;
 import com.stackroute.deploymentdashboard.model.ModelForJenkins;
 import com.stackroute.deploymentdashboard.service.WorkflowService;
@@ -63,7 +64,7 @@ import io.swagger.annotations.ApiResponses;
 public class CloneProjectController {
 	
 	 @Autowired
-//	 ReportingServiceProducer producer;
+	 ReportingServiceProducer producer;
 	// TODO: these values from properties file or db
 	@Value("${build: mvn build}")
 	private String build;
@@ -80,6 +81,9 @@ public class CloneProjectController {
 	// service
 	private WorkflowService workflowService = new WorkflowService();
 	
+//    @Autowired
+//    ReportingServiceProducer producer;
+    
 	// TODO : get from db 
 	private String project_url = "https://github.com/Shekharrajak/Trigger-Jenkins-Server"; 
 	private String project_url1 = "https://github.com/Shekharrajak/PipelineExecution";
@@ -99,8 +103,6 @@ public class CloneProjectController {
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     }
     )
-
-   
     @RequestMapping("/returnToKafka")
 	public ResponseEntity<String> returnToKafka() 
 			throws InternalUnixCommandException, 
@@ -117,12 +119,14 @@ public class CloneProjectController {
     	workflowService.cloing_repo(project_url1, cloned_repo_path);
 //		
 		// generate jenkins file
-		generateJenkinsFile();
+    	generateJenkinsFile();
+    	System.out.println("gene jenkin..");
 		
 		
 		ModelForJenkins model = new ModelForJenkins(111);
 		// send to the kafka
-		//producer.send(model.toString());
+		
+		producer.send(model);
 		return ResponseEntity.ok("Repo cloned and Jenkinsfile is put into the cloned-repo");
 	}
     
@@ -175,6 +179,7 @@ public class CloneProjectController {
 	
 	@RequestMapping("/generateJenkinsfile")
 	public Object generateJenkinsFile() throws FileGenerationException {
+		workflowService.init_commands(build, test, run, compile);
 		System.out.println("creating file" + jenkinsfile_path);
 		workflowService.createfile(jenkinsfile_path);
 		
