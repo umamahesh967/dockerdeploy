@@ -16,6 +16,7 @@ import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -123,7 +124,7 @@ public class CloneProjectController {
     	System.out.println("gene jenkin..");
 		
 		
-		ModelForJenkins model = new ModelForJenkins(111);
+		ModelForJenkins model = new ModelForJenkins(111, "some path");
 		// send to the kafka
 		
 		producer.send(model);
