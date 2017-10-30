@@ -19,8 +19,8 @@ public class SwaggerConfig {
     public Docket cloneApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.stackroute.deploymentdashboard.controller"))
-                .paths(regex("v1/workflow.*"))
+                .apis(RequestHandlerSelectors.basePackage("com.stackroute.deploymentdashboard.controlle"))
+                .paths(regex("/v1/workflow.*"))
                 .build();
     }
     

@@ -37,7 +37,7 @@ public class ReportingServiceProducer {
         System.out.println("sending data=" + model);
         System.out.println(kafkaTopic);
         kafkaTemplate.send(kafkaTopic, model);
-        System.out.println("sending done ...........yooooooooooooo" );
+        System.out.println("sending " +  " done ..........." );
     }
 }
 

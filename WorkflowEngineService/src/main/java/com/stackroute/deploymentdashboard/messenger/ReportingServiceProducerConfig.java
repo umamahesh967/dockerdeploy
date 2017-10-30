@@ -16,8 +16,6 @@ import org.springframework.kafka.support.serializer.JsonSerializer;
 import com.stackroute.deploymentdashboard.model.ModelForJenkins;
 
 
-
-
 @Configuration
 public class ReportingServiceProducerConfig {
     

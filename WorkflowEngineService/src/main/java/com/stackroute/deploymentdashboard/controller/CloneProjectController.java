@@ -110,16 +110,16 @@ public class CloneProjectController {
 			FileGenerationException {
 			workflowService.init_commands(build, test, run, compile);
     	
-    	workflowService.init_commands(build, test, run, compile);
+    	//workflowService.init_commands(build, test, run, compile);
 
 		// remove the present /cloned_repo folder
-    	workflowService.deleteFolder(cloned_repo_path);
+    	//workflowService.deleteFolder(cloned_repo_path);
 //		
 //		// clone the repo 
-    	workflowService.cloing_repo(project_url1, cloned_repo_path);
+    	//workflowService.cloing_repo(project_url1, cloned_repo_path);
 //		
 		// generate jenkins file
-    	generateJenkinsFile();
+    	//generateJenkinsFile();
     	System.out.println("gene jenkin..");
 		
 		
