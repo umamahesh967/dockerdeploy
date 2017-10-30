@@ -214,6 +214,7 @@ public class CloneProjectController {
 		        return output;
 		} catch (Throwable t) {
 		        t.printStackTrace();
+		      
 		}
 		return output;
 

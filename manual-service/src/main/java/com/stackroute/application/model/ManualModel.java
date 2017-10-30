@@ -16,20 +16,23 @@ TODO: needed
 public class ManualModel {
 	
 	
-	@NotNull(message="pid cannot be null")
-	private String pid;
-	
-	@NotNull(message="path cannot be null")
+	private String pid;// project=id
 	private String path;
+	private String url; // git or svn url
+	private String timeSpan; // time stamp when to build the project
 	
-	@NotNull(message="repository url cannot be null")
-	private String url;
-	
-    public String getPid() {
+    public String getTimeSpan() {
+		return timeSpan;
+	}
+	public void setTimeSpan(String timeSpan) {
+		this.timeSpan = timeSpan;
+	}
+	public String getPid() {
 		return pid;
 	}
 	public void setPid(String pid) {
-		this.pid = pid;
+			this.pid = pid;
+		
 	}
 	public String getPath() {
 		return path;
@@ -48,11 +51,11 @@ public class ManualModel {
 		
 	}
 	
-    public void ManualModel(String pid,String path,String url) {
+    public void ManualModel(String pid,String path,String url,String timeSpan) {
     	this.pid=pid;
     	this.path=path;
     	this.url=url;
-		
+		this.timeSpan=timeSpan;
 	}
 	
 	  
