@@ -6,9 +6,9 @@ public class HtmlModel {
   private String buildStatus;
   public HtmlModel(String pid, String uid, String buildStatus) {
 		
-		this.pid = pid;
-		this.uid = uid;
-		this.buildStatus = buildStatus;
+		this.pid = pid; //pid is the project id
+		this.uid = uid; //uid is the user id
+		this.buildStatus = buildStatus; // buildStatus gives the status of the build
 	}
   public HtmlModel() {
 	  
