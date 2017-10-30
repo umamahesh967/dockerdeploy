@@ -1,5 +1,15 @@
 manual-service (vamsi velivela)
 
+REST Endpoint Documentation
+
 ##catch the data from kafka 
 
-Gets the data from kafka in the form of json object.
+Gets the data from kafka in the form of json object and stores it in ManualModel class.
+
+##kafka consumer
+
+Consumer takes the json object and sends it to jenkins server for process(build,test).
+
+##kafka producer
+
+Producer takes the report of the process sends it back to kafka in the form of different topic.

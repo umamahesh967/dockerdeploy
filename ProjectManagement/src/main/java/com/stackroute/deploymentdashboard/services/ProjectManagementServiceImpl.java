@@ -66,6 +66,7 @@ public class ProjectManagementServiceImpl {
 	 * Method for deleting a Project
 	 * */
 	public void deleteProject(String id) {
+
 		projectrepository.delete(id);
 	}
 	/*

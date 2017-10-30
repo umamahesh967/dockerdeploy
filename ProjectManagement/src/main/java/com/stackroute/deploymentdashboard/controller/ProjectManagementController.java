@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.stackroute.deploymentdashboard.Exceptions.CustomExceptionResponse;
-import com.stackroute.deploymentdashboard.Exceptions.ProjectnotfoundException;
+import com.stackroute.deploymentdashboard.Exceptions.ProjectNotFoundException;
 import com.stackroute.deploymentdashboard.domains.ProjectManagementObject;
 import com.stackroute.deploymentdashboard.repository.ProjectManagementCRUDRepository;
 import com.stackroute.deploymentdashboard.services.ProjectManagementServiceImpl;
@@ -55,14 +55,21 @@ public class ProjectManagementController {
 	
 	/* request handler for getting list of all projects*/
 	@GetMapping(value="/list", produces= {"application/json"})
-	public ResponseEntity<?> list() throws ProjectnotfoundException {
+	public ResponseEntity<?> list() throws ProjectNotFoundException {
 		List<ProjectManagementObject> ProjectManagementObject=new ArrayList<>();
 		
 		ProjectManagementObject=projectservice.getAll();
 		
+		if (ProjectManagementObject == null)
+		{
+			throw new ProjectNotFoundException("Project not found");
+		}
+		else {
 		return new ResponseEntity<List<ProjectManagementObject>>(ProjectManagementObject,HttpStatus.OK);
-	
-    }
+		}
+
+		}
+    
 	
     /* request handler for adding a project*/
     
@@ -96,19 +103,24 @@ public class ProjectManagementController {
 	/* request handler for showing project by id*/
 	@GetMapping(value="/show/{id}", produces= {"application/json"})
 	@ApiOperation(value = "Search  project with an ID",response = ProjectManagementObject.class)
-	public ResponseEntity<?> getone(@PathVariable("id")  String id)throws ProjectnotfoundException{
+	public ResponseEntity<?> getone(@PathVariable("id")  String id)throws ProjectNotFoundException{
 		
 		ProjectManagementObject projectManagementObject=projectservice.getByid(id);
+
+		if (projectManagementObject == null) {
+			throw new ProjectNotFoundException("Project not found");
+			//throw new ProjectNotFoundException()	;
+		}
+		else {
 		
 		return new ResponseEntity<ProjectManagementObject>(projectManagementObject,HttpStatus.OK);
-
-		
-	}
+	
+		}}
 	
 	/* request handler for showing project by projectid*/
 	@GetMapping(value="/show/productid/{ProductId}", produces= {"application/json"})
 	@ApiOperation(value = "Search  project with an ID",response = ProjectManagementObject.class)
-	public ResponseEntity<?> getproductid(@PathVariable  String ProductId)throws ProjectnotfoundException{
+	public ResponseEntity<?> getproductid(@PathVariable  String ProductId)throws ProjectNotFoundException{
 		
 		List<ProjectManagementObject> projectManagementObject=projectManagementCRUDRepository.findByProjectId(ProductId);
 		
@@ -121,9 +133,9 @@ public class ProjectManagementController {
 	
 	@ApiOperation(value = "Delete a project")
 	@DeleteMapping(value="/delete/{id}", consumes="application/json")
-	  public ResponseEntity<String> delete(@PathVariable("id")  String id){
+	  public ResponseEntity<String> delete(@PathVariable("id")  String id)throws ProjectNotFoundException{
 		projectservice.deleteProject(id);
-		
+
 		return new ResponseEntity<String>("Deleted succesfully",HttpStatus.OK);
 	 
 			

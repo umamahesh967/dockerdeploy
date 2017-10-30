@@ -188,6 +188,7 @@ public class WorkflowService {
             return true;
 	    } catch (Throwable t) {
 	            t.printStackTrace();
+	       
 	            throw new InternalUnixCommandException(t.getMessage());
 	    }
 	}
