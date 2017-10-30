@@ -1,0 +1,12 @@
+Jenkins Time Based Service (Ankur Yadav)
+
+Micro Service Kafka Documentation
+
+Consuming Data From Kafka
+{
+    Consumes data from kafka topic trigger.
+}
+Producing Data Into Kafka
+{
+    Not Publishing now. But service is capable of publishing to kafka.
+}

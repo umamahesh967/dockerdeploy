@@ -7,31 +7,33 @@ package com.stackroute.deploymentdashboard.Exceptions;
 	import org.springframework.web.bind.annotation.ControllerAdvice;
 	import org.springframework.web.bind.annotation.ExceptionHandler;
 
-	@ControllerAdvice
-	public class ExceptionHandlingController extends Exception {
-		
-		@ExceptionHandler(MethodArgumentNotValidException.class)
-		public ResponseEntity<CustomExceptionResponse> invalidInput(MethodArgumentNotValidException exception) {
-			
-			BindingResult result = exception.getBindingResult();
-	        CustomExceptionResponse exceptionresponse = new CustomExceptionResponse();
-	        
-	        exceptionresponse.setErrorMessage("Invalid Inputs.");
-	        exceptionresponse.setErrors(result.getFieldErrors().get(0).getDefaultMessage());
-	        
-	        return new ResponseEntity<CustomExceptionResponse>(exceptionresponse, HttpStatus.BAD_REQUEST);
-		}
-		
+	
+
+@ControllerAdvice   
+public class ExceptionHandlingController {
+    
+    @ExceptionHandler(ProjectNotFoundException.class)
+    public ResponseEntity<CustomExceptionResponse> handleProjectNotFoundException(Exception ex) {
+        CustomExceptionResponse errorResponse = new CustomExceptionResponse();
+
+        errorResponse.setErrorCode(HttpStatus.NOT_FOUND.value());
+
+
+        errorResponse.setErrorMessage("project not available");
+        return new ResponseEntity<CustomExceptionResponse>(errorResponse, HttpStatus.OK);
+    }
+
+
+    
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<CustomExceptionResponse> handleGenericException(Exception ex) {
+        CustomExceptionResponse errorResponse = new CustomExceptionResponse();
+        errorResponse.setErrorCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+
+        errorResponse.setErrorMessage("There is some techncal issue");
+        return new ResponseEntity<CustomExceptionResponse>(errorResponse, HttpStatus.OK);
+    }
+ 
+}
 		
 
-		@ExceptionHandler(UrlNotRepositoryException.class)
-		public ResponseEntity<CustomExceptionResponse> urlNotRepositoryException(UrlNotRepositoryException exception) {
-	        CustomExceptionResponse exceptionresponse = new CustomExceptionResponse();
-	        
-	        exceptionresponse.setErrorMessage("Repository Error.");
-	        exceptionresponse.setErrors(exception.getErrorDescription());
-	        
-	        return new ResponseEntity<CustomExceptionResponse>(exceptionresponse, HttpStatus.SERVICE_UNAVAILABLE);
-		}
-		
-	}

@@ -19,12 +19,11 @@ public class SwaggerConfig {
     public Docket cloneApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.workflow.engine.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.stackroute.deploymentdashboard.controller"))
                 .paths(regex("/workflow.*"))
                 .build();
     }
     
-    @Bean
     private ApiInfo metaData() {
         ApiInfo apiInfo = new ApiInfo(
                 "Workflow Engine Service",
