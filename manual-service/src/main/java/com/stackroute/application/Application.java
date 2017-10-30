@@ -20,11 +20,13 @@ import com.stackroute.application.messenger.ReportingServiceProducer;
 import com.stackroute.application.model.ManualModel;
 import com.stackroute.application.service.ServiceManual;
 
-@SpringBootApplication
 @EnableDiscoveryClient
+@SpringBootApplication
 public class Application {	
-	public static void main(String[] args) throws IOException, URISyntaxException {
-		SpringApplication.run(Application.class, args);
+	public static void main(String[] args)  {
+				
+			SpringApplication.run(Application.class, args);
+		
 	
 
    
@@ -33,3 +35,4 @@ public class Application {
 	
 
 }
+
