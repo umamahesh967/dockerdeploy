@@ -132,7 +132,7 @@
     		<module>SocketEventRelay</module>
     		<module>HTMLService</module>
     		<module>ReportManager</module>
-    		<module>EmailCommunicatorService</module>
+    		<module>EmailService</module>
     </modules>
 
 	<dependencyManagement>

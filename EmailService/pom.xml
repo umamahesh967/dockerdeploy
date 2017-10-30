@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>EmailCommunicatorService</artifactId>
+	<artifactId>EmailService</artifactId>
 	<packaging>jar</packaging>
 
 	<name>Email</name>
@@ -83,7 +83,10 @@
 			<artifactId>logback-classic</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-
+<dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka-test</artifactId>
+        </dependency>
 		<!-- AspectJ dependencies -->
 		<dependency>
 			<groupId>org.aspectj</groupId>
