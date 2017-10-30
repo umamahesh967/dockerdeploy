@@ -2,10 +2,16 @@ package com.stackroute.deploymentdashboard.controller;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.eclipse.jgit.api.Git;
@@ -24,10 +30,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.stackroute.deploymentdashboard.messenger.ReportingServiceProducer;
 //import com.stackroute.deploymentdashboard.messenger.ReportingServiceProducer;
 import com.stackroute.deploymentdashboard.model.ModelForJenkins;
 import com.stackroute.deploymentdashboard.model.ModelForWorkflowEngineService;
+import com.stackroute.deploymentdashboard.model.WorkflowForJenkins;
 import com.stackroute.deploymentdashboard.service.WorkflowService;
 import com.workflow.engine.exception.FileGenerationException;
 import com.workflow.engine.exception.InternalUnixCommandException;
@@ -120,20 +128,20 @@ public class CloneProjectController {
     	String pid = model.getPid();
     	String url = model.getUrl();
     	String timespan = model.getTimespan();
-    	List<String> list_md = model.getList_cmd();
+    	List<String> list_cmd = model.getList_cmd();
     	
     	System.out.println("url === " + url);
-    	for(String s:list_md) {
+    	for(String s:list_cmd) {
     		System.out.println(s);
     	}
 		// remove the present /cloned_repo folder
-    	//workflowService.deleteFolder(cloned_repo_path);
+//    	workflowService.deleteFolder(cloned_repo_path);
 //		
 //		// clone the repo 
-    	//workflowService.cloing_repo(project_url1, cloned_repo_path);
+//    	workflowService.cloing_repo(url, cloned_repo_path);
 //		
 		// generate jenkins file
-    	//generateJenkinsFile();
+//    	generateJenkinsFile(list_cmd);
     	System.out.println("gene jenkin..");
 		
 		
@@ -193,14 +201,36 @@ public class CloneProjectController {
     }
     )
 	
-	@RequestMapping("/generateJenkinsfile")
-	public Object generateJenkinsFile() throws FileGenerationException {
+	@RequestMapping(value="/generateJenkinsfile", method = RequestMethod.POST)
+	public Object generateJenkinsFile(@RequestBody WorkflowForJenkins workflows) throws FileGenerationException, IOException {
 		workflowService.init_commands(build, test, run, compile);
 		System.out.println("creating file" + jenkinsfile_path);
 		workflowService.createfile(jenkinsfile_path);
 		
 		System.out.println("generating jenkins file");
-		workflowService.createJenkinsFile(jenkinsfile_path);
+		System.out.println("generating jenkins file"+ workflows.getCmds());
+		Properties properties= new Properties();
+		String resourceName = "mvn_commands.properties"; // could also be a constant
+		ClassLoader loader = Thread.currentThread().getContextClassLoader();
+		try(InputStream resourceStream = loader.getResourceAsStream(resourceName)) {
+			properties.load(resourceStream);
+		}
+//		System.out.println(properties.stringPropertyNames());
+		HashMap<String,String> hm_cmds=new HashMap<String,String>();  
+		for (String key : properties.stringPropertyNames()) {
+		    String value = properties.getProperty(key);
+		    hm_cmds.put(key, value);
+		}
+		// just printing properties file
+		System.out.println("generating jenkins file+++++");
+		 Iterator it = hm_cmds.entrySet().iterator();
+		    while (it.hasNext()) {
+		        Map.Entry pair = (Map.Entry)it.next();
+		        System.out.println(pair.getKey() + " = " + pair.getValue());
+		        it.remove(); // avoids a ConcurrentModificationException
+		    }
+		    System.out.println("generating jenkins file========");
+		workflowService.createJenkinsFile(jenkinsfile_path, hm_cmds);
 		
 		File Jenkinsfile_in_repo = new File("./cloned_repo/Jenkinsfile"); 
 		workflowService.copyJenkinsfileToRepo(Jenkinsfile_in_repo, jenkinsfile_path);
