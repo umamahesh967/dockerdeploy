@@ -3,19 +3,17 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.stackroute.deploymentdashboard</groupId>
 	<artifactId>HTMLService</artifactId>
-	<version>0.1.0</version>
 	<packaging>jar</packaging>
 
 	<name>HTMLService</name>
 	<description>Microservice to sent reports to a html interface</description>
 
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.8.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<groupId>com.stackroute.deploymentdashboard</groupId>
+		<artifactId>deployment_dashboard</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
 	<properties>

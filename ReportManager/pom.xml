@@ -4,18 +4,17 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.stackroute.probhonjon</groupId>
-	<artifactId>Cassandra</artifactId>
-	<version>0.1.0</version>
+	<artifactId>ReportManager</artifactId>
 	<packaging>jar</packaging>
 
-	<name>Cassandra</name>
-	<description>The backend for the angular app &quot;GoPlaces&quot;</description>
+	<name>ReportManager</name>
+	<description>Logs the final report from jenkins server </description>
 
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.7.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<groupId>com.stackroute.deploymentdashboard</groupId>
+		<artifactId>deployment_dashboard</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
 	<properties>
