@@ -145,9 +145,9 @@ public class CloneProjectController {
     	System.out.println("gene jenkin..");
 		
 		
-		ModelForJenkins modelJenkins = new ModelForJenkins("113", 
+		ModelForJenkins modelJenkins = new ModelForJenkins("11312", 
 				"some path", 
-				"https://bitbucket.org/atlassianlabs/maven-project-example.git", "4th");
+				"https://github.com/Shekharrajak/PipelineExecution", "4th");
 		// send to the kafka
 		
 		producer.send(modelJenkins);
