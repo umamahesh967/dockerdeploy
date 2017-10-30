@@ -8,7 +8,7 @@ import com.stackroute.deploymentdashboard.model.ModelForJenkins;
 @Service
 public class ReportingServiceConsumer {
     
-    @KafkaListener(topics="${kafka.topic.bootnew}")
+    @KafkaListener(topics="${spring.kafka.consumer.group-id}")
    public void processMessage(ModelForJenkins model) {
         System.out.println("received content = " + model);
    }

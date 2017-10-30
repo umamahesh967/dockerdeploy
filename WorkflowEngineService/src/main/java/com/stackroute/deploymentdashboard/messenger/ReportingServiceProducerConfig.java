@@ -16,8 +16,6 @@ import org.springframework.kafka.support.serializer.JsonSerializer;
 import com.stackroute.deploymentdashboard.model.ModelForJenkins;
 
 
-
-
 @Configuration
 public class ReportingServiceProducerConfig {
     
@@ -27,7 +25,7 @@ public class ReportingServiceProducerConfig {
     @Bean
     public ProducerFactory<String, ModelForJenkins> producerFactory() {
         Map<String, Object> configProps = new HashMap<>();
-        configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServer);
+        configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "172.23.238.154:9092");
         configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
         return new DefaultKafkaProducerFactory<>(configProps);
