@@ -98,7 +98,7 @@ public class WorkflowService {
 	/*
 	 * create the file on the given path.handles all the exceptions as well.
 	 * */
-	public void createfile(File path) throws FileGenerationException {
+	public void createFile(File path) throws FileGenerationException {
 		/* create the dir first */
 
 		String workingDir = System.getProperty("user.dir");
