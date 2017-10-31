@@ -62,7 +62,7 @@ import io.swagger.annotations.ApiResponses;
 			"jenkinsfile using the commands given."
 )
 @RestController
-public class CloneProjectController {
+public class WorkflowController {
 	
 	 @Autowired
 	 ReportingServiceProducer producer;
