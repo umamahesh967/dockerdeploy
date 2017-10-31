@@ -3,29 +3,29 @@ package com.stackroute.application.model;
 
 public class ProduceManualModel {
 	
-	private String pid; //project-id
-	private String buildSuccess; //status of the build
+	private String projectID; //project-id
+	private String buildStatus; //status of the build
 	
 	public ProduceManualModel() {
 		
 	}
 
-	public ProduceManualModel(String pid, String buildSuccess) {
+	public ProduceManualModel(String projectID, String buildStatus) {
 		
-		this.pid = pid;
-		this.buildSuccess = buildSuccess;
+		this.projectID = projectID;
+		this.buildStatus = buildStatus;
 	}
-	public String getPid() {
-		return pid;
+	public String getProjectID() {
+		return projectID;
 	}
-	public void setPid(String pid) {
-		this.pid = pid;
+	public void setProjectID(String projectID) {
+		this.projectID = projectID;
 	}
-	public String getBuildSuccess() {
-		return buildSuccess;
+	public String getBuildStatus() {
+		return buildStatus;
 	}
-	public void setBuildSuccess(String buildSuccess) {
-		this.buildSuccess = buildSuccess;
+	public void setBuildStatus(String buildStatus) {
+		this.buildStatus = buildStatus;
 	}
 	
 	

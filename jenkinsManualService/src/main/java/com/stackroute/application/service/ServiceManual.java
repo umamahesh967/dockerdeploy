@@ -39,7 +39,7 @@ private List<ManualModel> storage = new ArrayList<ManualModel>();
 		storage.add(message);//Adds the message to the list
 		// sets the project-id of the message in produceManualModel in order to send
 		// data to kafaka
-		produceManualModel.setPid(message.getProjectID()); 
+		produceManualModel.setProjectID(message.getProjectID()); 
 		
 		
 		
@@ -120,7 +120,7 @@ private List<ManualModel> storage = new ArrayList<ManualModel>();
         	buildResult="success"; // the we change the buildResult to success
 		
         
-		produceManualModel.setBuildSuccess(buildResult); //sets the buidlResult in produceMannualModel
+		produceManualModel.setBuildStatus(buildResult); //sets the buidlResult in produceMannualModel
 		return  produceManualModel;
 	}
 
