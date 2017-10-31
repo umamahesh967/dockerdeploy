@@ -18,7 +18,7 @@ public class ReportingServiceConsumer {
 	public EmailCredentials reportlistener(EmailCredentials report) {
 	   
 		service.put(report);
-		System.out.println(report.getEmailid());
+		System.out.println(report.getBuildStatus());
 		return report;
 	}
 
