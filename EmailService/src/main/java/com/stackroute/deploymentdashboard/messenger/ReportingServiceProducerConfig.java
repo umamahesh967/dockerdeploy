@@ -16,7 +16,7 @@ import org.springframework.kafka.support.serializer.JsonSerializer;
 import com.stackroute.deploymentdashboard.model.EmailCredentials;
 
 @Configuration
-public class MailingServiceProducerConfig {
+public class ReportingServiceProducerConfig {
     
     @Value("${spring.kafka.bootstrap-servers}")
     private String bootstrapServer;
