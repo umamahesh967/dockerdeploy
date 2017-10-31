@@ -195,7 +195,7 @@ public class WorkflowController {
 	public Object generateJenkinsFile(@RequestBody WorkflowJenkinsJob workflows) throws FileGenerationException, IOException {
 		workflowService.init_commands(build, test, run, compile);
 		System.out.println("creating file" + jenkinsfile_path);
-		workflowService.createfile(jenkinsfile_path);
+		workflowService.createFile(jenkinsfile_path);
 		
 		System.out.println("generating jenkins file");
 		System.out.println("generating jenkins file"+ workflows.getCmds());
