@@ -4,8 +4,8 @@ import java.io.File;
 import org.springframework.stereotype.Service;
 
 import com.stackroute.workflowengineservice.model.JenkinsJob;
-import com.workflow.engine.exception.InternalRepositoryException;
-import com.workflow.engine.exception.UrlException;
+import com.stackroute.workflowengineservice.exception.InternalRepositoryException;
+import com.stackroute.workflowengineservice.exception.UrlException;
 
 @Service
 public class WorkflowRepositoryServiceImpl implements RepositoryService {

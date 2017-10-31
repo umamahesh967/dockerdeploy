@@ -24,9 +24,9 @@ import com.stackroute.workflowengineservice.model.JenkinsJob;
 import com.stackroute.workflowengineservice.model.WorkflowJenkinsJob;
 import com.stackroute.workflowengineservice.model.WorksetupJob;
 import com.stackroute.workflowengineservice.service.WorkflowService;
-import com.workflow.engine.exception.FileGenerationException;
-import com.workflow.engine.exception.InternalUnixCommandException;
-import com.workflow.engine.exception.JgitInternalException;
+import com.stackroute.workflowengineservice.exception.FileGenerationException;
+import com.stackroute.workflowengineservice.exception.InternalUnixCommandException;
+import com.stackroute.workflowengineservice.exception.JgitInternalException;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

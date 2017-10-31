@@ -1,4 +1,4 @@
-package com.workflow.engine.exception;
+package com.stackroute.workflowengineservice.exception;
 
 public class FileGenerationException extends Exception{
 //	static final long serialVersionUID = 42L;

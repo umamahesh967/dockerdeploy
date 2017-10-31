@@ -1,4 +1,4 @@
-package com.workflow.engine.exception;
+package com.stackroute.workflowengineservice.exception;
 
 public class CustomExceptionResponse {
     private String errorMessage;

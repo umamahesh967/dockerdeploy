@@ -18,9 +18,9 @@ import org.eclipse.jgit.lib.Repository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.workflow.engine.exception.FileGenerationException;
-import com.workflow.engine.exception.InternalUnixCommandException;
-import com.workflow.engine.exception.JgitInternalException;
+import com.stackroute.workflowengineservice.exception.FileGenerationException;
+import com.stackroute.workflowengineservice.exception.InternalUnixCommandException;
+import com.stackroute.workflowengineservice.exception.JgitInternalException;
 
 @Service
 public class WorkflowService {
