@@ -10,6 +10,7 @@ import org.springframework.kafka.support.serializer.JsonDeserializer;
 
 import com.stackroute.deploymentdashboard.model.EmailCredentials;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.EnableKafka;
@@ -20,13 +21,20 @@ import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 
 @Configuration
 @EnableKafka
-public class MailingServiceConsumerConfig {
+public class ReportingServiceConsumerConfig {
+	
+    @Value("${spring.kafka.bootstrap-servers}")
+    private String bootstrapServer;
+    
+    @Value("kafka-group")
+    private String groupId;
+	
 	@Bean
     public ConsumerFactory<String, EmailCredentials> reportconsumerFactory() {
         Map<String, Object> props = new HashMap<>();
         props.put(
           ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, 
-          "172.23.238.167:9092");
+          bootstrapServer);
         
         props.put(
           ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, 
@@ -58,7 +66,7 @@ public class MailingServiceConsumerConfig {
         Map<String, Object> props = new HashMap<>();
         props.put(
           ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, 
-          "172.23.238.167:9092");
+          bootstrapServer);
         props.put(
           ConsumerConfig.GROUP_ID_CONFIG, 
           "something");

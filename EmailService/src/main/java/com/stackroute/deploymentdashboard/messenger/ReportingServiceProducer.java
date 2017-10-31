@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 import com.stackroute.deploymentdashboard.model.EmailCredentials;
 
 @Service
-public class MailingServiceProducer { 
+public class ReportingServiceProducer { 
     @Autowired
     private KafkaTemplate<String, EmailCredentials> kafkaTemplate;
     @Value("${spring.kafka.producer.group-id}")
