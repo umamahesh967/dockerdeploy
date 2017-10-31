@@ -31,22 +31,22 @@ private List<ManualModel> storage = new ArrayList<ManualModel>();
 	public void put(ManualModel message) throws ModelNotFoundException,ModelVariableNotFoundException, URISyntaxException, IOException{
 
 		if(message == null) throw new ModelNotFoundException("Message is empty");
-		if(message.getPid()==null) throw new ModelVariableNotFoundException("Please enter valid pid");
-		if(message.getPath()==null) throw new ModelVariableNotFoundException("Please enter valid path");
-		if(message.getUrl()==null) throw new ModelVariableNotFoundException("Please enter valid url");
-		if(message.getTimeSpan()!=null) throw new ModelVariableNotFoundException("Please ensure that you are sending data without time span");
+		if(message.getProjectID()==null) throw new ModelVariableNotFoundException("Please enter valid pid");
+		if(message.getCloned_path()==null) throw new ModelVariableNotFoundException("Please enter valid path");
+		if(message.getRepo_url()==null) throw new ModelVariableNotFoundException("Please enter valid url");
+		if(message.getTimeStamp()!=null) throw new ModelVariableNotFoundException("Please ensure that you are sending data without time span");
 		
 		storage.add(message);//Adds the message to the list
 		// sets the project-id of the message in produceManualModel in order to send
 		// data to kafaka
-		produceManualModel.setPid(message.getPid()); 
+		produceManualModel.setPid(message.getProjectID()); 
 		
 		
 		
 		//here "vamsi" is the username and "vamsi123" is the password for jenkins server
 	JenkinsServer jenkins = new JenkinsServer(new URI("http://localhost:8080"), "vamsi", "vamsi123");
 		
-		String url=message.getUrl(); //git or svn url comes from here
+		String url=message.getRepo_url(); //git or svn url comes from here
 //		String url="https://github.com/spidervamsi/jenkinsTest";
 		
 		
@@ -95,7 +95,7 @@ private List<ManualModel> storage = new ArrayList<ManualModel>();
 				"";
 		
 		//sets the jobName as "job"+project-id. So that every builds name is different
-		String jobName="job"+message.getPid();
+		String jobName="job"+message.getProjectID();
 		this.jobName=jobName;
 		jenkins.createJob(jobName, config,true); //creates the job
 	
