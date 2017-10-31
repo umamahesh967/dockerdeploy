@@ -13,9 +13,8 @@ public class HtmlService {
 	public void put(HtmlModel report) throws ModelNotFoundException, ModelVariableNotFoundException {
 	   // checks for exceptions
 		if(report==null) throw new ModelNotFoundException("please give some report");
-		if(report.getPid()==null) throw new ModelVariableNotFoundException("please give valid project id");
-		if(report.getUid()==null) throw new ModelVariableNotFoundException("please give valid user id");
-		if(report.getbuildStatus()==null) throw new ModelVariableNotFoundException("build status is missing");
+		if(report.getProjectID()==null) throw new ModelVariableNotFoundException("please give valid project id");
+		if(report.getBuildStatus()==null) throw new ModelVariableNotFoundException("build status is missing");
 		
 		this.htmlModel=report;
 		//send sendHtml() sends data to user

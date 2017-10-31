@@ -18,31 +18,22 @@ public class HtmlModelTest {
 	public void testProjectId() {
 		HtmlModel HtmlModel = new HtmlModel();
 		
-		HtmlModel.setPid("12345");
-		String actual = HtmlModel.getPid();
+		HtmlModel.setProjectID("12345");
+		String actual = HtmlModel.getProjectID();
 		
 		assertNotNull(actual);
 		assertEquals("12345", actual);
 	}
 	
 	
-	@Test
-	public void testUserId() {
-		HtmlModel HtmlModel = new HtmlModel();
-		
-		HtmlModel.setUid("user123");
-		String actual = HtmlModel.getUid();
-		
-		assertNotNull(actual);
-		assertEquals("user123", actual);
-	}
+	
 	
 	@Test
 	public void testBuildStatus() {
 		HtmlModel HtmlModel = new HtmlModel();
 		
-		HtmlModel.setbuildStatus("success");
-		String actual = HtmlModel.getbuildStatus();
+		HtmlModel.setBuildStatus("success");
+		String actual = HtmlModel.getBuildStatus();
 		assertNotNull(actual);
 		assertEquals("success", actual);
 	}
