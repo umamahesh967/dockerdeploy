@@ -3,7 +3,7 @@ package com.stackroute.deploymentdashboard.service;
 import java.io.File;
 import org.springframework.stereotype.Service;
 
-import com.stackroute.deploymentdashboard.model.ModelForJenkins;
+import com.stackroute.deploymentdashboard.model.JenkinsJob;
 import com.workflow.engine.exception.InternalRepositoryException;
 import com.workflow.engine.exception.UrlException;
 
@@ -29,7 +29,7 @@ public class WorkflowRepositoryServiceImpl implements RepositoryService {
 
 
 	@Override
-	public boolean cloneRepository(ModelForJenkins repositorydetails) throws InternalRepositoryException {
+	public boolean cloneRepository(JenkinsJob repositorydetails) throws InternalRepositoryException {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -42,4 +42,5 @@ public class WorkflowRepositoryServiceImpl implements RepositoryService {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
 }

@@ -13,7 +13,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 
-import com.stackroute.deploymentdashboard.model.ModelForJenkins;
+import com.stackroute.deploymentdashboard.model.JenkinsJob;
 
 
 @Configuration
@@ -23,7 +23,7 @@ public class ReportingServiceProducerConfig {
     private String bootstrapServer;
     
     @Bean
-    public ProducerFactory<String, ModelForJenkins> producerFactory() {
+    public ProducerFactory<String, JenkinsJob> producerFactory() {
         Map<String, Object> configProps = new HashMap<>();
         configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "172.23.238.154:9092");
         configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
@@ -32,7 +32,7 @@ public class ReportingServiceProducerConfig {
     }
      
     @Bean
-    public KafkaTemplate<String, ModelForJenkins> kafkaTemplate() {
+    public KafkaTemplate<String, JenkinsJob> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
 }

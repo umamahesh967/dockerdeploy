@@ -2,8 +2,9 @@ package com.stackroute.deploymentdashboard.repository;
 
 import java.util.List;
 
-import com.stackroute.deploymentdashboard.model.ModelForJenkins;
+import com.stackroute.deploymentdashboard.model.JenkinsJob;
+
 
 public interface DatabaseService {
-	List<ModelForJenkins> read();
+	List<JenkinsJob> read();
 }

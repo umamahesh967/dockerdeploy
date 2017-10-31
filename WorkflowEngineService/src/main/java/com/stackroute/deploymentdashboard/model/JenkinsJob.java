@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @JsonSerialize
-public class ModelForJenkins implements Serializable {
+public class JenkinsJob implements Serializable {
 
 	private String pid;
 	private String path;
@@ -43,7 +43,7 @@ public class ModelForJenkins implements Serializable {
 	 * @param projectID
 	 */
 
-	public ModelForJenkins(String projectID, String p) {
+	public JenkinsJob(String projectID, String p) {
 		this.pid = projectID;
 		this.path = p;
 	}
@@ -54,7 +54,7 @@ public class ModelForJenkins implements Serializable {
 	 * @param timeSpan
 	 */
 
-	public ModelForJenkins(String pid2, String path2, String url2, String timeSpan2) {
+	public JenkinsJob(String pid2, String path2, String url2, String timeSpan2) {
 		// TODO Auto-generated constructor stub
 		super();
 		this.pid = pid2;
