@@ -32,7 +32,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.stackroute.deploymentdashboard.messenger.ReportingServiceProducer;
-//import com.stackroute.deploymentdashboard.messenger.ReportingServiceProducer;
 import com.stackroute.deploymentdashboard.model.ModelForJenkins;
 import com.stackroute.deploymentdashboard.model.ModelForWorkflowEngineService;
 import com.stackroute.deploymentdashboard.model.WorkflowForJenkins;
@@ -40,6 +39,7 @@ import com.stackroute.deploymentdashboard.service.WorkflowService;
 import com.workflow.engine.exception.FileGenerationException;
 import com.workflow.engine.exception.InternalUnixCommandException;
 import com.workflow.engine.exception.JgitInternalException;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -92,7 +92,8 @@ public class CloneProjectController {
 	private String compile;
 	
 	// service
-	private WorkflowService workflowService = new WorkflowService();
+	@Autowired
+	private WorkflowService workflowService;// = new WorkflowService();
 	
 //    @Autowired
 //    ReportingServiceProducer producer;
@@ -120,8 +121,7 @@ public class CloneProjectController {
 	public ResponseEntity<String> returnToKafka(@RequestBody ModelForWorkflowEngineService model) 
 			throws InternalUnixCommandException, 
 			JgitInternalException, 
-			FileGenerationException {
-			workflowService.init_commands(build, test, run, compile);
+			FileGenerationException, IOException {
     	
     	workflowService.init_commands(build, test, run, compile);
 
@@ -135,19 +135,21 @@ public class CloneProjectController {
     		System.out.println(s);
     	}
 		// remove the present /cloned_repo folder
-//    	workflowService.deleteFolder(cloned_repo_path);
+    	workflowService.deleteFolder(cloned_repo_path);
 //		
 //		// clone the repo 
-//    	workflowService.cloing_repo(url, cloned_repo_path);
-//		
+    	// replace project_url1 with url
+    	workflowService.cloing_repo(project_url1, cloned_repo_path);
+    	System.out.println("cloning done..");	
+
+    	WorkflowForJenkins workflowForJenkins = new WorkflowForJenkins(list_cmd);
 		// generate jenkins file
-//    	generateJenkinsFile(list_cmd);
+    	generateJenkinsFile(workflowForJenkins);
     	System.out.println("gene jenkin..");
 		
-		
-		ModelForJenkins modelJenkins = new ModelForJenkins("113", 
+		ModelForJenkins modelJenkins = new ModelForJenkins("11312", 
 				"some path", 
-				"https://bitbucket.org/atlassianlabs/maven-project-example.git", "4th");
+				"https://github.com/Shekharrajak/PipelineExecution", "4th");
 		// send to the kafka
 		
 		producer.send(modelJenkins);
