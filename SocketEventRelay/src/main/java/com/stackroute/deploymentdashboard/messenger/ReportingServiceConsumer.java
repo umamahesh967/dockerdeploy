@@ -11,5 +11,7 @@ public class ReportingServiceConsumer {
     @KafkaListener(topics="${spring.kafka.consumer.group-id}")
    public void processMessage(UserCredentials user) {
         System.out.println("received content = " + user);
+        System.out.println("In Socket Event Relay service. Object Received");
    }
+    
 }
