@@ -11,7 +11,8 @@ public class JenkinsJob implements Serializable {
 
 	private String projectID;
 	private String cloned_path;
-	
+	private String url;
+	private String timeSpan;	
 	
 	public String getPid() {
 		return projectID;
@@ -37,8 +38,7 @@ public class JenkinsJob implements Serializable {
 	public void setTimeSpan(String timeSpan) {
 		this.timeSpan = timeSpan;
 	}
-	private String url;
-	private String timeSpan;
+
 	/**
 	 * @param projectID
 	 */

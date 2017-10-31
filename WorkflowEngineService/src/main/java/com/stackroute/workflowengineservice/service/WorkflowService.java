@@ -13,7 +13,12 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.errors.ConcurrentRefUpdateException;
 import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.api.errors.NoHeadException;
+import org.eclipse.jgit.api.errors.NoMessageException;
+import org.eclipse.jgit.api.errors.UnmergedPathsException;
+import org.eclipse.jgit.api.errors.WrongRepositoryStateException;
 import org.eclipse.jgit.lib.Repository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -205,7 +210,7 @@ public class WorkflowService {
     }
     
     //replace to service
-    public boolean cloing_repo(String repo_url, File cloning_path) throws JgitInternalException {
+    public Git cloing_repo(String repo_url, File cloning_path) throws JgitInternalException {
     	
         Git git;
         System.out.println("clongin started via cloning_repo..");
@@ -222,8 +227,12 @@ public class WorkflowService {
 			throw new JgitInternalException(e.getMessage());
 			
 		}
-		return true;
+		return git;
     }
+	public void git_commit(Git git, String msg) throws NoHeadException, NoMessageException, UnmergedPathsException, ConcurrentRefUpdateException, WrongRepositoryStateException, GitAPIException {
+		// TODO Auto-generated method stub
+		git.commit().setMessage(msg ).call();
+	}
     
     /*
      * 
