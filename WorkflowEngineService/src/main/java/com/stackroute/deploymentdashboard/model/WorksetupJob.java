@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
  * Workflow engine will recv  the data in this object.
  * */
 @JsonDeserialize
-public class ModelForWorkflowEngineService {
+public class WorksetupJob {
 
 	private String url;
 	private String pid;
@@ -42,7 +42,7 @@ public class ModelForWorkflowEngineService {
 	 * @param pid
 	 * @param timespan
 	 */
-	public ModelForWorkflowEngineService(String url, String pid, String timespan) {
+	public WorksetupJob(String url, String pid, String timespan) {
 		super();
 		this.url = url;
 		this.pid = pid;
@@ -51,7 +51,7 @@ public class ModelForWorkflowEngineService {
 	/**
 	 * 
 	 */
-	public ModelForWorkflowEngineService() {
+	public WorksetupJob() {
 		super();
 	}
 	public void setTimespan(String timespan) {

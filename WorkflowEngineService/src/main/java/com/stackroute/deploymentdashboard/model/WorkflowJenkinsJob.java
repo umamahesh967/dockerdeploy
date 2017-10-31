@@ -6,14 +6,14 @@ import java.util.List;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @JsonDeserialize 
-public class WorkflowForJenkins {
+public class WorkflowJenkinsJob {
 
 	private List<String> cmds;
 
 	/**
 	 * @param cmds
 	 */
-	public WorkflowForJenkins(List<String> list_cmd) {
+	public WorkflowJenkinsJob(List<String> list_cmd) {
 		super();
 		this.cmds = list_cmd;
 	}
@@ -21,7 +21,7 @@ public class WorkflowForJenkins {
 	/**
 	 * 
 	 */
-	public WorkflowForJenkins() {
+	public WorkflowJenkinsJob() {
 		super();
 	}
 

@@ -5,36 +5,24 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-
-import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import org.apache.tomcat.util.http.fileupload.FileUtils;
-import org.eclipse.jgit.api.Git;
-import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.api.errors.InvalidRemoteException;
-import org.eclipse.jgit.api.errors.TransportException;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.stackroute.deploymentdashboard.messenger.ReportingServiceProducer;
-import com.stackroute.deploymentdashboard.model.ModelForJenkins;
-import com.stackroute.deploymentdashboard.model.ModelForWorkflowEngineService;
-import com.stackroute.deploymentdashboard.model.WorkflowForJenkins;
+import com.stackroute.deploymentdashboard.model.JenkinsJob;
+import com.stackroute.deploymentdashboard.model.WorkflowJenkinsJob;
+import com.stackroute.deploymentdashboard.model.WorksetupJob;
 import com.stackroute.deploymentdashboard.service.WorkflowService;
 import com.workflow.engine.exception.FileGenerationException;
 import com.workflow.engine.exception.InternalUnixCommandException;
@@ -118,7 +106,7 @@ public class CloneProjectController {
     }
     )
     @RequestMapping(value="/returnToKafka", method = RequestMethod.POST)
-	public ResponseEntity<String> returnToKafka(@RequestBody ModelForWorkflowEngineService model) 
+	public ResponseEntity<String> returnToKafka(@RequestBody WorksetupJob model) 
 			throws InternalUnixCommandException, 
 			JgitInternalException, 
 			FileGenerationException, IOException {
@@ -142,12 +130,12 @@ public class CloneProjectController {
     	workflowService.cloing_repo(project_url1, cloned_repo_path);
     	System.out.println("cloning done..");	
 
-    	WorkflowForJenkins workflowForJenkins = new WorkflowForJenkins(list_cmd);
+    	WorkflowJenkinsJob workflowForJenkins = new WorkflowJenkinsJob(list_cmd);
 		// generate jenkins file
     	generateJenkinsFile(workflowForJenkins);
     	System.out.println("gene jenkin..");
 		
-		ModelForJenkins modelJenkins = new ModelForJenkins("11312", 
+		JenkinsJob modelJenkins = new JenkinsJob("11312", 
 				"some path", 
 				"https://github.com/Shekharrajak/PipelineExecution", "4th");
 		// send to the kafka
@@ -204,7 +192,7 @@ public class CloneProjectController {
     )
 	
 	@RequestMapping(value="/generateJenkinsfile", method = RequestMethod.POST)
-	public Object generateJenkinsFile(@RequestBody WorkflowForJenkins workflows) throws FileGenerationException, IOException {
+	public Object generateJenkinsFile(@RequestBody WorkflowJenkinsJob workflows) throws FileGenerationException, IOException {
 		workflowService.init_commands(build, test, run, compile);
 		System.out.println("creating file" + jenkinsfile_path);
 		workflowService.createfile(jenkinsfile_path);

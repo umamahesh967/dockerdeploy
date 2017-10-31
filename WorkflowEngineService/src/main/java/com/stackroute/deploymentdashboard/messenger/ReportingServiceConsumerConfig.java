@@ -15,9 +15,7 @@ import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 
-import com.stackroute.deploymentdashboard.model.ModelForJenkins;
-
-
+import com.stackroute.deploymentdashboard.model.JenkinsJob;
 
 
 @EnableKafka
@@ -31,21 +29,21 @@ public class ReportingServiceConsumerConfig {
     private String groupId;
     
     @Bean
-    public ConsumerFactory<String, ModelForJenkins> consumerFactory() {
+    public ConsumerFactory<String, JenkinsJob> consumerFactory() {
         Map<String, Object> props = new HashMap<>();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServer);
         props.put(ConsumerConfig.GROUP_ID_CONFIG, "something");
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
-        return new DefaultKafkaConsumerFactory<String, ModelForJenkins>(props,new StringDeserializer(), 
-                  new JsonDeserializer<>(ModelForJenkins.class));
+        return new DefaultKafkaConsumerFactory<String, JenkinsJob>(props,new StringDeserializer(), 
+                  new JsonDeserializer<>(JenkinsJob.class));
 //        return new DefaultKafkaConsumerFactory<>(props);
     }
     
      
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, ModelForJenkins> kafkaListenerContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<String, ModelForJenkins> factory = new ConcurrentKafkaListenerContainerFactory<>();
+    public ConcurrentKafkaListenerContainerFactory<String, JenkinsJob> kafkaListenerContainerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, JenkinsJob> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
         return factory;
     }
