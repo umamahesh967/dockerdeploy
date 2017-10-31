@@ -9,21 +9,21 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 @JsonSerialize
 public class JenkinsJob implements Serializable {
 
-	private String pid;
-	private String path;
+	private String projectID;
+	private String cloned_path;
 	
 	
 	public String getPid() {
-		return pid;
+		return projectID;
 	}
 	public void setPid(String pid) {
-		this.pid = pid;
+		this.projectID = pid;
 	}
 	public String getPath() {
-		return path;
+		return cloned_path;
 	}
 	public void setPath(String path) {
-		this.path = path;
+		this.cloned_path = path;
 	}
 	public String getUrl() {
 		return url;
@@ -44,8 +44,8 @@ public class JenkinsJob implements Serializable {
 	 */
 
 	public JenkinsJob(String projectID, String p) {
-		this.pid = projectID;
-		this.path = p;
+		this.projectID = projectID;
+		this.cloned_path = p;
 	}
 	/**
 	 * @param pid
@@ -57,8 +57,8 @@ public class JenkinsJob implements Serializable {
 	public JenkinsJob(String pid2, String path2, String url2, String timeSpan2) {
 		// TODO Auto-generated constructor stub
 		super();
-		this.pid = pid2;
-		this.path = path2;
+		this.projectID = pid2;
+		this.cloned_path = path2;
 		this.url = url2;
 		this.timeSpan = null;
 	}
