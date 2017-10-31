@@ -13,9 +13,9 @@ public class WorkflowForJenkins {
 	/**
 	 * @param cmds
 	 */
-	public WorkflowForJenkins(String[] cmd) {
+	public WorkflowForJenkins(List<String> list_cmd) {
 		super();
-		this.cmds = Arrays.asList(cmd);
+		this.cmds = list_cmd;
 	}
 
 	/**

@@ -205,13 +205,16 @@ public class WorkflowService {
     
     //replace to service
     public boolean cloing_repo(String repo_url, File cloning_path) throws JgitInternalException {
+    	
         Git git;
+        System.out.println("clongin started via cloning_repo..");
 		try {
 			git = Git.cloneRepository()
 					  .setURI( repo_url )
 					  .setDirectory( cloning_path )
 					  .setCloneAllBranches( true )
 					  .call();
+			System.out.println("clongin done via cloning_repo..");
 		} catch (GitAPIException e) {
 			// TODO Auto-generated catch block
 //			e.printStackTrace();
