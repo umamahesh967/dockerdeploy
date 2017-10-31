@@ -131,10 +131,10 @@ public class WorkflowController {
     	}
 		// remove the present /cloned_repo folder
     	workflowService.deleteFolder(cloned_repo_path);
-//		
+	
 //		// clone the repo 
     	// replace project_url1 with url
-    	Git git = workflowService.cloing_repo(project_url1, cloned_repo_path);
+    	Git git = workflowService.cloing_repo(url, cloned_repo_path);
     	System.out.println("cloning done..");	
 
     	WorkflowJenkinsJob workflowForJenkins = new WorkflowJenkinsJob(list_cmd);
