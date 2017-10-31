@@ -1,4 +1,4 @@
-package com.workflow.engine.exception;
+package com.stackroute.workflowengineservice.exception;
 
 import org.eclipse.jgit.api.errors.GitAPIException;
 

@@ -1,4 +1,4 @@
-package com.workflow.engine.exception;
+package com.stackroute.workflowengineservice.exception;
 
 public class UrlException extends Exception {
 	static final long serialVersionUID = 43L;

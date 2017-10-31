@@ -1,8 +1,8 @@
 package com.stackroute.workflowengineservice.service;
 
 import com.stackroute.workflowengineservice.model.JenkinsJob;
-import com.workflow.engine.exception.InternalRepositoryException;
-import com.workflow.engine.exception.UrlException;
+import com.stackroute.workflowengineservice.exception.InternalRepositoryException;
+import com.stackroute.workflowengineservice.exception.UrlException;
 
 public interface RepositoryService {
 	/*
