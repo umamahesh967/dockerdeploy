@@ -13,8 +13,8 @@ public class ProduceManualModelTest {
 	public void testUrl() {
 		ProduceManualModel Model = new ProduceManualModel();
 		
-		Model.setPid("pid");
-		String actual =Model.getPid();
+		Model.setProjectID("pid");
+		String actual =Model.getProjectID();
 		
 		assertNotNull(actual);
 		assertEquals("pid", actual);
@@ -23,8 +23,8 @@ public class ProduceManualModelTest {
 	public void testBuildSuccess() {
 		ProduceManualModel Model = new ProduceManualModel();
 		
-		Model.setBuildSuccess("success");
-		String actual =Model.getBuildSuccess();
+		Model.setBuildStatus("success");
+		String actual =Model.getBuildStatus();
 		
 		assertNotNull(actual);
 		assertEquals("success", actual);

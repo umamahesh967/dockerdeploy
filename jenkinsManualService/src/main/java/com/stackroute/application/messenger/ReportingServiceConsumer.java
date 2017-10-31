@@ -31,6 +31,9 @@ public class ReportingServiceConsumer {
 		
 //		puts in the data takens from kafka into the service (serviceManual)
 		
+	
+		System.out.println(data);
+		
 		 try {
 			 serviceManual.put(data);
 			  }
