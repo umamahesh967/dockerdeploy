@@ -1,34 +1,30 @@
 package com.stackroute.application.model;
 
 public class HtmlModel {
-  private String pid;
-  private String uid;
+  private String projectID;
+  
   private String buildStatus;
-  public HtmlModel(String pid, String uid, String buildStatus) {
+  public HtmlModel(String projectID, String buildStatus) {
 		
-		this.pid = pid; //pid is the project id
-		this.uid = uid; //uid is the user id
+		this.projectID = projectID; //projectID is the project id
+		 
 		this.buildStatus = buildStatus; // buildStatus gives the status of the build
 	}
   public HtmlModel() {
 	  
   }
-public String getPid() {
-	return pid;
+public String getProjectID() {
+	return projectID;
 }
-public void setPid(String pid) {
-	this.pid = pid;
+public void setProjectID(String projectID) {
+	this.projectID = projectID;
 }
-public String getUid() {
-	return uid;
-}
-public void setUid(String uid) {
-	this.uid = uid;
-}
-public String getbuildStatus() {
+
+
+public String getBuildStatus() {
 	return buildStatus;
 }
-public void setbuildStatus(String buildStatus) {
+public void setBuildStatus(String buildStatus) {
 	this.buildStatus = buildStatus;
 }
 

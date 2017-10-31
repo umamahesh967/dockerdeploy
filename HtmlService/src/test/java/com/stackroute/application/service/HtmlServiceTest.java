@@ -16,9 +16,9 @@ public class HtmlServiceTest {
 	@Test
 	public void testProjectId() throws ModelNotFoundException, ModelVariableNotFoundException {
 		HtmlModel HtmlModel = new HtmlModel();
-		HtmlModel.setPid("1234");
-		HtmlModel.setUid("user1234");
-		HtmlModel.setbuildStatus("success");
+		HtmlModel.setProjectID("12345");
+		
+		HtmlModel.setBuildStatus("success");
 		HtmlService htmlService=new HtmlService();
 		htmlService.put(HtmlModel);
 		
