@@ -140,8 +140,7 @@ public class CloneProjectController {
 //		// clone the repo 
     	// replace project_url1 with url
     	workflowService.cloing_repo(project_url1, cloned_repo_path);
-    	System.out.println("cloning done..");
-//		
+    	System.out.println("cloning done..");	
 
     	WorkflowForJenkins workflowForJenkins = new WorkflowForJenkins(list_cmd);
 		// generate jenkins file
