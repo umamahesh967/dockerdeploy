@@ -111,19 +111,19 @@ public class ReceiverConfig {
 	
 	@Bean
 	public ConsumerFactory<String, ProjectInfo> consumerFactory() {
-	    Map<String, Object> props = new HashMap<>();
+	    Map<String, Object> props = new HashMap<String, Object>();
 	    props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServer);
 	    props.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);
 	    props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
 	    props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
-	    return new DefaultKafkaConsumerFactory<>(props,
+	    return new DefaultKafkaConsumerFactory<String, ProjectInfo>(props,
 							    	      new StringDeserializer(), 
-							    	      new JsonDeserializer<>(ProjectInfo.class));
+							    	      new JsonDeserializer<ProjectInfo>(ProjectInfo.class));
 	}
 	 
 	@Bean
 	public ConcurrentKafkaListenerContainerFactory<String, ProjectInfo> kafkaListenerContainerFactory() {
-	    ConcurrentKafkaListenerContainerFactory<String, ProjectInfo> factory = new ConcurrentKafkaListenerContainerFactory<>();
+	    ConcurrentKafkaListenerContainerFactory<String, ProjectInfo> factory = new ConcurrentKafkaListenerContainerFactory<String, ProjectInfo>();
 	    factory.setConsumerFactory(consumerFactory());
 	    return factory;
 	}
