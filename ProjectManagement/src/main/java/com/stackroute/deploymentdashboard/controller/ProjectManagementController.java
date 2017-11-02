@@ -58,14 +58,13 @@ public class ProjectManagementController {
 	public ResponseEntity<?> list() throws ProjectNotFoundException {
 		List<ProjectManagementObject> ProjectManagementObject=new ArrayList<>();
 		
+		try {
 		ProjectManagementObject=projectservice.getAll();
 		
-		if (ProjectManagementObject == null)
-		{
-			throw new ProjectNotFoundException("Project not found");
-		}
-		else {
 		return new ResponseEntity<List<ProjectManagementObject>>(ProjectManagementObject,HttpStatus.OK);
+		}
+		catch (ProjectNotFoundException exp) {
+			return new ResponseEntity<String>(exp.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 
 		}
@@ -77,11 +76,14 @@ public class ProjectManagementController {
 	@ApiOperation(value = "Add a project")
 	public ResponseEntity<String> projectadd(@Valid @RequestBody ProjectManagementObject projectManagementObject)throws CustomExceptionResponse{
 		
+		try {
 		ProjectManagementObject project_tmp=projectservice.updateProject(projectManagementObject);
-		if(project_tmp.equals(projectManagementObject)) {
 		return new ResponseEntity<String>("Project saved successfully",HttpStatus.OK);
 		}
-		return new ResponseEntity<String>("Not valid id project",HttpStatus.OK);
+		catch (ProjectNotFoundException exp) {
+			return new ResponseEntity<String>(exp.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		
 		
 	}
 	
@@ -90,12 +92,15 @@ public class ProjectManagementController {
 	@PutMapping(value="/updateproject",consumes= {"application/json"})
 	@ApiOperation(value = "Update a project")
 	public ResponseEntity<String> projectupdate(@Valid @RequestBody ProjectManagementObject projectManagementObject)throws CustomExceptionResponse{
+		
+		try {
 		ProjectManagementObject project_tmp=projectservice.updateProject(projectManagementObject);
 		
-		if(project_tmp.equals(projectManagementObject)) {
 		return new ResponseEntity<String>("Project updated successfully",HttpStatus.OK);
 		}
-		return new ResponseEntity<String>("Not updated project",HttpStatus.OK);
+		catch (ProjectNotFoundException exp) {
+			return new ResponseEntity<String>(exp.getMessage(), HttpStatus.BAD_REQUEST);
+		}
 		
 	}
 	
@@ -105,46 +110,51 @@ public class ProjectManagementController {
 	@ApiOperation(value = "Search  project with an ID",response = ProjectManagementObject.class)
 	public ResponseEntity<?> getone(@PathVariable("id")  String id)throws ProjectNotFoundException{
 		
+		
+		try {
 		ProjectManagementObject projectManagementObject=projectservice.getByid(id);
 
-		if (projectManagementObject == null) {
-			throw new ProjectNotFoundException("Project not found");
-			//throw new ProjectNotFoundException()	;
-		}
-		else {
-		
-		return new ResponseEntity<ProjectManagementObject>(projectManagementObject,HttpStatus.OK);
 	
-		}}
+		
+		return new ResponseEntity<ProjectManagementObject>(projectManagementObject,HttpStatus.OK);}
+		catch (ProjectNotFoundException exp) {
+			return new ResponseEntity<String>(exp.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		}
 	
 	/* request handler for showing project by projectid*/
 	@GetMapping(value="/show/productid/{ProductId}", produces= {"application/json"})
 	@ApiOperation(value = "Search  project with an ID",response = ProjectManagementObject.class)
 	public ResponseEntity<?> getproductid(@PathVariable  String ProductId)throws ProjectNotFoundException{
 		
+		try {
 		ProjectManagementObject projectManagementObject=projectservice.getproductid(ProductId);
 
-		if (projectManagementObject == null) {
-			throw new ProjectNotFoundException("Project not found");
-			//throw new ProjectNotFoundException()	;
-		}
-		else {
 		
 		return new ResponseEntity<ProjectManagementObject>(projectManagementObject,HttpStatus.OK);
-	
+		}
+		catch (ProjectNotFoundException exp) {
+			return new ResponseEntity<String>(exp.getMessage(), HttpStatus.BAD_REQUEST);
 		}}
 	
 	/* request handler for deleting a project by id*/
 	
 	@ApiOperation(value = "Delete a project")
 	@DeleteMapping(value="/delete/{id}", consumes="application/json")
-	  public ResponseEntity<String> delete(@PathVariable("id")  String id)throws ProjectNotFoundException{
-		projectservice.deleteProject(id);
-
+	 
+	public ResponseEntity<String> delete(@PathVariable("id")  String id)throws ProjectNotFoundException{
+		
+		try{
+			projectservice.deleteProject(id);
 		return new ResponseEntity<String>("Deleted succesfully",HttpStatus.OK);
 	 
-			
-    
 		}
+			catch (ProjectNotFoundException exp) {
+				return new ResponseEntity<String>(exp.getMessage(), HttpStatus.BAD_REQUEST);
+			}
+		}
+			
+		
+	}
 
-}
+
