@@ -9,18 +9,23 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class ProjectInfo {
 	@NotNull(message="project url cannot be null")
 	private String url;
-//	@NotNull(message="project id cannot be null")
-	@Min(1)
+	@NotNull(message="project id cannot be null")
+//	@Min(1)
 //	@Size(@Min(1))
 //	@NotEmpty(message="project id cannot be null")
-	private int id;
+	private String pid;
+	private String path;
+	private String timeSpan;
 	
 	public ProjectInfo(){
 	}
 	
-	public ProjectInfo(String url, int id){
+	public ProjectInfo( String pid, String url,String path, String timespan){
+		
+		this.pid = pid;
 		this.url = url;
-		this.id = id;
+		this.path = path;
+		this.timeSpan = timespan;
 	}
 	
 	public void setUrl(String url){
@@ -31,16 +36,34 @@ public class ProjectInfo {
 		return this.url;
 	}
 	
-	public void setId(int age){
-		this.id = age;
-	}
 	
-	public int getId(){
-		return this.id;
-	}
 	
-	public String toString(){
-		String info = String.format("{ 'url': %s, 'age': %d}", url, id);
-		return info;
+	public String getPid() {
+		return pid;
 	}
+
+	public void setPid(String pid) {
+		this.pid = pid;
+	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+	public String getTimeSpan() {
+		return timeSpan;
+	}
+
+	public void setTimeSpan(String timespan) {
+		this.timeSpan = timespan;
+	}
+
+//	public String toString(){
+//		String info = String.format("{ 'pid': %s, 'url': %s, 'path': %s, 'timeSpan': %s}", pid, url,path, timeSpan);
+//		return info;
+//	}
 }
