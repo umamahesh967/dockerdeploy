@@ -24,7 +24,7 @@ public class ProjectManagementObject {
 
 	@ApiModelProperty
 	@NotNull
-	private String projectId;
+	private String projectID;
 	
 	@ApiModelProperty
 	@NotNull
@@ -79,7 +79,7 @@ public class ProjectManagementObject {
 			ArrayList<String> stakeholder,ArrayList<String> commands, String url,String Accesstoken) {
 		super();
 		this.id = id;
-		this.projectId = projectId;
+		this.projectID = projectId;
 		this.versionId = versionId;
 		this.owner = owner;
 		this.developer = developer;
@@ -114,11 +114,11 @@ public class ProjectManagementObject {
 	}
 
 	public String getprojectId() {
-		return projectId;
+		return projectID;
 	}
 
 	public void setprojectId(String projectId) {
-		this.projectId = projectId;
+		this.projectID = projectId;
 	}
 
 	public String getVersionId() {

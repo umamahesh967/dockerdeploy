@@ -13,4 +13,6 @@ public class ReportingServiceConsumer {
    public void processMessage(UserCredentials user) {
         System.out.println("received content = " + user);
    }
+    
+   
 }

@@ -28,6 +28,7 @@ public class ReportingServiceConsumer {
 		// htmlService.put(report) puts the report in HtmlService
 		try {
 	  htmlService.put(report);
+	  System.out.println("In Report Manager. Object Received");
 		}
 		catch(ModelNotFoundException e) {
 //			System.out.println(e);

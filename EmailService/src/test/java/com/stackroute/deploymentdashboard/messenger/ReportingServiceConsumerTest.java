@@ -31,7 +31,7 @@ import com.stackroute.deploymentdashboard.service.MailingServiceImpl;
 	    @Test
 	    public void testReceive() throws Exception {
 	        
-	       EmailCredentials report = new EmailCredentials("userId","projectId","emailid", "true");
+	       EmailCredentials report = new EmailCredentials("projectId","build");
 			sender.sendMessage(report); 
 	        /*receiver.getLatch().await(3000, TimeUnit.MILLISECONDS);
 	        assertThat(receiver.getLatch().getCount()).isEqualTo(2);
