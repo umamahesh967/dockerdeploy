@@ -134,6 +134,7 @@
     		<module>ReportManager</module>
     		<module>EmailService</module>
     		<module>Ne04j-service</module>
+    		<module>UserManagement</module>
     </modules>
 
 	<dependencyManagement>
