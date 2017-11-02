@@ -19,11 +19,13 @@ public class UserModel {
 	@GraphId
 	private Long id;
 	
-	private String name;
-	private int age;
+	private String userId;
+	private String userName;
+	private  String emailId;
 	private String gender;
-	private boolean status_active_user;
-	
+	private String userStatus;
+
+
 	@Relationship(type = "WORKS_IN", direction = Relationship.UNDIRECTED)
 	private List<ProjectModel> projects = new ArrayList<>();
 	

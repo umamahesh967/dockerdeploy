@@ -22,6 +22,6 @@ public class ProjectModel {
 
 	private boolean status_active_project;
 
-	@Relationship(type = "IS_DONE_BY")
+	@Relationship(type = "IS_DONE_BY", direction = Relationship.UNDIRECTED)
 	private List<UserModel> users = new ArrayList<>();
 }
