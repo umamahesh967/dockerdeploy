@@ -110,9 +110,9 @@ public class UserManagementController {
 	/*
 	 * request handler for showing user by id
 	 */
-	@GetMapping(value = "/user/{id}", produces = { "application/json" })
+	@GetMapping(value = "/user/{userId}", produces = { "application/json" })
 	@ApiOperation(value = "Search  user with an ID", response = UserModel.class)
-	public ResponseEntity<?> getone(@PathVariable("id") String userId) {
+	public ResponseEntity<?> getone(@PathVariable("userId") String userId) {
 
 		try {
 			UserModel user = this.userService.readById(userId);

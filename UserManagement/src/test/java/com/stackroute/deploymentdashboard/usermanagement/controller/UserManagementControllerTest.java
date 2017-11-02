@@ -30,7 +30,7 @@ public class UserManagementControllerTest {
 
 	@Before
 	public void setUp() throws Exception {
-		user = new UserModel("1", "devendra", "dk102@gmail.com");
+		user = new UserModel("1", "devendra", "dk102@gmail.com","Male","active");
 	}
 
 	private String createURLWithPort(String uri) {
