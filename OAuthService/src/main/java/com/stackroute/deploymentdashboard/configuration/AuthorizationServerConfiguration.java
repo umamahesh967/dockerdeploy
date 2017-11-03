@@ -28,7 +28,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         		.withClient("my-trusted-client")
                 .authorizedGrantTypes("client_credentials", "password")
                 .authorities("ROLE_CLIENT","ROLE_TRUSTED_CLIENT")
-                .scopes("read","write","trust")
+                .scopes("read","write","trust", "delete")
                 .resourceIds("oauth2-resource")
                 .accessTokenValiditySeconds(5000)
                 .secret("secret");

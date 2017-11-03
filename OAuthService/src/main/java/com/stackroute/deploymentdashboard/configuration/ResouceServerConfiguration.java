@@ -8,7 +8,6 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 @Configuration
 @EnableResourceServer
 public class ResouceServerConfiguration extends ResourceServerConfigurerAdapter {
-
 	@Override
     public void configure(HttpSecurity http) throws Exception {
         http
@@ -17,6 +16,11 @@ public class ResouceServerConfiguration extends ResourceServerConfigurerAdapter 
                 .antMatchers("/register")
                 .permitAll()
             .anyRequest()
-            	.authenticated();
+            	.authenticated()
+            .and()
+        	.logout()
+				.logoutUrl("/logout")
+				.logoutSuccessUrl("/log")
+				.invalidateHttpSession(true);
     }
 }
