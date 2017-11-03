@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.stackroute.deploymentdashboard.Exceptions.CustomExceptionResponse;
+import com.stackroute.deploymentdashboard.Exceptions.ProjectAlreadyExistsException;
 import com.stackroute.deploymentdashboard.Exceptions.ProjectNotFoundException;
 import com.stackroute.deploymentdashboard.domains.ProjectManagementObject;
 import com.stackroute.deploymentdashboard.repository.ProjectManagementCRUDRepository;
@@ -74,13 +75,13 @@ public class ProjectManagementController {
     
 	@PostMapping(value="/addproject",consumes= {"application/json"})
 	@ApiOperation(value = "Add a project")
-	public ResponseEntity<String> projectadd(@Valid @RequestBody ProjectManagementObject projectManagementObject)throws CustomExceptionResponse{
+	public ResponseEntity<String> projectadd(@Valid @RequestBody ProjectManagementObject projectManagementObject)throws ProjectAlreadyExistsException{
 		
 		try {
-		ProjectManagementObject project_tmp=projectservice.updateProject(projectManagementObject);
+		ProjectManagementObject project_tmp=projectservice.addProject(projectManagementObject);
 		return new ResponseEntity<String>("Project saved successfully",HttpStatus.OK);
 		}
-		catch (ProjectNotFoundException exp) {
+		catch (ProjectAlreadyExistsException exp) {
 			return new ResponseEntity<String>(exp.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 		

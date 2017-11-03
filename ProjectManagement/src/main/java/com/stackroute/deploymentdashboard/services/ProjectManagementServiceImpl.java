@@ -41,11 +41,12 @@ public class ProjectManagementServiceImpl implements ProjectManagementService  {
 	
 	
 	@Override
-	public ProjectManagementObject add(ProjectManagementObject projectManagementObject) throws ProjectAlreadyExistsException {
+	public ProjectManagementObject addProject(ProjectManagementObject projectManagementObject) throws ProjectAlreadyExistsException {
 		
-		if (projectrepository.exists(projectManagementObject.getId()))
+		
+		if (projectrepository.exists(projectManagementObject.getprojectId()))
 				{
-			throw new ProjectAlreadyExistsException("Project with Id " + projectManagementObject.getId() + " already exist");
+			throw new ProjectAlreadyExistsException("Project with Id " + projectManagementObject.getprojectId() + " already exist");
 		} 
 		else {
 			projectrepository.save(projectManagementObject);
@@ -87,12 +88,12 @@ public class ProjectManagementServiceImpl implements ProjectManagementService  {
 	public ProjectManagementObject getproductid(String ProjectId)throws ProjectNotFoundException{
 
 		if (projectrepository.exists(ProjectId))
-		{
-	throw new ProjectNotFoundException("ProjectId with given Id doesnot exist");
+		{ProjectManagementObject projectManagementObject =projectrepository.findByProjectId(ProjectId);
+		return projectManagementObject;
 		} 
 		else {
-			ProjectManagementObject projectManagementObject =projectrepository.findByProjectId(ProjectId);
-			return projectManagementObject;
+			throw new ProjectNotFoundException("ProjectId with given Id doesnot exist");
+
 }
 		
 		

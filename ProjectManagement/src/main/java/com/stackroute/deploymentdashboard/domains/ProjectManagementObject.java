@@ -6,12 +6,13 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import io.swagger.annotations.ApiModelProperty;
 
 /*
- Object class for the project  with attributes projectid ,version id,roles,commands,accesstoken
+ Object class for the project  with attributes projectid ,version id,roles,configurations,accesstoken
   */
 
 
@@ -19,11 +20,13 @@ import io.swagger.annotations.ApiModelProperty;
 @Document(collection="Project")
 public class ProjectManagementObject {
 	
-	@Id
+
 	private String id;
 
 	@ApiModelProperty
 	@NotNull
+	@Id
+	@Indexed
 	private String projectID;
 	
 	@ApiModelProperty
@@ -46,7 +49,7 @@ public class ProjectManagementObject {
 
 	@ApiModelProperty
 	@NotNull
-	private ArrayList<String>commands;
+	private ArrayList<String>configurations;
 	
 	@ApiModelProperty
 	@NotNull
@@ -76,7 +79,7 @@ public class ProjectManagementObject {
 
 
 	public ProjectManagementObject(String id, String projectId, String versionId, ArrayList<String> owner, ArrayList<String> developer,
-			ArrayList<String> stakeholder,ArrayList<String> commands, String url,String Accesstoken) {
+			ArrayList<String> stakeholder,ArrayList<String> configurations, String url,String Accesstoken) {
 		super();
 		this.id = id;
 		this.projectID = projectId;
@@ -84,7 +87,7 @@ public class ProjectManagementObject {
 		this.owner = owner;
 		this.developer = developer;
 		this.stakeholder = stakeholder;
-		this.commands = commands;
+		this.configurations = configurations;
 		
 		Url = url;
 	}
@@ -95,13 +98,13 @@ public class ProjectManagementObject {
 	 * Getter and  setter methods for all attributes of PROJECT object
 	 * */
 
-	public ArrayList<String> getCommands() {
-		return commands;
+	public ArrayList<String> getconfigurations() {
+		return configurations;
 	}
 
 
-	public void setCommands(ArrayList<String> commands) {
-		this.commands = commands;
+	public void setconfigurations(ArrayList<String> configurations) {
+		this.configurations = configurations;
 	}
 
 

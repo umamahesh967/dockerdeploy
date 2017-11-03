@@ -69,7 +69,7 @@ public class ProjectManagementServiceImplTest {
        // Arrange
 	   when(projectManagementCRUDRepository.save(projectManagementObject)).thenReturn(projectManagementObject);
        // Act
-       ProjectManagementObject retrievedProject = projectManagementServiceImpl.add(projectManagementObject);
+       ProjectManagementObject retrievedProject = projectManagementServiceImpl.addProject(projectManagementObject);
        // Assert
        assertThat(retrievedProject, is(equalTo(projectManagementObject)));
   }

@@ -8,7 +8,7 @@ import com.stackroute.deploymentdashboard.domains.ProjectManagementObject;
 
 public interface ProjectManagementService {
 
-	ProjectManagementObject add(ProjectManagementObject projectManagementObject)throws ProjectAlreadyExistsException;
+	ProjectManagementObject addProject(ProjectManagementObject projectManagementObject)throws ProjectAlreadyExistsException;
 	ProjectManagementObject getByid(String id)throws ProjectNotFoundException;
 	
 	
