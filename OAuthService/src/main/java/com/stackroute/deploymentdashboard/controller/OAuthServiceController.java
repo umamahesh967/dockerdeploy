@@ -1,7 +1,5 @@
 package com.stackroute.deploymentdashboard.controller;
 
-import java.security.Principal;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,15 +29,10 @@ public class OAuthServiceController {
 		return new ResponseEntity<String> ("New user created.", HttpStatus.OK);
 	}
 	
-	@GetMapping(value="/log")
+	@GetMapping(value="/revoketoken")
 	public ResponseEntity<String> deleteToken(@RequestHeader(value="Authorization") String accesstoken) {
 		String[] splittedtoken = accesstoken.split(" ");
 		tokenservice.revokeToken(splittedtoken[1]);
 		return new ResponseEntity<String> ("Access token revoked", HttpStatus.OK);
-	}
-	
-	@GetMapping(value="/test")
-	public ResponseEntity<String> testing(Principal principal) {
-		return new ResponseEntity<String> ("Hello world!", HttpStatus.OK);
 	}
 }

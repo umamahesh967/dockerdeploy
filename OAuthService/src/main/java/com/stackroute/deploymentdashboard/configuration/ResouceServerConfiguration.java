@@ -14,13 +14,15 @@ public class ResouceServerConfiguration extends ResourceServerConfigurerAdapter 
         	.antMatcher("/**")
             .authorizeRequests()
                 .antMatchers("/register")
-                .permitAll()
+                	.permitAll()
             .anyRequest()
             	.authenticated()
             .and()
-        	.logout()
-				.logoutUrl("/logout")
-				.logoutSuccessUrl("/log")
-				.invalidateHttpSession(true);
+            	.cors()
+            .and()
+        		.logout()
+					.logoutUrl("/logout")
+					.logoutSuccessUrl("/revoketoken")
+					.invalidateHttpSession(true);
     }
 }
