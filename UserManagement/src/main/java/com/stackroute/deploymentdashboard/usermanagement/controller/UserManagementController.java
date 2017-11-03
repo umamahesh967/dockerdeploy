@@ -1,10 +1,8 @@
 package com.stackroute.deploymentdashboard.usermanagement.controller;
 
-
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,7 +35,7 @@ public class UserManagementController {
 
 	@Autowired
 	private UserManagementService userService;
-	
+
 	@Autowired
 	private KafkaProducerService kafkaProd;
 
@@ -75,7 +73,7 @@ public class UserManagementController {
 			} else if (!emailValidation(newData.getBody().getEmailId())) {
 				return new ResponseEntity<String>("EmailId not valid", HttpStatus.PARTIAL_CONTENT);
 			} else {
-				this.kafkaProd.send(newData.getBody());
+				this.kafkaProd.produce(newData.getBody());
 				this.userService.addUser(newData.getBody());
 				return new ResponseEntity<String>("User Added Successfully", HttpStatus.CREATED);
 			}
@@ -97,7 +95,7 @@ public class UserManagementController {
 			} else if (!emailValidation(updateData.getBody().getEmailId())) {
 				return new ResponseEntity<String>("EmailId not valid", HttpStatus.PARTIAL_CONTENT);
 			} else {
-				this.kafkaProd.send(updateData.getBody());
+				this.kafkaProd.produce(updateData.getBody());
 				this.userService.update(updateData.getBody());
 				return new ResponseEntity<String>("User Updated Successfully", HttpStatus.OK);
 			}
@@ -125,17 +123,18 @@ public class UserManagementController {
 	/*
 	 * request handler for showing user by userName
 	 */
-/*	@GetMapping(value = "/user/{userName}", produces = { "application/json" })
-	@ApiOperation(value = "Search  User with userName", response = UserModel.class)
-	public ResponseEntity<?> getByUserName(@PathVariable("userName") String userName) {
-
-		try {
-			UserModel user = this.userService.readByUserName(userName);
-			return new ResponseEntity<UserModel>(user, HttpStatus.OK);
-		} catch (UserNotFoundException exp) {
-			return new ResponseEntity<String>(exp.getMessage(), HttpStatus.BAD_REQUEST);
-		}
-	}*/
+	/*
+	 * @GetMapping(value = "/user/{userName}", produces = { "application/json" })
+	 * 
+	 * @ApiOperation(value = "Search  User with userName", response =
+	 * UserModel.class) public ResponseEntity<?>
+	 * getByUserName(@PathVariable("userName") String userName) {
+	 * 
+	 * try { UserModel user = this.userService.readByUserName(userName); return new
+	 * ResponseEntity<UserModel>(user, HttpStatus.OK); } catch
+	 * (UserNotFoundException exp) { return new
+	 * ResponseEntity<String>(exp.getMessage(), HttpStatus.BAD_REQUEST); } }
+	 */
 
 	/*
 	 * request handler for deleting a project by id
@@ -153,16 +152,14 @@ public class UserManagementController {
 
 	}
 
-	
 	/*
-	 *  DEFAULT MAPPING
+	 * DEFAULT MAPPING
 	 */
 	@RequestMapping()
 	public ResponseEntity<String> defaultMap() {
 		return new ResponseEntity<String>("Request Not Found, Please Enter Proper Url", HttpStatus.NOT_FOUND);
 	}
-	
-	
+
 	/*
 	 * Function to validate emailId
 	 */
