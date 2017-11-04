@@ -90,4 +90,11 @@ public class WorkflowServiceTest {
 	public void runUnixCommandTest() throws InternalUnixCommandException {
 		assertNotNull(this.workflowService.runUnixCommand("pwd"));
 	}
+	
+	@Test
+	public void deleteFolderTest() throws FileGenerationException, InternalUnixCommandException {
+		this.workflowService.createFile(file);
+		this.workflowService.deleteFolder(file);
+		assertFalse(file.exists());
+	}
 }
