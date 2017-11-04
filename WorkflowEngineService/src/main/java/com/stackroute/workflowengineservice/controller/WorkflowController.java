@@ -134,7 +134,7 @@ public class WorkflowController {
 	
 //		// clone the repo 
     	// replace project_url1 with url
-    	Git git = workflowService.cloing_repo(url, cloned_repo_path);
+    	Git git = workflowService.cloning_repo(url, cloned_repo_path);
     	System.out.println("cloning done..");	
 
     	WorkflowJenkinsJob workflowForJenkins = new WorkflowJenkinsJob(list_cmd);
@@ -181,7 +181,7 @@ public class WorkflowController {
 		
 		// remove the present /cloned_repo folder
     	workflowService.deleteFolder(cloned_repo_path);
-    	workflowService.cloing_repo(project_url1, cloned_repo_path);
+    	workflowService.cloning_repo(project_url1, cloned_repo_path);
         return ResponseEntity.ok("done cloning..");
 
 	}
@@ -212,11 +212,15 @@ public class WorkflowController {
 		System.out.println("creating file" + jenkinsfile_path);
 		workflowService.createFile(jenkinsfile_path);
 		
-		System.out.println("generating jenkins file");
-		System.out.println("generating jenkins file"+ workflows.getCmds());
+		//System.out.println("generating jenkins file");
+		System.out.println("generating jenkins file."+ workflows.getCmds());
+		
 		Properties properties= new Properties();
+		
 		String resourceName = "mvn_commands.properties"; // could also be a constant
+		
 		ClassLoader loader = Thread.currentThread().getContextClassLoader();
+		
 		try(InputStream resourceStream = loader.getResourceAsStream(resourceName)) {
 			properties.load(resourceStream);
 		}

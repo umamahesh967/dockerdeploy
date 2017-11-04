@@ -210,7 +210,7 @@ public class WorkflowService {
     }
     
     //replace to service
-    public Git cloing_repo(String repo_url, File cloning_path) throws JgitInternalException {
+    public Git cloning_repo(String repo_url, File cloning_path) throws JgitInternalException {
     	
         Git git;
         System.out.println("clongin started via cloning_repo..");
