@@ -1,6 +1,7 @@
 **/target/
 **/jenkinsFolder/
 **/.mvn
+**/cloned_repo/
 
 ### STS ###
 .apt_generated

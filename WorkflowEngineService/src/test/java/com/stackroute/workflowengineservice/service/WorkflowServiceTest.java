@@ -28,6 +28,7 @@ import com.stackroute.workflowengineservice.exception.JgitInternalException;
 public class WorkflowServiceTest {
 
 	WorkflowService workflowService = null;
+	GitVersionControlService gitVersionControlService = null;
 	
 	@Rule
 	public TemporaryFolder temp = new TemporaryFolder();
@@ -39,6 +40,7 @@ public class WorkflowServiceTest {
 	@Before
 	public void setup() throws InternalUnixCommandException {
 		 workflowService = new WorkflowService();
+		 gitVersionControlService = new GitVersionControlService();
 		 
 		  file = new File(temp.getRoot(), FILE_NAME);
 	      folder = new File(temp.getRoot(), FOLDER_NAME);
@@ -107,7 +109,7 @@ public class WorkflowServiceTest {
 	public void cloing_repoTest() throws JgitInternalException {
 		assertFalse(folder.exists());
 		assertNull(folder.listFiles());
-		this.workflowService.cloning_repo(
+		this.gitVersionControlService.cloning_repo(
 				"https://github.com/Shekharrajak/testmap2", folder);
 		assertTrue(folder.exists());
 		assertNotNull(folder.listFiles());
@@ -116,7 +118,7 @@ public class WorkflowServiceTest {
 	@Test
 	public void git_commitTest() throws GitAPIException {
 		Git git = Git.init().setDirectory(folder).call();
-		this.workflowService.git_commit(git, "this is commit msg");
+		this.gitVersionControlService.git_commit(git, "this is commit msg");
 		Iterable<RevCommit> log = git.log().call();
 		Iterator<RevCommit> it = log.iterator();
 		
