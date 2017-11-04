@@ -16,9 +16,9 @@ import org.slf4j.LoggerFactory;
  *
  */
 @Service
-public class ReportingServiceProducer {
+public class WorkFlowEngineServiceProducer {
     
-	 private static final Logger LOGGER = LoggerFactory.getLogger(ReportingServiceProducer.class);
+	 private static final Logger LOGGER = LoggerFactory.getLogger(WorkFlowEngineServiceProducer.class);
 
 	/*
 	 * for now testing with string. It will be replaced to ModelForJenkins.

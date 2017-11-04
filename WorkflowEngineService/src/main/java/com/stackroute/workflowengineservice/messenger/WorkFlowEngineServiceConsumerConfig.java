@@ -20,7 +20,7 @@ import com.stackroute.workflowengineservice.model.JenkinsJob;
 
 @EnableKafka
 @Configuration
-public class ReportingServiceConsumerConfig {
+public class WorkFlowEngineServiceConsumerConfig {
 
     @Value("${spring.kafka.bootstrap-servers}")
     private String bootstrapServer;
