@@ -20,6 +20,7 @@ import org.eclipse.jgit.api.errors.NoMessageException;
 import org.eclipse.jgit.api.errors.UnmergedPathsException;
 import org.eclipse.jgit.api.errors.WrongRepositoryStateException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,6 +31,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.stackroute.workflowengineservice.model.JenkinsJob;
 import com.stackroute.workflowengineservice.model.WorkflowJenkinsJob;
 import com.stackroute.workflowengineservice.model.WorksetupJob;
+import com.stackroute.workflowengineservice.service.GitVersionControlService;
+import com.stackroute.workflowengineservice.service.VersionControlService;
 import com.stackroute.workflowengineservice.service.WorkflowService;
 import com.stackroute.workflowengineservice.exception.FileGenerationException;
 import com.stackroute.workflowengineservice.exception.InternalUnixCommandException;
@@ -91,6 +94,10 @@ public class WorkflowController {
 	@Autowired
 	private WorkflowService workflowService;// = new WorkflowService();
 	
+	@Autowired
+	@Qualifier("gitVersionControlSystem")
+	private VersionControlService gitVersionControlService;
+	
 //    @Autowired
 //    ReportingServiceProducer producer;
     
@@ -134,7 +141,7 @@ public class WorkflowController {
 	
 //		// clone the repo 
     	// replace project_url1 with url
-    	Git git = workflowService.cloning_repo(url, cloned_repo_path);
+    	Git git = gitVersionControlService.cloning_repo(url, cloned_repo_path);
     	System.out.println("cloning done..");	
 
     	WorkflowJenkinsJob workflowForJenkins = new WorkflowJenkinsJob(list_cmd);
@@ -145,7 +152,7 @@ public class WorkflowController {
     	System.out.println("gen jenkin done..");
 		
     	// commit the changes
-    	workflowService.git_commit(git, "Jenkinsfile added .");
+    	gitVersionControlService.git_commit(git, "Jenkinsfile added .");
     	
     	// create unique build id
     	String buildID = UUID.randomUUID().toString();
@@ -181,7 +188,7 @@ public class WorkflowController {
 		
 		// remove the present /cloned_repo folder
     	workflowService.deleteFolder(cloned_repo_path);
-    	workflowService.cloning_repo(project_url1, cloned_repo_path);
+    	gitVersionControlService.cloning_repo(project_url1, cloned_repo_path);
         return ResponseEntity.ok("done cloning..");
 
 	}
