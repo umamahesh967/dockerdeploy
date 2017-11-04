@@ -11,7 +11,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.HashMap;
+import java.util.Iterator;
 
+import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.revwalk.RevCommit;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -107,5 +111,17 @@ public class WorkflowServiceTest {
 				"https://github.com/Shekharrajak/testmap2", folder);
 		assertTrue(folder.exists());
 		assertNotNull(folder.listFiles());
+	}
+	
+	@Test
+	public void git_commitTest() throws GitAPIException {
+		Git git = Git.init().setDirectory(folder).call();
+		this.workflowService.git_commit(git, "this is commit msg");
+		Iterable<RevCommit> log = git.log().call();
+		Iterator<RevCommit> it = log.iterator();
+		
+		RevCommit rc = it.next();
+		System.out.println(rc.getFullMessage());
+		assertEquals("this is commit msg", rc.getFullMessage());
 	}
 }
