@@ -85,4 +85,9 @@ public class WorkflowServiceTest {
 		
 		
 	}
+	
+	@Test
+	public void runUnixCommandTest() throws InternalUnixCommandException {
+		assertNotNull(this.workflowService.runUnixCommand("pwd"));
+	}
 }
