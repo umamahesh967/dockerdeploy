@@ -19,6 +19,7 @@ import org.junit.rules.TemporaryFolder;
 
 import com.stackroute.workflowengineservice.exception.FileGenerationException;
 import com.stackroute.workflowengineservice.exception.InternalUnixCommandException;
+import com.stackroute.workflowengineservice.exception.JgitInternalException;
 
 public class WorkflowServiceTest {
 
@@ -96,5 +97,15 @@ public class WorkflowServiceTest {
 		this.workflowService.createFile(file);
 		this.workflowService.deleteFolder(file);
 		assertFalse(file.exists());
+	}
+	
+	@Test
+	public void cloing_repoTest() throws JgitInternalException {
+		assertFalse(folder.exists());
+		assertNull(folder.listFiles());
+		this.workflowService.cloning_repo(
+				"https://github.com/Shekharrajak/testmap2", folder);
+		assertTrue(folder.exists());
+		assertNotNull(folder.listFiles());
 	}
 }
