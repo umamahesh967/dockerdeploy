@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.stackroute.workflowengineservice.messenger.ReportingServiceProducer;
 import com.stackroute.workflowengineservice.model.JenkinsJob;
 import com.stackroute.workflowengineservice.model.WorkflowJenkinsJob;
 import com.stackroute.workflowengineservice.model.WorksetupJob;
@@ -35,6 +34,7 @@ import com.stackroute.workflowengineservice.service.WorkflowService;
 import com.stackroute.workflowengineservice.exception.FileGenerationException;
 import com.stackroute.workflowengineservice.exception.InternalUnixCommandException;
 import com.stackroute.workflowengineservice.exception.JgitInternalException;
+import com.stackroute.workflowengineservice.messenger.WorkFlowEngineServiceProducer;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -73,7 +73,7 @@ import io.swagger.annotations.ApiResponses;
 public class WorkflowController {
 	
 	 @Autowired
-	 ReportingServiceProducer producer;
+	 WorkFlowEngineServiceProducer producer;
 	// TODO: these values from properties file or db
 	@Value("${build: mvn build}")
 	private String build;

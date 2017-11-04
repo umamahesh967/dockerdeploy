@@ -17,7 +17,7 @@ import com.stackroute.workflowengineservice.model.JenkinsJob;
 
 
 @Configuration
-public class ReportingServiceProducerConfig {
+public class WorkFlowEngineServiceProducerConfig {
     
     @Value("${spring.kafka.bootstrap-servers}")
     private String bootstrapServer;
