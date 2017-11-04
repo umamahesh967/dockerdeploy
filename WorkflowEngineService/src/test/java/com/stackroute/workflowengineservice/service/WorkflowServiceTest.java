@@ -3,10 +3,13 @@ package com.stackroute.workflowengineservice.service;
 import static org.junit.Assert.*;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.HashMap;
 
 import org.junit.Before;
@@ -54,6 +57,32 @@ public class WorkflowServiceTest {
 		BufferedReader br = new BufferedReader(new FileReader(file));
 		checkFilePresent(file);
 		assertNotNull(br.readLine());
+		
+	}
+	
+	@Test
+	public void createFileTest() throws FileGenerationException {
+		this.workflowService.createFile(file);
+		checkFilePresent(file);
+	}
+	
+	@Test
+	public void copyJenkinsfileToRepoTest() throws FileGenerationException, IOException {
+		this.workflowService.createFile(file);
+		this.workflowService.createFile(folder);
+		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+		writer.write("some content");
+		writer.close();
+		this.workflowService.copyJenkinsfileToRepo(folder, file);
+		
+		BufferedReader br = new BufferedReader(new FileReader(folder));
+		//System.out.println(br.readLine());
+		 //br = new BufferedReader(new FileReader(file));
+		 //System.out.println(br.readLine());
+		 assertEquals("some content", br.readLine());
+		
+		//check the content
+		
 		
 	}
 }

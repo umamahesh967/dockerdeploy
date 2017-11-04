@@ -212,11 +212,15 @@ public class WorkflowController {
 		System.out.println("creating file" + jenkinsfile_path);
 		workflowService.createFile(jenkinsfile_path);
 		
-		System.out.println("generating jenkins file");
-		System.out.println("generating jenkins file"+ workflows.getCmds());
+		//System.out.println("generating jenkins file");
+		System.out.println("generating jenkins file."+ workflows.getCmds());
+		
 		Properties properties= new Properties();
+		
 		String resourceName = "mvn_commands.properties"; // could also be a constant
+		
 		ClassLoader loader = Thread.currentThread().getContextClassLoader();
+		
 		try(InputStream resourceStream = loader.getResourceAsStream(resourceName)) {
 			properties.load(resourceStream);
 		}
