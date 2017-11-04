@@ -10,7 +10,15 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.UUID;
 
+import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.errors.ConcurrentRefUpdateException;
+import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.api.errors.NoHeadException;
+import org.eclipse.jgit.api.errors.NoMessageException;
+import org.eclipse.jgit.api.errors.UnmergedPathsException;
+import org.eclipse.jgit.api.errors.WrongRepositoryStateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -108,8 +116,7 @@ public class WorkflowController {
     @RequestMapping(value="/returnToKafka", method = RequestMethod.POST)
 	public ResponseEntity<String> returnToKafka(@RequestBody WorksetupJob model) 
 			throws InternalUnixCommandException, 
-			JgitInternalException, 
-			FileGenerationException, IOException {
+			FileGenerationException, IOException, NoHeadException, NoMessageException, UnmergedPathsException, ConcurrentRefUpdateException, WrongRepositoryStateException, GitAPIException {
     	
     	workflowService.init_commands(build, test, run, compile);
 
@@ -124,19 +131,27 @@ public class WorkflowController {
     	}
 		// remove the present /cloned_repo folder
     	workflowService.deleteFolder(cloned_repo_path);
-//		
+	
 //		// clone the repo 
     	// replace project_url1 with url
-    	workflowService.cloing_repo(project_url1, cloned_repo_path);
+    	Git git = workflowService.cloing_repo(url, cloned_repo_path);
     	System.out.println("cloning done..");	
 
     	WorkflowJenkinsJob workflowForJenkins = new WorkflowJenkinsJob(list_cmd);
-		// generate jenkins file
+		// generate jenkins file and put in cloned-repo folder
     	generateJenkinsFile(workflowForJenkins);
-    	System.out.println("gene jenkin..");
+    	
+    	
+    	System.out.println("gen jenkin done..");
 		
-		JenkinsJob modelJenkins = new JenkinsJob("11312", 
-				"some path", 
+    	// commit the changes
+    	workflowService.git_commit(git, "Jenkinsfile added .");
+    	
+    	// create unique build id
+    	String buildID = UUID.randomUUID().toString();
+    	
+		JenkinsJob modelJenkins = new JenkinsJob(buildID, 
+				cloned_repo_path.toString(), 
 				"https://github.com/Shekharrajak/PipelineExecution", "4th");
 		// send to the kafka
 		
@@ -224,6 +239,7 @@ public class WorkflowController {
 		
 		File Jenkinsfile_in_repo = new File("./cloned_repo/Jenkinsfile"); 
 		workflowService.copyJenkinsfileToRepo(Jenkinsfile_in_repo, jenkinsfile_path);
+		
 		return jenkinsfile_path;
 	
 	}
