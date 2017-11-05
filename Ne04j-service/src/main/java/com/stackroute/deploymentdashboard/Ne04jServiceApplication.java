@@ -1,4 +1,4 @@
-package com.stackroute.deploymentdashboard.neo4j;
+package com.stackroute.deploymentdashboard;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
