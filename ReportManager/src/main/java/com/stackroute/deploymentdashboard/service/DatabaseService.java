@@ -6,4 +6,6 @@ import com.stackroute.deploymentdashboard.model.UserCredentials;
 
 public interface DatabaseService {
 	List<UserCredentials> read();
+	
+	UserCredentials SaveOrUpdate(UserCredentials  userCredentials );
 }
