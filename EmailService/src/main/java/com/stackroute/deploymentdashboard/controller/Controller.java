@@ -52,39 +52,5 @@ public ResponseEntity<String> projectadd(@PathVariable String trigger)throws Exc
 	}
     
    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	public String Sendmail() {
-    	
-            SimpleMailMessage message = new SimpleMailMessage();
-            
-//            message.setText(report.getBuildStatus());
-        message.setText("build status will show");
-
-            message.setTo("saicharanpardhu@gmail.com ");
-            message.setFrom(" dashboard.stackroute@gmail.com");
-            try {
-                mailSender.send(message);
-                return "{\"message\": \"OK\"}";
-            } catch (Exception e) {
-                e.printStackTrace();
-                return "{\"message\": \"Error\"}";
-            }
-        }
 }
 
