@@ -11,7 +11,6 @@ import com.stackroute.deploymentdashboard.filter.post.PostFilter;
 import com.stackroute.deploymentdashboard.filter.pre.PreFilter;
 import com.stackroute.deploymentdashboard.filter.router.RouterFilter;
 
-
 @SpringBootApplication
 @EnableZuulProxy
 @EnableDiscoveryClient
