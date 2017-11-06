@@ -30,12 +30,45 @@ public class Controller {
 @Autowired
 MailSender mailSender;
 
-MailingServiceImpl mailingservice=new MailingServiceImpl();
+@Autowired
+MailingServiceImpl mailingservice;
     
     @RequestMapping(value="/email")
  
+    ///trying///
+    @PostMapping(value="/send/{trigger}",consumes= {"application/json"})	
+    @ApiOperation(value = "Sending mail")	
+public ResponseEntity<String> projectadd(@PathVariable String trigger)throws Exception{
+		
+		try {
+			mailingservice.sendmail(trigger);
+			return new ResponseEntity<String>("mailed successfully",HttpStatus.OK);
+			}
+			catch (Exception exp) {
+				return new ResponseEntity<String>(exp.getMessage(), HttpStatus.BAD_REQUEST);
+			}
+		
+		
+	}
     
-    @PostMapping(value="/trigger",consumes= {"application/json"})	@ApiOperation(value = "Sending mail")	
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	public String Sendmail() {
     	
             SimpleMailMessage message = new SimpleMailMessage();

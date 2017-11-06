@@ -28,6 +28,28 @@ MailSender mailSender;
 		}
 	
 	
+    public String sendmail(String trigger) {
+    	SimpleMailMessage message = new SimpleMailMessage();
+      
+    	
+		message.setText(emailCredentials.getBuildStatus());
+  
+    	message.setText("build status will show");
+
+    	message.setTo("saicharanpardhu@gmail.com ");
+    	message.setFrom(" dashboard.stackroute@gmail.com");
+	  try {
+	      mailSender.send(message);
+	      return "{\"message\": \"OK\"}";
+	  } catch (Exception e) {
+	      e.printStackTrace();
+	      return "{\"message\": \"Error\"}";
+	  }
+			
+		}
+
+}
+	
 	
 //	public String Createmail() {
 //	 SimpleMailMessage message = new SimpleMailMessage();
@@ -46,4 +68,4 @@ MailSender mailSender;
 //       return "{\"message\": \"Error\"}";
 //   }
 //}	
-}
+
