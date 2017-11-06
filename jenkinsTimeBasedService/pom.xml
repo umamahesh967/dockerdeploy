@@ -2,35 +2,16 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.kafkaobject</groupId>
   <artifactId>JenkinsTimeBasedService</artifactId>
+  <packaging>jar</packaging>
+ 
+ 
   <parent>
 	<groupId>com.stackroute.deploymentdashboard</groupId>
 		<artifactId>deployment_dashboard</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../</relativePath><!-- lookup parent from repository -->
 	</parent>
-	<!-- this is for pmd -->
-    <reporting>
-           <plugins>
-             <plugin>
-                   <groupId>org.apache.maven.plugins</groupId>
-                   <artifactId>maven-pmd-plugin</artifactId>
-                   <version>3.8</version>               
-                  <configuration>
-                     <linkXref>true</linkXref>
-                     <sourceEncoding>utf-8</sourceEncoding>
-                     <minimumTokens>100</minimumTokens>
-                     <targetJdk>1.6</targetJdk>
-                 <excludes>
-                       <exclude>**/*Bean.java</exclude>
-                       <exclude>**/generated/*.java</exclude>
-                 </excludes>
-                 <excludeRoots>
-                       <excludeRoot>target/generated-sources/stubs</excludeRoot>
-                 </excludeRoots>
-                   </configuration>
-             </plugin>
-           </plugins>
-    </reporting>
+
 
   <properties>
     <java.version>1.8</java.version>
@@ -81,15 +62,22 @@
       <version>2.2.1</version>
   </dependency>   
   </dependencies>
-
-  <build>
-    <plugins>
-      <!-- spring-boot-maven-plugin -->
-      <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-      </plugin>
-    </plugins>
-  </build>
+<build>
+	    <plugins>
+	        <plugin>
+	            <groupId>org.apache.maven.plugins</groupId>
+	            <artifactId>maven-compiler-plugin</artifactId>
+	            <configuration>
+	                <source>1.6</source>
+	                <target>1.6</target>
+	            </configuration>
+	        </plugin>
+	        
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+	    </plugins>
+	</build>
 
 </project>
