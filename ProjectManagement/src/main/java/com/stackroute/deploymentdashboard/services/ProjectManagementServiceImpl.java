@@ -26,14 +26,33 @@ public class ProjectManagementServiceImpl implements ProjectManagementService  {
 
 	 ProjectManagementObject projectManagementObject=new ProjectManagementObject();
 	
-	public ProjectManagementCRUDRepository getProjectrepository() {
-		return projectrepository;
+	public ProjectManagementCRUDRepository getprojectrepository() {
+		return this.projectrepository;
 	}
 
-	public void setProjectrepository(ProjectManagementCRUDRepository projectrepository) {
-		this.projectrepository = projectrepository;
+	public void setprojectrepository(ProjectManagementCRUDRepository projectrepository) {
+		this.projectrepository = this.projectrepository;
 	}
 
+	
+	
+	/*
+	 * Method for listing  a Project
+	 * */
+	
+	
+	
+	@Override
+	public List<ProjectManagementObject> getAll()throws ProjectNotFoundException{
+		if (this.projectrepository.findAll() == null) {
+			throw new ProjectNotFoundException("No Project Found");
+		} else {
+
+		List<ProjectManagementObject> projectManagementObject=new ArrayList<>();
+		this.projectrepository.findAll().forEach(projectManagementObject::add);
+		return projectManagementObject;
+		}
+	}
 	
 	/*
 	 * Method for adding a Project
@@ -41,16 +60,15 @@ public class ProjectManagementServiceImpl implements ProjectManagementService  {
 	
 	
 	@Override
-	public ProjectManagementObject addProject(ProjectManagementObject projectManagementObject) throws ProjectAlreadyExistsException {
+	public void addProject(ProjectManagementObject projectManagementObject) throws ProjectAlreadyExistsException {
 		
 		
-		if (projectrepository.exists(projectManagementObject.getprojectId()))
+		if (this.projectrepository.exists(projectManagementObject.getprojectID()))
 				{
-			throw new ProjectAlreadyExistsException("Project with Id " + projectManagementObject.getprojectId() + " already exist");
+			throw new ProjectAlreadyExistsException("Project with Id " + projectManagementObject.getprojectID() + " already exist");
 		} 
 		else {
-			projectrepository.save(projectManagementObject);
-			return projectManagementObject;
+			this.projectrepository.save(projectManagementObject);
 		}
 		
 		
@@ -59,36 +77,19 @@ public class ProjectManagementServiceImpl implements ProjectManagementService  {
 	
 	
 	
-	/*
-	 * Method for getting  a Project by Id
-	 * */
-	@Override
-	public ProjectManagementObject getByid(String id)throws ProjectNotFoundException{
-		
-		if (projectrepository.exists(id))
-		{
-	throw new ProjectNotFoundException("Project with Id doesnot exist");
-		} 
-		else {
-			ProjectManagementObject projectManagementObject =projectrepository.findOne(id);
-			return projectManagementObject;
-}
 
-		
-		
-		
-		
-	}
-	
+
 	
 	/*
 	 * Method for getting  a Project by ProjectId
 	 * */
 	@Override
-	public ProjectManagementObject getproductid(String ProjectId)throws ProjectNotFoundException{
+	public ProjectManagementObject getprojectid(String ProjectId)throws ProjectNotFoundException{
 
-		if (projectrepository.exists(ProjectId))
-		{ProjectManagementObject projectManagementObject =projectrepository.findByProjectId(ProjectId);
+		if (this.projectrepository.exists(ProjectId))
+		{
+			ProjectManagementObject projectManagementObject =this.projectrepository.findByProjectID(ProjectId);
+	
 		return projectManagementObject;
 		} 
 		else {
@@ -103,51 +104,35 @@ public class ProjectManagementServiceImpl implements ProjectManagementService  {
 	 * Method for updating  a Project
 	 * */
 	@Override
-	public ProjectManagementObject updateProject(ProjectManagementObject projectManagementObject)throws ProjectNotFoundException{
+	public void updateProject(ProjectManagementObject projectManagementObject)throws ProjectNotFoundException{
 		
-		if (projectrepository.exists(projectManagementObject.getId()))
+		if (this.projectrepository.exists(projectManagementObject.getprojectID()))
 		{
-			projectrepository.save(projectManagementObject);
-			return projectManagementObject;
+			this.projectrepository.save(projectManagementObject);
 		}
 		
 		else {
 			
-			throw new ProjectNotFoundException("Project with Id " + projectManagementObject.getId() + " not found");
+			throw new ProjectNotFoundException("Project with Id " + projectManagementObject.getprojectID() + " not found");
 		}
 		
 	}
 	/*
 	 * Method for deleting a Project
 	 * */
-	@Override
-	public void deleteProject(String id)throws ProjectNotFoundException{
-
-		if (projectrepository.exists(projectManagementObject.getId()))
-		{
-			projectrepository.delete(projectManagementObject);
-		}
-		
-		else {
-			
-			throw new ProjectNotFoundException("Project with Id " + projectManagementObject.getId() + " not found");
-		}
-		
-	}
-	/*
-	 * Method for listing  a Project
-	 * */
 	
 	@Override
-	public List<ProjectManagementObject> getAll()throws ProjectNotFoundException{
-		if (projectrepository.findAll() == null) {
-			throw new ProjectNotFoundException("No Project Found");
-		} else {
+	public void deleteById(String projectID) throws ProjectNotFoundException {
+		if (this.projectrepository.exists(projectID)) 
+		{
+			this.projectrepository.delete(projectID);		
+			}
+		else {
+			throw new ProjectNotFoundException("project with Id " + projectID + " does not exist");
+		}
 
-		List<ProjectManagementObject> projectManagementObject=new ArrayList<>();
-		projectrepository.findAll().forEach(projectManagementObject::add);
-		return projectManagementObject;
 	}
+	
 
-}
+
 }
