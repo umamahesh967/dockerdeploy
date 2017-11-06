@@ -23,6 +23,7 @@ public class Application {
 //	ServiceManual serviceManual; //service
 	
 	public static void main(String[] args) throws ModelNotFoundException, ModelVariableNotFoundException, URISyntaxException, IOException {
+		System.out.print("************8manual triger running ....");
 		SpringApplication.run(Application.class, args);
 
 	}
