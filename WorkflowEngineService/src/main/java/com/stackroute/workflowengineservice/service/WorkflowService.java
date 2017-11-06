@@ -13,8 +13,15 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.errors.ConcurrentRefUpdateException;
 import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.api.errors.NoHeadException;
+import org.eclipse.jgit.api.errors.NoMessageException;
+import org.eclipse.jgit.api.errors.UnmergedPathsException;
+import org.eclipse.jgit.api.errors.WrongRepositoryStateException;
 import org.eclipse.jgit.lib.Repository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +31,8 @@ import com.stackroute.workflowengineservice.exception.JgitInternalException;
 
 @Service
 public class WorkflowService {
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	private String build;
 	private String test;
 	private String run;
@@ -40,9 +49,9 @@ public class WorkflowService {
 		BufferedWriter writer = null;
 		FileWriter fw = null;
 		
-		System.out.println("build value : " + build );
-		System.out.println("run value : " + run );
-		System.out.println("compile value : " + compile );
+		logger.debug("build value : " + build );
+		logger.debug("run value : " + run );
+		logger.debug("compile value : " + compile );
 			try {
 	
 				fw = new FileWriter(jenkinsFile_path_new);
@@ -76,11 +85,11 @@ public class WorkflowService {
 		          writer.append("               }\n");
 		          writer.append("         }\n");
 		    	
-				System.out.println("Done");
+				logger.debug("Done");
 	
 			} catch (IOException e) {
 //				e.printStackTrace();
-				System.out.println("Unable to generate files and folder.");
+				logger.debug("Unable to generate files and folder.");
 				throw new FileGenerationException(e.getMessage());
 			} finally {
 				try {
@@ -102,10 +111,10 @@ public class WorkflowService {
 		/* create the dir first */
 
 		String workingDir = System.getProperty("user.dir");
-		 System.out.println("Current working directory : " + workingDir);
+		 logger.debug("Current working directory : " + workingDir);
 		// if the directory does not exist, create it
 		if (!path.exists()) {
-		    System.out.println("creating directory: " + path.getName());
+		    logger.debug("creating directory: " + path.getName());
 		    boolean result = false;
 
 		    try{
@@ -127,7 +136,7 @@ public class WorkflowService {
 		    	throw new FileGenerationException(e.getMessage());
 		    }
 		    if(result) {    
-		        System.out.println("DIR created");  
+		        logger.debug("DIR created");  
 		    }
 		}
 	}
@@ -187,7 +196,7 @@ public class WorkflowService {
             while ((line = reader.readLine())!= null) {
                     output.append(line + "\n");
             }
-            System.out.println("### " + output);
+            logger.debug("### " + output);
             return true;
 	    } catch (Throwable t) {
 	            t.printStackTrace();
@@ -204,121 +213,4 @@ public class WorkflowService {
 		}
     }
     
-    //replace to service
-    public boolean cloing_repo(String repo_url, File cloning_path) throws JgitInternalException {
-    	
-        Git git;
-        System.out.println("clongin started via cloning_repo..");
-		try {
-			git = Git.cloneRepository()
-					  .setURI( repo_url )
-					  .setDirectory( cloning_path )
-					  .setCloneAllBranches( true )
-					  .call();
-			System.out.println("clongin done via cloning_repo..");
-		} catch (GitAPIException e) {
-			// TODO Auto-generated catch block
-//			e.printStackTrace();
-			throw new JgitInternalException(e.getMessage());
-			
-		}
-		return true;
-    }
-    
-    /*
-     * 
-     * pushing using jgit : https://github.com/eclipse/jgit/blob/master/org.eclipse.jgit/src/org/eclipse/jgit/api/PushCommand.java
-     *
-    public void add_in_git() {
-    	try (Git git = new Git(repository)) {
-            // create the file
-            File myfile = new File(repository.getDirectory().getParent(), "testfile");
-            if(!myfile.createNewFile()) {
-                throw new IOException("Could not create file " + myfile);
-            }
-
-            // Stage all files in the repo including new files
-            git.add().addFilepattern(".").call();
-
-           
-        }
-    }
-    
-    public void commit_in_git() {
-    	try (Git git = new Git(repository)) {
-	    	// and then commit the changes.
-	        git.commit()
-	                .setMessage("Commit jenkinsfile")
-	                .call();
-	
-	        // Stage all changed files, omitting new files, and commit with one command
-	        git.commit()
-	                .setAll(true)
-	                .setMessage("Commit changes to all files")
-	                .call();
-	
-	
-	        System.out.println("Committed all changes to repository at " + repository.getDirectory());
-    
-    	}
-    }
-    
-    public void open_gir_repo() {
-        // now open the resulting repository with a FileRepositoryBuilder
-        FileRepositoryBuilder builder = new FileRepositoryBuilder();
-        try (Repository repository = builder.setGitDir(repoDir)
-                .readEnvironment() // scan environment GIT_* variables
-                .findGitDir() // scan up the file system tree
-                .build()) {
-            System.out.println("Having repository: " + repository.getDirectory());
-
-            // the Ref holds an ObjectId for any type of object (tree, commit, blob, tree)
-            Ref head = repository.exactRef("refs/heads/master");
-            System.out.println("Ref of refs/heads/master: " + head);
-        }
-    }
-    
-    public static Repository createNewRepository() throws IOException {
-        // prepare a new folder
-        File localPath = File.createTempFile("TestGitRepository", "");
-        if(!localPath.delete()) {
-            throw new IOException("Could not delete temporary file " + localPath);
-        }
-
-        // create the directory
-        Repository repository = FileRepositoryBuilder.create(new File(localPath, ".git"));
-        repository.create();
-
-        return repository;
-    }
-    
-    private static File createSampleGitRepo() throws IOException, GitAPIException {
-        try (Repository repository = createNewRepository()) {
-            System.out.println("Temporary repository at " + repository.getDirectory());
-
-            // create the file
-            File myfile = new File(repository.getDirectory().getParent(), "testfile");
-            if(!myfile.createNewFile()) {
-                throw new IOException("Could not create file " + myfile);
-            }
-
-            // run the add-call
-            try (Git git = new Git(repository)) {
-                git.add()
-                        .addFilepattern("testfile")
-                        .call();
-
-
-                // and then commit the changes
-                git.commit()
-                        .setMessage("Added testfile")
-                        .call();
-            }
-
-            System.out.println("Added file " + myfile + " to repository at " + repository.getDirectory());
-
-            return repository.getDirectory();
-        }
-    }
-    */
 }

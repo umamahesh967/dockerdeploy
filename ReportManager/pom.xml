@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.stackroute.probhonjon</groupId>
+	<groupId>com.stackroute.deploymentdashboard</groupId>
 	<artifactId>ReportManager</artifactId>
 	<packaging>jar</packaging>
 
@@ -14,7 +14,7 @@
 		<groupId>com.stackroute.deploymentdashboard</groupId>
 		<artifactId>deployment_dashboard</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-		<relativePath /> <!-- lookup parent from repository -->
+		<relativePath>../</relativePath> <!-- lookup parent from repository -->
 	</parent>
 
 	<properties>
@@ -32,6 +32,35 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-cassandra</artifactId>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.cassandraunit/cassandra-unit -->
+		<dependency>
+		    <groupId>org.cassandraunit</groupId>
+		    <artifactId>cassandra-unit</artifactId>
+		    <version>1.0.1.4</version>
+		    <scope>test</scope>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.springframework.kafka/spring-kafka-test -->
+		<dependency>
+		    <groupId>org.springframework.kafka</groupId>
+		    <artifactId>spring-kafka-test</artifactId>
+		    <version>1.0.2.RELEASE</version>
+		    <scope>test</scope>
+		</dependency>
+		
+		<dependency>
+	      <groupId>org.springframework.kafka</groupId>
+	      <artifactId>spring-kafka</artifactId>
+	      <version>${spring-kafka.version}</version>
+	    </dependency>
+	    <dependency>
+	      <groupId>org.springframework.kafka</groupId>
+	      <artifactId>spring-kafka-test</artifactId>
+	      <version>${spring-kafka.version}</version>
+	      <scope>test</scope>
+	    </dependency>
+		
+
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -48,6 +77,45 @@
         	<groupId>org.springframework.cloud</groupId>
         	<artifactId>spring-cloud-starter-eureka</artifactId>
        	</dependency>
+
+        <dependency>
+		    <groupId>org.cassandraunit</groupId>
+		    <artifactId>cassandra-unit-spring</artifactId>
+		    <version>2.1.9.2</version>
+		    <scope>test</scope>
+		    <exclusions>
+		        <exclusion>
+		        <groupId>org.cassandraunit</groupId>
+		        <artifactId>cassandra-unit</artifactId>
+		        </exclusion>
+		    </exclusions>
+		</dependency>
+	
+		
+		<dependency>
+		    <groupId>org.cassandraunit</groupId>
+		    <artifactId>cassandra-unit-shaded</artifactId>
+		    <version>2.1.9.2</version>
+		    <scope>test</scope>
+		</dependency>
+		<dependency>
+		    <groupId>org.hectorclient</groupId>
+		    <artifactId>hector-core</artifactId>
+		    <version>2.0-0</version>
+		</dependency>
+		
+		
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-ribbon</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>io.netty</groupId>
+                    <artifactId>netty-transport-native-epoll</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 	</dependencies>
 	
 	<dependencyManagement>

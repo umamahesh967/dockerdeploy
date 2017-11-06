@@ -10,8 +10,19 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.UUID;
 
+import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.errors.ConcurrentRefUpdateException;
+import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.api.errors.NoHeadException;
+import org.eclipse.jgit.api.errors.NoMessageException;
+import org.eclipse.jgit.api.errors.UnmergedPathsException;
+import org.eclipse.jgit.api.errors.WrongRepositoryStateException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,14 +30,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.stackroute.workflowengineservice.messenger.ReportingServiceProducer;
 import com.stackroute.workflowengineservice.model.JenkinsJob;
 import com.stackroute.workflowengineservice.model.WorkflowJenkinsJob;
 import com.stackroute.workflowengineservice.model.WorksetupJob;
+import com.stackroute.workflowengineservice.service.GitVersionControlService;
+import com.stackroute.workflowengineservice.service.VersionControlService;
 import com.stackroute.workflowengineservice.service.WorkflowService;
 import com.stackroute.workflowengineservice.exception.FileGenerationException;
 import com.stackroute.workflowengineservice.exception.InternalUnixCommandException;
 import com.stackroute.workflowengineservice.exception.JgitInternalException;
+import com.stackroute.workflowengineservice.messenger.WorkFlowEngineServiceProducer;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -64,8 +77,10 @@ import io.swagger.annotations.ApiResponses;
 @RestController
 public class WorkflowController {
 	
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	 @Autowired
-	 ReportingServiceProducer producer;
+	 WorkFlowEngineServiceProducer producer;
 	// TODO: these values from properties file or db
 	@Value("${build: mvn build}")
 	private String build;
@@ -82,6 +97,10 @@ public class WorkflowController {
 	// service
 	@Autowired
 	private WorkflowService workflowService;// = new WorkflowService();
+	
+	@Autowired
+	@Qualifier("gitVersionControlSystem")
+	private VersionControlService gitVersionControlService;
 	
 //    @Autowired
 //    ReportingServiceProducer producer;
@@ -108,8 +127,7 @@ public class WorkflowController {
     @RequestMapping(value="/returnToKafka", method = RequestMethod.POST)
 	public ResponseEntity<String> returnToKafka(@RequestBody WorksetupJob model) 
 			throws InternalUnixCommandException, 
-			JgitInternalException, 
-			FileGenerationException, IOException {
+			FileGenerationException, IOException, NoHeadException, NoMessageException, UnmergedPathsException, ConcurrentRefUpdateException, WrongRepositoryStateException, GitAPIException {
     	
     	workflowService.init_commands(build, test, run, compile);
 
@@ -118,25 +136,33 @@ public class WorkflowController {
     	String timespan = model.getTimespan();
     	List<String> list_cmd = model.getList_cmd();
     	
-    	System.out.println("url === " + url);
+    	logger.debug("url === " + url);
     	for(String s:list_cmd) {
-    		System.out.println(s);
+    		logger.debug(s);
     	}
 		// remove the present /cloned_repo folder
     	workflowService.deleteFolder(cloned_repo_path);
-//		
+	
 //		// clone the repo 
     	// replace project_url1 with url
-    	workflowService.cloing_repo(project_url1, cloned_repo_path);
-    	System.out.println("cloning done..");	
+    	Git git = gitVersionControlService.cloning_repo(url, cloned_repo_path);
+    	logger.debug("cloning done..");	
 
     	WorkflowJenkinsJob workflowForJenkins = new WorkflowJenkinsJob(list_cmd);
-		// generate jenkins file
+		// generate jenkins file and put in cloned-repo folder
     	generateJenkinsFile(workflowForJenkins);
-    	System.out.println("gene jenkin..");
+    	
+    	
+    	logger.debug("gen jenkin done..");
 		
-		JenkinsJob modelJenkins = new JenkinsJob("11312", 
-				"some path", 
+    	// commit the changes
+    	gitVersionControlService.git_commit(git, "Jenkinsfile added .");
+    	
+    	// create unique build id
+    	String buildID = UUID.randomUUID().toString();
+    	
+		JenkinsJob modelJenkins = new JenkinsJob(buildID, 
+				cloned_repo_path.toString(), 
 				"https://github.com/Shekharrajak/PipelineExecution", "4th");
 		// send to the kafka
 		
@@ -166,7 +192,7 @@ public class WorkflowController {
 		
 		// remove the present /cloned_repo folder
     	workflowService.deleteFolder(cloned_repo_path);
-    	workflowService.cloing_repo(project_url1, cloned_repo_path);
+    	gitVersionControlService.cloning_repo(project_url1, cloned_repo_path);
         return ResponseEntity.ok("done cloning..");
 
 	}
@@ -194,36 +220,41 @@ public class WorkflowController {
 	@RequestMapping(value="/generateJenkinsfile", method = RequestMethod.POST)
 	public Object generateJenkinsFile(@RequestBody WorkflowJenkinsJob workflows) throws FileGenerationException, IOException {
 		workflowService.init_commands(build, test, run, compile);
-		System.out.println("creating file" + jenkinsfile_path);
+		logger.debug("creating file" + jenkinsfile_path);
 		workflowService.createFile(jenkinsfile_path);
 		
-		System.out.println("generating jenkins file");
-		System.out.println("generating jenkins file"+ workflows.getCmds());
+		//logger.debug("generating jenkins file");
+		logger.debug("generating jenkins file."+ workflows.getCmds());
+		
 		Properties properties= new Properties();
+		
 		String resourceName = "mvn_commands.properties"; // could also be a constant
+		
 		ClassLoader loader = Thread.currentThread().getContextClassLoader();
+		
 		try(InputStream resourceStream = loader.getResourceAsStream(resourceName)) {
 			properties.load(resourceStream);
 		}
-//		System.out.println(properties.stringPropertyNames());
+//		logger.debug(properties.stringPropertyNames());
 		HashMap<String,String> hm_cmds=new HashMap<String,String>();  
 		for (String key : properties.stringPropertyNames()) {
 		    String value = properties.getProperty(key);
 		    hm_cmds.put(key, value);
 		}
 		// just printing properties file
-		System.out.println("generating jenkins file+++++");
+		logger.debug("generating jenkins file+++++");
 		 Iterator it = hm_cmds.entrySet().iterator();
 		    while (it.hasNext()) {
 		        Map.Entry pair = (Map.Entry)it.next();
-		        System.out.println(pair.getKey() + " = " + pair.getValue());
+		        logger.debug(pair.getKey() + " = " + pair.getValue());
 		        it.remove(); // avoids a ConcurrentModificationException
 		    }
-		    System.out.println("generating jenkins file========");
+		    logger.debug("generating jenkins file========");
 		workflowService.createJenkinsFile(jenkinsfile_path, hm_cmds);
 		
 		File Jenkinsfile_in_repo = new File("./cloned_repo/Jenkinsfile"); 
 		workflowService.copyJenkinsfileToRepo(Jenkinsfile_in_repo, jenkinsfile_path);
+		
 		return jenkinsfile_path;
 	
 	}
@@ -251,7 +282,7 @@ public class WorkflowController {
 		        while ((line = reader.readLine())!= null) {
 		                output.append(line + "\n");
 		        }
-//		        System.out.println("### " + output);
+//		        logger.debug("### " + output);
 		        return output;
 		} catch (Throwable t) {
 		        t.printStackTrace();

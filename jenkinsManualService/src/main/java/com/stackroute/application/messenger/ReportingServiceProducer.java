@@ -28,7 +28,7 @@ public class ReportingServiceProducer {
 	@Autowired
 	private KafkaTemplate<String, ProduceManualModel> kafkaTemplate;
 	
-	@Value("${spring.kafka.producer.group-id}")
+	@Value("${kafka.topic.bootnew}")
 	private String groupid;
 	 	
 //	Gives the status of the project to kafka.
@@ -36,14 +36,16 @@ public class ReportingServiceProducer {
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	public void sendMessage(ManualModel report) throws IOException, URISyntaxException {
+	public void sendMessage(ProduceManualModel report){
 
 //	    produces data object of produceManualModel(status of the project)
 //	    into kafka through kafkaTemplate.send();
 	    try {
-	    kafkaTemplate.send(groupid, serviceManual.get());
+	    	System.out.println("sending........");
+	    kafkaTemplate.send(groupid,report);
+	    
 	    }
-	    catch(ModelVariableNotFoundException me) {        
+	    catch(Exception me) {        
 			  logger.warn(me.getMessage()); 
 		  }
 	}

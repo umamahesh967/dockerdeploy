@@ -1,80 +1,99 @@
-/*package com.stackroute.deploymentdashboard.usermanagement.services;
+package com.stackroute.deploymentdashboard.usermanagement.services;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.stackroute.deploymentdashboard.domains.ProjectManagementObject;
-import com.stackroute.deploymentdashboard.repository.ProjectManagementCRUDRepository;
-import com.stackroute.deploymentdashboard.services.ProjectManagementServiceImpl;
+import com.stackroute.deploymentdashboard.usermanagement.Application;
+import com.stackroute.deploymentdashboard.usermanagement.Exceptions.UserNotFoundException;
+import com.stackroute.deploymentdashboard.usermanagement.domains.UserModel;
+import com.stackroute.deploymentdashboard.usermanagement.repository.UserManagementCRUDRepository;
 
 import static org.mockito.Mockito.*;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.*;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringBootTest(classes = Application.class)
 public class UserManagementServiceImplTest {
 
+	@Mock
+	private UserManagementServiceImpl userService;
 
-   private UserManagementServiceImpl projectManagementServiceImpl;
-    @Mock
-    private UserManagementCRUDRepository projectManagementCRUDRepository;
-    @Mock
-    private ProjectManagementObject projectManagementObject;
-    @Before
-    public void setupMock() {
-        MockitoAnnotations.initMocks(this);
-        projectManagementServiceImpl=new UserManagementServiceImpl();
-        projectManagementServiceImpl.setProjectrepository(projectManagementCRUDRepository);
-    }
-    @Test
-    public void shouldReturnProject_whenGetProjectByIdIsCalled() throws Exception {
-        // Arrange
-        when(projectManagementCRUDRepository.findOne("1")).thenReturn(projectManagementObject);
-        // Act
-        ProjectManagementObject retrievedProject = projectManagementServiceImpl.getByid("1");
-        // Assert
-        assertThat(retrievedProject, is(equalTo(projectManagementObject)));
+	@Mock
+	private UserManagementCRUDRepository userRepo;
 
-  }
-    
 
-   @Test
-    public void shouldCallDeleteMethodOfProjectRepository_whenDeleteProjectIsCalled() throws Exception {
-        // Arrange
-        doNothing().when(projectManagementCRUDRepository).delete("3");
-        UserManagementCRUDRepository my = Mockito.mock(UserManagementCRUDRepository.class);
-        // Act
-        projectManagementServiceImpl.deleteProject("3");
-        // Assert
-        verify(projectManagementCRUDRepository, times(1)).delete("3");
-   }
-   
-   @Test
-   public void shouldUpdateProject_whenUpdateProjectByIdIsCalled() throws Exception {
-       // Arrange
-       when(projectManagementCRUDRepository.save(projectManagementObject)).thenReturn(projectManagementObject);
-       // Act
-       ProjectManagementObject retrievedProject = projectManagementServiceImpl.updateProject(projectManagementObject);
-       // Assert
-       assertThat(retrievedProject, is(equalTo(projectManagementObject)));
+	@Before
+	public void setupMock() {
+		//MockitoAnnotations.initMocks(this);
+		//userService = new UserManagementServiceImpl();
+		// userService.setProjectrepository(projectManagementCRUDRepository);
+		UserModel user = new UserModel("1", "Devendra", "devendra.baruah@cgi.com","male","active");
+	}
 
- }
-   
-   @Test
-   public void shouldCallAddMethodOfProjectRepository_whenAddProjectIsCalled() throws Exception {
-       // Arrange
-	   when(projectManagementCRUDRepository.save(projectManagementObject)).thenReturn(projectManagementObject);
-       // Act
-       ProjectManagementObject retrievedProject = projectManagementServiceImpl.add(projectManagementObject);
-       // Assert
-       assertThat(retrievedProject, is(equalTo(projectManagementObject)));
-  }
-   
-   
-   
-    
-}*/
+	@Test
+	public void testMockCreation() {
+		assertNotNull(userService);
+		assertNotNull(userRepo);
+	}
+
+	@Test
+	public void testReadByIdMethodOfService() throws UserNotFoundException {
+		UserModel user1 = new UserModel("1", "Devendra", "devendra.baruah@cgi.com","male","active");
+
+		when(userService.readById("1")).thenReturn(user1);
+		assertThat(user1.getUserName(), is(equalTo("Devendra")));
+	}
+
+	@Test
+	public void testDeleteByIdMethodOfService() throws UserNotFoundException {
+		UserModel b = new UserModel("1", "Devendra", "devendra.baruah@cgi.com","male","active");
+		UserModel c=null;
+		when(userService.readById("1")).thenReturn(b);
+		assertThat(b.getUserName(), is(equalTo("Devendra")));
+		userService.deleteById("1");
+		when(userService.readById("1")).thenReturn(c);
+		assertThat(c, is(equalTo(null)));
+	}
+	
+	@Test
+	public void testUpdateMethodOfService() throws UserNotFoundException {
+		UserModel b = new UserModel("1", "Devendra", "devendra.baruah@cgi.com","male","active");
+		UserModel c=new UserModel("1", "Dharmendra", "devendra.baruah@cgi.com","male","active");
+		when(userService.readById("1")).thenReturn(b);
+		assertThat(b.getUserName(), is(equalTo("Devendra")));
+		userService.update(c);
+		when(userService.readById("1")).thenReturn(c);
+		assertThat(c.getUserName(), is(equalTo("Dharmendra")));
+	}
+	
+	@Test
+	public void testAddUserMethodOfService() throws Exception {
+		UserModel b = new UserModel("1", "Devendra", "devendra.baruah@cgi.com","male","active");
+		UserModel c= new UserModel("2", "Dharmendra", "devendra.baruah@cgi.com","male","active");
+		userService.addUser(c);
+		when(userService.readById("2")).thenReturn(c);
+		assertThat(c.getUserName(), is(equalTo("Dharmendra")));
+	}
+	
+	/*@Test
+	public void testReadMethodOfService() throws Exception {
+		UserModel b = new UserModel("1", "Devendra", "devendra.baruah@cgi.com");
+		UserModel c=new UserModel("2", "Dharmendra", "devendra.baruah@cgi.com");
+		ArrayList<UserModel> userList = new ArrayList<UserModel>();
+		userList.add(b);
+		userList.add(c);
+		
+		_Service.addUser(b);
+		_Service.addUser(c);
+		when(_Service.read()).thenReturn(userList);
+		assertThat(userList.get(0).getUsername(), is(equalTo("Devendra")));
+	}*/
+
+}

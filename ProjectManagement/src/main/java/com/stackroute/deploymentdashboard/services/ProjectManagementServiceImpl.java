@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.stackroute.deploymentdashboard.Exceptions.ProjectAlreadyExistsException;
+import com.stackroute.deploymentdashboard.Exceptions.ProjectNotFoundException;
 import com.stackroute.deploymentdashboard.domains.*;
 import com.stackroute.deploymentdashboard.repository.*;
 
@@ -15,78 +17,122 @@ import com.stackroute.deploymentdashboard.repository.*;
  * */
 
 @Service
-public class ProjectManagementServiceImpl  {
+public class ProjectManagementServiceImpl implements ProjectManagementService  {
 	
 	@Autowired
 	private ProjectManagementCRUDRepository projectrepository;
 
 
+
+	 ProjectManagementObject projectManagementObject=new ProjectManagementObject();
 	
-	
-	public ProjectManagementCRUDRepository getProjectrepository() {
-		return projectrepository;
+	public ProjectManagementCRUDRepository getprojectrepository() {
+		return this.projectrepository;
 	}
 
-	public void setProjectrepository(ProjectManagementCRUDRepository projectrepository) {
-		this.projectrepository = projectrepository;
+	public void setprojectrepository(ProjectManagementCRUDRepository projectrepository) {
+		this.projectrepository = this.projectrepository;
 	}
 
+	
+	
+	/*
+	 * Method for listing  a Project
+	 * */
+	
+	
+	
+	@Override
+	public List<ProjectManagementObject> getAll()throws ProjectNotFoundException{
+		if (this.projectrepository.findAll() == null) {
+			throw new ProjectNotFoundException("No Project Found");
+		} else {
+
+		List<ProjectManagementObject> projectManagementObject=new ArrayList<>();
+		this.projectrepository.findAll().forEach(projectManagementObject::add);
+		return projectManagementObject;
+		}
+	}
 	
 	/*
 	 * Method for adding a Project
 	 * */
-	public ProjectManagementObject add(ProjectManagementObject projectManagementObject) {
+	
+	
+	@Override
+	public void addProject(ProjectManagementObject projectManagementObject) throws ProjectAlreadyExistsException {
 		
-		projectrepository.save(projectManagementObject);
-		return projectManagementObject;
+		
+		if (this.projectrepository.exists(projectManagementObject.getprojectID()))
+				{
+			throw new ProjectAlreadyExistsException("Project with Id " + projectManagementObject.getprojectID() + " already exist");
+		} 
+		else {
+			this.projectrepository.save(projectManagementObject);
+		}
+		
+		
+		
 	}
 	
 	
 	
-	/*
-	 * Method for getting  a Project by Id
-	 * */
-	public ProjectManagementObject getByid(String id){
-		
-		ProjectManagementObject projectManagementObject =projectrepository.findOne(id);
-		return projectManagementObject;
-		
-	}
-	
+
+
 	
 	/*
 	 * Method for getting  a Project by ProjectId
 	 * */
-	
-	public ProjectManagementObject getproductid(String ProjectId){
+	@Override
+	public ProjectManagementObject getprojectid(String ProjectId)throws ProjectNotFoundException{
 
-		ProjectManagementObject projectManagementObject =projectrepository.findByProjectId(ProjectId);
+		if (this.projectrepository.exists(ProjectId))
+		{
+			ProjectManagementObject projectManagementObject =this.projectrepository.findByProjectID(ProjectId);
+	
 		return projectManagementObject;
+		} 
+		else {
+			throw new ProjectNotFoundException("ProjectId with given Id doesnot exist");
+
+}
+		
 		
 	}
 
 	/*
 	 * Method for updating  a Project
 	 * */
-	
-	public ProjectManagementObject updateProject(ProjectManagementObject projectManagementObject) {
-		projectrepository.save(projectManagementObject);
-		return projectManagementObject;
+	@Override
+	public void updateProject(ProjectManagementObject projectManagementObject)throws ProjectNotFoundException{
+		
+		if (this.projectrepository.exists(projectManagementObject.getprojectID()))
+		{
+			this.projectrepository.save(projectManagementObject);
+		}
+		
+		else {
+			
+			throw new ProjectNotFoundException("Project with Id " + projectManagementObject.getprojectID() + " not found");
+		}
+		
 	}
 	/*
 	 * Method for deleting a Project
 	 * */
-	public void deleteProject(String id) {
+	
+	@Override
+	public void deleteById(String projectID) throws ProjectNotFoundException {
+		if (this.projectrepository.exists(projectID)) 
+		{
+			this.projectrepository.delete(projectID);		
+			}
+		else {
+			throw new ProjectNotFoundException("project with Id " + projectID + " does not exist");
+		}
 
-		projectrepository.delete(id);
 	}
-	/*
-	 * Method for listing  a Project
-	 * */
-	public List<ProjectManagementObject> getAll(){
-		List<ProjectManagementObject> projectManagementObject=new ArrayList<>();
-		projectrepository.findAll().forEach(projectManagementObject::add);
-		return projectManagementObject;
-	}
+	
+
 
 }

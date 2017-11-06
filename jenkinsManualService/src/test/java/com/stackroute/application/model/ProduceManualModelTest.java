@@ -13,8 +13,8 @@ public class ProduceManualModelTest {
 	public void testUrl() {
 		ProduceManualModel Model = new ProduceManualModel();
 		
-		Model.setProjectID("pid");
-		String actual =Model.getProjectID();
+		Model.setProjectId("pid");
+		String actual =Model.getProjectId();
 		
 		assertNotNull(actual);
 		assertEquals("pid", actual);

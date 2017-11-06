@@ -13,9 +13,29 @@ public class CassandraDatabaseServiceImpl implements DatabaseService {
 	@Autowired
 	private UserCredentialsCRUDRepository repoObject;
 	
+	
+	
+	public UserCredentialsCRUDRepository getRepoObject() {
+		return repoObject;
+	}
+
+	public void setRepoObject(UserCredentialsCRUDRepository repoObject) {
+		this.repoObject = repoObject;
+	}
+
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<UserCredentials> read() {
+		@SuppressWarnings("unchecked")
 		List<UserCredentials> usercredentialsList = (List<UserCredentials>) repoObject.findAll();
 		return usercredentialsList;
 	}
+
+	@Override
+	public UserCredentials SaveOrUpdate(UserCredentials userCredentials) {
+		UserCredentials usrCredentials=repoObject.save(userCredentials);
+		return usrCredentials;
+	}
+	
+	
 }

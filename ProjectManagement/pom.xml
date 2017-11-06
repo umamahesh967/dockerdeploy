@@ -13,7 +13,7 @@
 		<groupId>com.stackroute.deploymentdashboard</groupId>
 		<artifactId>deployment_dashboard</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-		<relativePath /> <!-- lookup parent from repository -->
+		<relativePath>../</relativePath><!-- lookup parent from repository -->
 	</parent>
     
   <properties>
@@ -85,7 +85,12 @@
         <groupId>mysql</groupId>
         <artifactId>mysql-connector-java</artifactId>
         </dependency>
-    </dependencies>
+	 <dependency>
+	 	<groupId>org.testng</groupId>
+	 	<artifactId>testng</artifactId>
+	 	<version>6.8.13</version>
+	 </dependency>
+  </dependencies>
     
     
      <build>

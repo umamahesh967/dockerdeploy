@@ -8,39 +8,54 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 public class ProjectInfo {
 	@NotNull(message="project url cannot be null")
-	private String url;
-//	@NotNull(message="project id cannot be null")
-	@Min(1)
-//	@Size(@Min(1))
-//	@NotEmpty(message="project id cannot be null")
-	private int id;
+	private String repo_url;
+	@NotNull(message="project id cannot be null")
+	private String projectID;
+	@NotNull(message="cloned path cannot be null")
+	private String cloned_path;
+
+	private String timeStamp; //in minutes
 	
+	public ProjectInfo(String projectID, String repo_url,  String cloned_path, String timeStamp) {
+		
+		this.projectID = projectID;
+		this.repo_url = repo_url;		
+		this.cloned_path = cloned_path;
+		this.timeStamp = timeStamp;
+	}
+
+	public String getRepo_url() {
+		return repo_url;
+	}
+
+	public void setRepo_url(String repo_url) {
+		this.repo_url = repo_url;
+	}
+
+	public String getProjectID() {
+		return projectID;
+	}
+
+	public void setProjectID(String projectID) {
+		this.projectID = projectID;
+	}
+
+	public String getCloned_path() {
+		return cloned_path;
+	}
+
+	public void setCloned_path(String cloned_path) {
+		this.cloned_path = cloned_path;
+	}
+
+	public String getTimeStamp() {
+		return timeStamp;
+	}
+
+	public void setTimeStamp(String timeStamp) {
+		this.timeStamp = timeStamp;
+	}
+
 	public ProjectInfo(){
-	}
-	
-	public ProjectInfo(String url, int id){
-		this.url = url;
-		this.id = id;
-	}
-	
-	public void setUrl(String url){
-		this.url = url;
-	}
-	
-	public String getUrl(){
-		return this.url;
-	}
-	
-	public void setId(int age){
-		this.id = age;
-	}
-	
-	public int getId(){
-		return this.id;
-	}
-	
-	public String toString(){
-		String info = String.format("{ 'url': %s, 'age': %d}", url, id);
-		return info;
 	}
 }
