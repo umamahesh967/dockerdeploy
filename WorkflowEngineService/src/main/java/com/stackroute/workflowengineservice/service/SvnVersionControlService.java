@@ -12,6 +12,23 @@ import org.eclipse.jgit.api.errors.WrongRepositoryStateException;
 
 import com.stackroute.workflowengineservice.exception.JgitInternalException;
 
+/*
+
+ clone : 
+ 
+ cd cloned_repo
+ 
+ svn co --username your_name https://svn.server.com/repository/trunk .
+
+and the password should be prompted afterwards.
+
+Note : To specify current directory, use a "." for your destination
+ directory:
+
+However, it's not necessary to specify the username, svn 
+is going to prompt you anyway.
+
+ * */
 public class SvnVersionControlService extends VersionControlService{
 // TODO: override the methods
 	@Override
@@ -20,6 +37,10 @@ public class SvnVersionControlService extends VersionControlService{
 		return null;
 	}
 
+	/**
+	 * 
+	 * svn commit -m "added howto section."
+	 */
 	@Override
 	public void git_commit(Git git, String msg) throws NoHeadException, NoMessageException, UnmergedPathsException,
 			ConcurrentRefUpdateException, WrongRepositoryStateException, GitAPIException {
