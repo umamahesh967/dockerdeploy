@@ -6,8 +6,8 @@ import org.springframework.data.cassandra.mapping.Table;
 @Table("UserCredentials")
 public class UserCredentials {
 	@PrimaryKey
-	private String projectid; //project-id
-    private String buildstatus; //status of the build
+	private String projectId; //project-id
+    private String buildStatus; //status of the build
     
     //Constructors
 	public UserCredentials() {
@@ -15,30 +15,33 @@ public class UserCredentials {
 		// TODO Auto-generated constructor stub
 	}
 	//constructors with fields
-	 
-	
-	public String getProjectid() {
-		return projectid;
-	}
-	
-	
 
-	public UserCredentials(String projectid, String buildstatus) {
+	
+	
+	public UserCredentials(String projectId, String buildStatus) {
 		super();
-		this.projectid = projectid;
-		this.buildstatus = buildstatus;
+		this.projectId = projectId;
+		this.buildStatus = buildStatus;
 	}
-	public void setProjectid(String projectid) {
-		this.projectid = projectid;
-	}
-
-	public String getBuildstatus() {
-		return buildstatus;
+	
+	
+	public String getProjectId() {
+		return projectId;
 	}
 
-	public void setBuildstatus(String buildstatus) {
-		this.buildstatus = buildstatus;
+	
+	public void setProjectId(String projectId) {
+		this.projectId = projectId;
 	}
+
+	public String getBuildStatus() {
+		return buildStatus;
+	}
+
+	public void setBuildStatus(String buildStatus) {
+		this.buildStatus = buildStatus;
+	}
+	 
 	
 	
     

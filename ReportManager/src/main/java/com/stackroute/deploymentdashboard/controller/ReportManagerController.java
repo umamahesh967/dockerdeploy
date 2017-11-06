@@ -24,7 +24,7 @@ public class ReportManagerController {
 	public ResponseEntity<List<UserCredentials>> performCheckout() {
 		List<UserCredentials> list =  _svnservice.read();
 		for(UserCredentials u : list) {
-			System.out.println(u.getBuildstatus());
+			System.out.println(u.getBuildStatus());
 		}
 		return new ResponseEntity<List<UserCredentials>> (list, HttpStatus.CREATED);
 	}
