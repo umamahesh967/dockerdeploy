@@ -25,7 +25,7 @@ public class App{
 	public static void main(String[] args) {
 		SpringApplication.run(App.class, args);
 		JenkinsService jenkinsService = new JenkinsService();
-		ProjectInfo model = new ProjectInfo( "23","/home/ankur/Downloads/gs-maven-master/complete", "/usr/", "60000");
+		ProjectInfo model = new ProjectInfo( "25","/home/ankur/Downloads/gs-maven-master/complete", "/usr/", "4");
 		try {
 			jenkinsService.put(model);
 		} catch (ModelNotFoundException | ModelVariableNotFoundException | URISyntaxException | IOException e) {
