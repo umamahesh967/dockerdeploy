@@ -10,7 +10,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.ConcurrentRefUpdateException;
@@ -37,14 +39,30 @@ public class WorkflowService {
 	private String test;
 	private String run;
 	private String compile;
+	private HashMap<String, String> cmd_value = new HashMap<String, String>();
 	
 	public void init_commands(String bld,String tst,String rn, String comp) {
 		 build = bld;
 		 test = tst;
 		 run = rn;
 		 compile =comp;
+		 cmd_value.put("build", bld);
+		 cmd_value.put("test", tst);
+		 cmd_value.put("run", rn);
+		 cmd_value.put("compile", comp);
 	}
-	// place to service
+	
+	public String addStage(String stage) {
+		String ret = ""
+				+ "   	stage('" +stage +"'){\n"
+				+ "			steps {\n"
+				+ "				sh '"+ cmd_value.get(stage) +"' \n"
+				+ "			}\n"
+				+ "		}\n"
+				+ "\n";
+		return ret;
+	}
+	
 	public void createJenkinsFile(File jenkinsFile_path_new, HashMap<String,String> cmds) throws FileGenerationException {
 		BufferedWriter writer = null;
 		FileWriter fw = null;
@@ -58,34 +76,18 @@ public class WorkflowService {
 				writer = new BufferedWriter(fw);
 				 StringBuilder sb = new StringBuilder();
 		          writer.append("pipeline {\n");
-		          writer.append("        agent { docker any }\n");
-		          writer.append("        stages {\n");
-		          writer.append("            steps {\n");
-
-
-		              if(build != null)
-		              {
-		                  writer.append("              sh '"+ build +"' \n");
-		              }
-		              if(compile != null)
-		              {
-		                  writer.append("              sh '"+ compile +"' \n");
-		              }
-		              
-		              if(test != null)
-		              {
-		                  writer.append("              sh '"+ test +"' \n");
-		              }
-		              
-		              if(run != null)
-		              {
-		                  writer.append("              sh '"+ run +"' \n");
-		              }
-		          writer.append("                       }\n");
-		          writer.append("               }\n");
-		          writer.append("         }\n");
+		          writer.append("	agent any\n");
+		          
+		          Iterator it = cmd_value.entrySet().iterator();
+		          while(it.hasNext()) {
+		        	  Map.Entry pair = (Map.Entry)it.next();
+		        	  logger.debug("writing : " + pair.getKey() + " : " + pair.getValue());
+		        	  writer.append(addStage(pair.getKey().toString()));
+		        	  it.remove();
+		          }
+		          writer.append("}\n");
 		    	
-				logger.debug("Done");
+				logger.debug("Done creating jen file");
 	
 			} catch (IOException e) {
 //				e.printStackTrace();
