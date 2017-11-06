@@ -1,19 +1,13 @@
-image:java:8-jdk
+image: docker:latest
+services:
+  - docker:dind
 
 stages:
- - test
- - build
- 
-maven-test:
- image: maven:3-jdk-8
- stage: test
- script: "mvn test -B"
+  - build
+  - package
+  - deploy
 
 maven-build:
-image: maven:3-jdk-8
- stage: build
- script: "mvn package -B"
- artifacts:
-  paths:
-   - target/*.jar
-
+  image: maven:3-jdk-8
+  stage: build
+  script: "mvn package"
