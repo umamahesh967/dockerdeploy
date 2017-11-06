@@ -31,11 +31,11 @@ public class ReportingServiceConsumer {
     		containerFactory = "projectModelKafkaListenerContainerFactory")
    public void processMessage(UserCredentials user) {
     	
-        System.out.println("received content = " + user.getProjectid());
-        LOGGER.info("received payload='{}'", user.getProjectid());
+        System.out.println("received content = " + user.getBuildStatus());
+        LOGGER.info("received payload='{}'", user.getBuildStatus());
         latch.countDown();
     	cassandraDatabaseServiceImpl.SaveOrUpdate(user);
-        System.out.println("received content = " + user.getProjectid());
+        System.out.println("received content = " + user.getBuildStatus());
         
    }
     
