@@ -10,8 +10,6 @@
 
 	<name>WorkflowEngineService</name>
 	<description>clone, make jenkinsfile, sent the model to trigger in jenkins</description>
-
-  
 	<parent>
 		<groupId>com.stackroute.deploymentdashboard</groupId>
 		<artifactId>deployment_dashboard</artifactId>
