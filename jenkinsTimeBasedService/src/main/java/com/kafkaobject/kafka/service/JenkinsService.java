@@ -39,9 +39,9 @@ private List<ProjectInfo> storage = new ArrayList<ProjectInfo>();
 	public void put(ProjectInfo message)  throws ModelNotFoundException,ModelVariableNotFoundException, URISyntaxException, IOException{
 
 		if(message == null) throw new ModelNotFoundException("Message is empty");
-		if(message.getProjectID()==null) throw new ModelVariableNotFoundException("Please enter valid pid");
-		if(message.getCloned_path()==null) throw new ModelVariableNotFoundException("Please enter valid path");
-		if(message.getRepo_url()==null) throw new ModelVariableNotFoundException("Please enter valid url");
+		if(message.getProjectId()==null) throw new ModelVariableNotFoundException("Please enter valid pid");
+		if(message.getClonedPath()==null) throw new ModelVariableNotFoundException("Please enter valid path");
+		if(message.getRepoUrl()==null) throw new ModelVariableNotFoundException("Please enter valid url");
 //		if(message.getTimeSpan()!=null) throw new ModelVariableNotFoundException("Please ensure that you are sending data without time span");
 		
 		storage.add(message);//Adds the message to the list
@@ -54,10 +54,11 @@ private List<ProjectInfo> storage = new ArrayList<ProjectInfo>();
 		//here "ankur" is the username and "Monday123" is the password for jenkins server
 	JenkinsServer jenkins = new JenkinsServer(new URI("http://localhost:8080"), "ankur", "Monday123");
 		
-		String url=message.getRepo_url(); //git or svn url comes from here
+		String url=message.getRepoUrl(); //git or svn url comes from here
 //		String url="https://github.com/spidervamsi/jenkinsTest";
 		
 		
+		// @TODO This should come from a config as a template
 		String config="<?xml version='1.0' encoding='UTF-8'?>\n" + 
                 "<flow-definition plugin=\"workflow-job@2.15\">\n" + 
                 "  <actions/>\n" + 
@@ -90,10 +91,11 @@ private List<ProjectInfo> storage = new ArrayList<ProjectInfo>();
 		
 		
 //				//sets the jobName as "job"+project-id. So that every builds name is different
-		String jobName="job"+message.getProjectID();
+		String jobName="job"+message.getProjectId();
 		this.jobName=jobName;
 		
 		jenkins.createJob(jobName,config,true);
+		
 		JenkinsTrigger jenkinsTrigger = new JenkinsTrigger();
 		jenkinsTrigger.timed(jobName,message.getTimeStamp() );
 		
@@ -125,23 +127,23 @@ private List<ProjectInfo> storage = new ArrayList<ProjectInfo>();
 		return storage;
 	}
 
-//	public ProduceModel get() throws IOException, URISyntaxException {
-//		//here "ankur" is the username and "Monday123" is the password for jenkins server
-//		JenkinsServer jenkins = new JenkinsServer(new URI("http://localhost:8080/jenkins/"), "ankur", "Monday123");
-//		
-//		if(this.jobName==null) throw new ModelVariableNotFoundException("Please give valid jobName");
-//       
-//		JobWithDetails y=jenkins.getJob(this.jobName);//Gets the job details of a "jobName"
-//        if(y==null)throw new ModelVariableNotFoundException("Please wait for jenkinis");        
-//             String buildResult="failed"; //by default we consider the build is failed
-//             
-//        if(y.hasLastSuccessfulBuildRun())// if the build is success
-//        	buildResult="success"; // the we change the buildResult to success
-//		
-//		
-//		produceModel.setBuildSuccess(buildResult); //sets the buidlResult in produceMannualModel
-//		return  produceModel;
-//	}
+	public ProduceModel get() throws IOException, URISyntaxException, ModelVariableNotFoundException {
+		//here "ankur" is the username and "Monday123" is the password for jenkins server
+		JenkinsServer jenkins = new JenkinsServer(new URI("http://localhost:8080/jenkins/"), "ankur", "Monday123");
+		
+		if(this.jobName==null) throw new ModelVariableNotFoundException("Please give valid jobName");
+       
+		JobWithDetails y=jenkins.getJob(this.jobName);//Gets the job details of a "jobName"
+        if(y==null)throw new ModelVariableNotFoundException("Please wait for jenkinis");        
+             String buildResult="failed"; //by default we consider the build is failed
+             
+        if(y.hasLastSuccessfulBuildRun())// if the build is success
+        	buildResult="success"; // the we change the buildResult to success
+		
+		
+		produceModel.setBuildSuccess(buildResult); //sets the buidlResult in produceMannualModel
+		return  produceModel;
+	}
 
 
 }

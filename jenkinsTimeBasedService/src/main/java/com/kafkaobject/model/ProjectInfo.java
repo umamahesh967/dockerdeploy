@@ -8,44 +8,44 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 public class ProjectInfo {
 	@NotNull(message="project url cannot be null")
-	private String repo_url;
+	private String repoUrl;
 	@NotNull(message="project id cannot be null")
-	private String projectID;
+	private String projectId;
 	@NotNull(message="cloned path cannot be null")
-	private String cloned_path;
+	private String clonedPath;
 
 	private String timeStamp; //in minutes
 	
-	public ProjectInfo(String projectID, String repo_url,  String cloned_path, String timeStamp) {
+	public ProjectInfo(String projectId, String repoUrl,  String clonedPath, String timeStamp) {
 		
-		this.projectID = projectID;
-		this.repo_url = repo_url;		
-		this.cloned_path = cloned_path;
+		this.projectId = projectId;
+		this.repoUrl = repoUrl;		
+		this.clonedPath = clonedPath;
 		this.timeStamp = timeStamp;
 	}
 
-	public String getRepo_url() {
-		return repo_url;
+	public String getRepoUrl() {
+		return repoUrl;
 	}
 
-	public void setRepo_url(String repo_url) {
-		this.repo_url = repo_url;
+	public void setRepo_url(String repoUrl) {
+		this.repoUrl = repoUrl;
 	}
 
-	public String getProjectID() {
-		return projectID;
+	public String getProjectId() {
+		return projectId;
 	}
 
-	public void setProjectID(String projectID) {
-		this.projectID = projectID;
+	public void setProjectId(String projectId) {
+		this.projectId = projectId;
 	}
 
-	public String getCloned_path() {
-		return cloned_path;
+	public String getClonedPath() {
+		return clonedPath;
 	}
 
-	public void setCloned_path(String cloned_path) {
-		this.cloned_path = cloned_path;
+	public void setClonedPath(String clonedPath) {
+		this.clonedPath = clonedPath;
 	}
 
 	public String getTimeStamp() {
