@@ -28,7 +28,7 @@ public class WorkFlowEngineServiceProducer {
     private KafkaTemplate<String, JenkinsJob> kafkaTemplate;
     
 //    @Value("${spring.kafka.producer.group-id}")
-    String kafkaTopic = "testingzero";// = "trigger11234"; 
+    String kafkaTopic = "logdata";// = "trigger11234"; 
     // "${kafka.topic.bootnew}";
     
     // refer : https://kafka.apache.org/quickstart
