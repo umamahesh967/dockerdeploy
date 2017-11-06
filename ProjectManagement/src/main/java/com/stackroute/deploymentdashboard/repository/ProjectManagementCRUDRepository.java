@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.transaction.annotation.*;
 
+import com.stackroute.deploymentdashboard.Exceptions.ProjectNotFoundException;
 import com.stackroute.deploymentdashboard.domains.*;
 
 /*
@@ -16,7 +17,7 @@ import com.stackroute.deploymentdashboard.domains.*;
 @Transactional
 public interface ProjectManagementCRUDRepository extends MongoRepository<ProjectManagementObject, String>{
 	
-	ProjectManagementObject findByProjectId(String projectId);
+	ProjectManagementObject findByProjectID(String projectId) throws ProjectNotFoundException;
 
 	
 

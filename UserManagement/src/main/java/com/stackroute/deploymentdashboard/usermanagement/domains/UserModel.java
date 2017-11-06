@@ -22,13 +22,19 @@ public class UserModel {
 	@ApiModelProperty
 	private String emailId;
 	
+	private String gender;
+	
+	private String userStatus;
+	
 	public UserModel() {}
 
-	public UserModel(String id, String username, String emailid) {
+	public UserModel(String id, String username, String emailid,String gender, String userStatus) {
 		super();
 		this.userId = id;
 		this.userName = username;
 		this.emailId = emailid;
+		this.gender = gender;
+		this.userStatus = userStatus;
 	}
 
 	public String getUserId() {
@@ -53,6 +59,22 @@ public class UserModel {
 
 	public void setEmailId(String emailid) {
 		this.emailId = emailid;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getUserStatus() {
+		return userStatus;
+	}
+
+	public void setUserStatus(String userStatus) {
+		this.userStatus = userStatus;
 	}
 
 //	public String getId() {

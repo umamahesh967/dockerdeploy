@@ -1,6 +1,7 @@
 **/target/
 **/jenkinsFolder/
 **/.mvn
+**/cloned_repo/
 
 ### STS ###
 .apt_generated
@@ -23,3 +24,4 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+/.metadata/

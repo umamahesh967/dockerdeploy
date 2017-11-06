@@ -11,13 +11,13 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 @JsonDeserialize
 public class WorksetupJob {
 
-	private String url;
-	private String pid;
-	private String timespan;
+	private String repo_url;
+	private String projectID;
+	private String timeStamp;
 	private List<String> list_cmd;
 
 	public String getUrl() {
-		return url;
+		return repo_url;
 	}
 	public List<String> getList_cmd() {
 		return list_cmd;
@@ -26,16 +26,16 @@ public class WorksetupJob {
 		this.list_cmd = list_cmd;
 	}
 	public void setUrl(String url) {
-		this.url = url;
+		this.repo_url = url;
 	}
 	public String getPid() {
-		return pid;
+		return projectID;
 	}
 	public void setPid(String pid) {
-		this.pid = pid;
+		this.projectID = pid;
 	}
 	public String getTimespan() {
-		return timespan;
+		return timeStamp;
 	}
 	/**
 	 * @param url
@@ -44,9 +44,9 @@ public class WorksetupJob {
 	 */
 	public WorksetupJob(String url, String pid, String timespan) {
 		super();
-		this.url = url;
-		this.pid = pid;
-		this.timespan = timespan;
+		this.repo_url = url;
+		this.projectID = pid;
+		this.timeStamp = timespan;
 	}
 	/**
 	 * 
@@ -55,7 +55,7 @@ public class WorksetupJob {
 		super();
 	}
 	public void setTimespan(String timespan) {
-		this.timespan = timespan;
+		this.timeStamp = timespan;
 	}
 
 }

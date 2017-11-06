@@ -19,18 +19,17 @@ import com.stackroute.deploymentdashboard.usermanagement.domains.UserModel;
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class UserManagementControllerTest {
 
-	String project1;
-
 	@LocalServerPort
 	private int port;
 
 	TestRestTemplate restTemplate = new TestRestTemplate();
 	HttpHeaders headers = new HttpHeaders();
 	UserModel user;
+	HttpEntity<UserModel> entity = new HttpEntity<UserModel>(user, headers);
 
 	@Before
 	public void setUp() throws Exception {
-		user = new UserModel("1", "devendra", "dk102@gmail.com");
+		user = new UserModel("500", "devendra", "dk102@gmail.com", "Male", "active");
 	}
 
 	private String createURLWithPort(String uri) {
@@ -39,10 +38,12 @@ public class UserManagementControllerTest {
 
 	@After
 	public void tearDown() throws Exception {
+		ResponseEntity<String> responseNew = restTemplate.exchange(
+				createURLWithPort("/v1.0/continousdelivery/user/delete/500"), HttpMethod.DELETE, entity, String.class);
 	}
 
 	@Test
-	public void testSaveProject() throws Exception {
+	public void testsaveproject() throws Exception {
 		HttpEntity<UserModel> entity = new HttpEntity<UserModel>(user, headers);
 		ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/v1.0/continousdelivery/user/add"),
 				HttpMethod.POST, entity, String.class);
@@ -53,25 +54,44 @@ public class UserManagementControllerTest {
 	}
 
 	@Test
-	public void testdelete() throws Exception {
+	public void testupdate() throws Exception {
 		HttpEntity<UserModel> entity = new HttpEntity<UserModel>(user, headers);
-		ResponseEntity<String> response = restTemplate.exchange(
-				createURLWithPort("/v1.0/continousdelivery/user/delete/1"), HttpMethod.DELETE, entity, String.class);
-		assertNotNull(response);
-		String actual = response.getBody();
+		ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/v1.0/continousdelivery/user/add"),
+				HttpMethod.POST, entity, String.class);
+		UserModel userUpdate = new UserModel("500", "devd", "dk102@gmail.com", "Male", "inactive");
+		HttpEntity<UserModel> entityNew = new HttpEntity<UserModel>(userUpdate, headers);
+		ResponseEntity<String> responseNew = restTemplate.exchange(
+				createURLWithPort("/v1.0/continousdelivery/user/update"), HttpMethod.PUT, entityNew, String.class);
+		assertNotNull(responseNew);
+		String actual = responseNew.getBody();
 		System.out.println(actual);
-		assertEquals("User with Id 1 Deleted Succesfully", actual);
+		assertEquals("User Updated Successfully", actual);
 	}
 
 	@Test
-	public void testupdate() throws Exception {
+	public void testdelete() throws Exception {
 		HttpEntity<UserModel> entity = new HttpEntity<UserModel>(user, headers);
-		ResponseEntity<String> response = restTemplate.exchange(
-				createURLWithPort("/v1.0/continousdelivery/user/update"), HttpMethod.PUT, entity, String.class);
-		assertNotNull(response);
-		String actual = response.getBody();
+		ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/v1.0/continousdelivery/user/add"),
+				HttpMethod.POST, entity, String.class);
+		ResponseEntity<String> responseNew = restTemplate.exchange(
+				createURLWithPort("/v1.0/continousdelivery/user/delete/500"), HttpMethod.DELETE, entity, String.class);
+		assertNotNull(responseNew);
+		String actual = responseNew.getBody();
 		System.out.println(actual);
-		assertEquals("User Updated Successfully", actual);
+		assertEquals("User with Id 500 Deleted Succesfully", actual);
+	}
+
+	@Test
+	public void testgetById() throws Exception {
+		HttpEntity<UserModel> entity = new HttpEntity<UserModel>(user, headers);
+		ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/v1.0/continousdelivery/user/add"),
+				HttpMethod.POST, entity, String.class);
+		ResponseEntity<UserModel> responseNew = restTemplate
+				.exchange(createURLWithPort("/v1.0/continousdelivery/user/500"), HttpMethod.GET, null, UserModel.class);
+		assertNotNull(responseNew);
+		UserModel actual = responseNew.getBody();
+		System.out.println(actual);
+		assertEquals("devendra", actual.getUserName());
 	}
 
 }
