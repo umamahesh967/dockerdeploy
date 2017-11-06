@@ -16,7 +16,7 @@ import com.stackroute.application.service.ServiceManual;
 
 
 @SpringBootApplication
-@EnableDiscoveryClient
+//@EnableDiscoveryClient
 public class Application {
 	
 //	@Autowired
@@ -24,7 +24,6 @@ public class Application {
 	
 	public static void main(String[] args) throws ModelNotFoundException, ModelVariableNotFoundException, URISyntaxException, IOException {
 		SpringApplication.run(Application.class, args);
-	
-	
+
 	}
 }

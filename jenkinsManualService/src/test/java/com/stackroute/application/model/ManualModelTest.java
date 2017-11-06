@@ -18,8 +18,8 @@ public class ManualModelTest {
 		ManualModel ManualModel = new ManualModel();
 		
 		
-		ManualModel.setRepo_url("www.github.com");
-		String actual = ManualModel.getRepo_url();
+		ManualModel.setRepoUrl("www.github.com");
+		String actual = ManualModel.getRepoUrl();
 		
 		assertNotNull(actual);
 		assertEquals("www.github.com", actual);
@@ -29,8 +29,8 @@ public class ManualModelTest {
 	public void testPid() {
 		ManualModel ManualModel = new ManualModel();
 		
-		ManualModel.setProjectID("2149");
-		String actual = ManualModel.getProjectID();
+		ManualModel.setProjectId("2149");
+		String actual = ManualModel.getProjectId();
 		
 		assertNotNull(actual);
 		assertEquals("2149", actual);
@@ -40,8 +40,8 @@ public class ManualModelTest {
 	public void testPath() {
 		ManualModel ManualModel = new ManualModel();
 		
-		ManualModel.setCloned_path("path");
-		String actual = ManualModel.getCloned_path();
+		ManualModel.setClonedPath("path");
+		String actual = ManualModel.getClonedPath();
 		
 		assertNotNull(actual);
 		assertEquals("path", actual);
