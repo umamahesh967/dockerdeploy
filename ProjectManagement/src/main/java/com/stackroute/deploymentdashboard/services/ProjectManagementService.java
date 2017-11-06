@@ -8,12 +8,16 @@ import com.stackroute.deploymentdashboard.domains.ProjectManagementObject;
 
 public interface ProjectManagementService {
 
-	ProjectManagementObject addProject(ProjectManagementObject projectManagementObject)throws ProjectAlreadyExistsException;
-	ProjectManagementObject getByid(String id)throws ProjectNotFoundException;
+	void  addProject(ProjectManagementObject projectManagementObject)throws ProjectAlreadyExistsException;
+//	ProjectManagementObject getByid(String id)throws ProjectNotFoundException;
 	
 	
-	ProjectManagementObject getproductid(String ProjectId)throws ProjectNotFoundException;
-	ProjectManagementObject updateProject(ProjectManagementObject projectManagementObject)throws ProjectNotFoundException;
-	void deleteProject(String id)throws ProjectNotFoundException;
+	ProjectManagementObject getprojectid(String ProjectId)throws ProjectNotFoundException;
+	
+	void updateProject(ProjectManagementObject projectManagementObject)throws ProjectNotFoundException;
+	
+	void deleteById(String projectID)throws ProjectNotFoundException;
+	
  List<ProjectManagementObject> getAll()throws ProjectNotFoundException;
+ 
 }

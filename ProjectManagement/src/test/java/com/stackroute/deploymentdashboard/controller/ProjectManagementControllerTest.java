@@ -34,7 +34,7 @@ public class ProjectManagementControllerTest {
     ProjectManagementObject projectManagementObject;
     @Before
     public void setUp() throws Exception {
-         projectManagementObject = new ProjectManagementObject("3","mail","goutham",null, null, null, null, project1, project1);
+         projectManagementObject = new ProjectManagementObject("mail","goutham",null);
     }
     private String createURLWithPort(String uri) {
         return "http://localhost:" + port + uri;
@@ -51,7 +51,7 @@ public class ProjectManagementControllerTest {
         assertNotNull(response);
         String actual = response.getBody();
         System.out.println(actual);
-        assertEquals("Project saved successfully",actual);
+        assertEquals("Project added successfully",actual);
     }
 
    @Test
