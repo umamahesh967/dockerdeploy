@@ -20,41 +20,16 @@ public class UserModel {
 	private Long id;
 	
 	private String userId;
+	
 	private String userName;
-	private  String emailId;
+	
+	private String emailId;
+	 
 	private String gender;
+	 
 	private String userStatus;
-
-
-	@Relationship(type = "WORKS_IN", direction = Relationship.UNDIRECTED)
-	private List<ProjectModel> projects = new ArrayList<>();
-
-	
-
-	public UserModel() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	
-	
-
-
-	public UserModel(Long id, String userId, String userName, String emailId, String gender, String userStatus,
-			List<ProjectModel> projects) {
-		super();
-		this.id = id;
-		this.userId = userId;
-		this.userName = userName;
-		this.emailId = emailId;
-		this.gender = gender;
-		this.userStatus = userStatus;
-		this.projects = projects;
-	}
-
-
-
-
-	public Long getId() {
+	 
+	 public Long getId() {
 		return id;
 	}
 
@@ -122,6 +97,14 @@ public class UserModel {
 	public void setProjects(List<ProjectModel> projects) {
 		this.projects = projects;
 	}
+
+
+	@Relationship(type = "WORKS_IN", direction = Relationship.UNDIRECTED)
+	private List<ProjectModel> projects = new ArrayList<>();
+
+	
+
+
 	
 	
 	
