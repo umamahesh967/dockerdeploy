@@ -34,10 +34,10 @@ public class WorkFlowEngineServiceProducer {
     // refer : https://kafka.apache.org/quickstart
     public void send(JenkinsJob model) {
     	LOGGER.info("sending payload='{}'", model);
-        System.out.println("sending data=" + model);
-        System.out.println(kafkaTopic);
+        LOGGER.info("sending data=" + model);
+        LOGGER.info(kafkaTopic);
         kafkaTemplate.send(kafkaTopic, model);
-        System.out.println("sending " +  " done ..........." );
+        LOGGER.info("sending " +  " done ..........." );
     }
 }
 
