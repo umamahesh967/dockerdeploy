@@ -9,6 +9,8 @@ import org.eclipse.jgit.api.errors.NoHeadException;
 import org.eclipse.jgit.api.errors.NoMessageException;
 import org.eclipse.jgit.api.errors.UnmergedPathsException;
 import org.eclipse.jgit.api.errors.WrongRepositoryStateException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.stackroute.workflowengineservice.exception.JgitInternalException;
 
@@ -31,6 +33,8 @@ is going to prompt you anyway.
  * */
 public class SvnVersionControlService extends VersionControlService{
 // TODO: override the methods
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	@Override
 	public Git cloning_repo(String repo_url, File cloning_path) throws JgitInternalException {
 		// TODO Auto-generated method stub

@@ -20,6 +20,8 @@ import org.eclipse.jgit.api.errors.NoMessageException;
 import org.eclipse.jgit.api.errors.UnmergedPathsException;
 import org.eclipse.jgit.api.errors.WrongRepositoryStateException;
 import org.eclipse.jgit.lib.Repository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +31,8 @@ import com.stackroute.workflowengineservice.exception.JgitInternalException;
 
 @Service
 public class WorkflowService {
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	private String build;
 	private String test;
 	private String run;
@@ -45,9 +49,9 @@ public class WorkflowService {
 		BufferedWriter writer = null;
 		FileWriter fw = null;
 		
-		System.out.println("build value : " + build );
-		System.out.println("run value : " + run );
-		System.out.println("compile value : " + compile );
+		logger.debug("build value : " + build );
+		logger.debug("run value : " + run );
+		logger.debug("compile value : " + compile );
 			try {
 	
 				fw = new FileWriter(jenkinsFile_path_new);
@@ -81,11 +85,11 @@ public class WorkflowService {
 		          writer.append("               }\n");
 		          writer.append("         }\n");
 		    	
-				System.out.println("Done");
+				logger.debug("Done");
 	
 			} catch (IOException e) {
 //				e.printStackTrace();
-				System.out.println("Unable to generate files and folder.");
+				logger.debug("Unable to generate files and folder.");
 				throw new FileGenerationException(e.getMessage());
 			} finally {
 				try {
@@ -107,10 +111,10 @@ public class WorkflowService {
 		/* create the dir first */
 
 		String workingDir = System.getProperty("user.dir");
-		 System.out.println("Current working directory : " + workingDir);
+		 logger.debug("Current working directory : " + workingDir);
 		// if the directory does not exist, create it
 		if (!path.exists()) {
-		    System.out.println("creating directory: " + path.getName());
+		    logger.debug("creating directory: " + path.getName());
 		    boolean result = false;
 
 		    try{
@@ -132,7 +136,7 @@ public class WorkflowService {
 		    	throw new FileGenerationException(e.getMessage());
 		    }
 		    if(result) {    
-		        System.out.println("DIR created");  
+		        logger.debug("DIR created");  
 		    }
 		}
 	}
@@ -192,7 +196,7 @@ public class WorkflowService {
             while ((line = reader.readLine())!= null) {
                     output.append(line + "\n");
             }
-            System.out.println("### " + output);
+            logger.debug("### " + output);
             return true;
 	    } catch (Throwable t) {
 	            t.printStackTrace();
