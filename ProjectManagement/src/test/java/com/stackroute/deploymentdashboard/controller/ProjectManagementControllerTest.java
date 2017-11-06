@@ -31,7 +31,7 @@ public class ProjectManagementControllerTest {
     
     @Before
     public void setUp() throws Exception {
-//         projectManagementObject = new ProjectManagementObject("project2.2","project2","mail.com");
+        projectManagementObject = new ProjectManagementObject("project2.9","project2","mail.com");
     }
     
     private String createURLWithPort(String uri) {
@@ -42,14 +42,14 @@ public class ProjectManagementControllerTest {
     @After
     public void tearDown() throws Exception {
    	ResponseEntity<String> responseNew = restTemplate.exchange(
-				createURLWithPort("Project/delete/project2.0"), HttpMethod.DELETE, entity, String.class);
+				createURLWithPort("Project/delete/project2.9"), HttpMethod.DELETE, entity, String.class);
 	}
     
     
     
     @Test
     public void testSaveProject() throws Exception {
-    	 projectManagementObject = new ProjectManagementObject("project1.9","project2","mail.com");
+//    	 projectManagementObject = new ProjectManagementObject("project2.9","project2","mail.com");
         HttpEntity<ProjectManagementObject> entity = new HttpEntity<ProjectManagementObject>(projectManagementObject, headers);
         ResponseEntity<String> response = restTemplate.exchange(
                 createURLWithPort("/Project/addproject"),
@@ -63,14 +63,14 @@ public class ProjectManagementControllerTest {
     
    @Test
     public void testupdate() throws Exception {
-  	 projectManagementObject = new ProjectManagementObject("project1.9","project2","mail.com");
+//  	 projectManagementObject = new ProjectManagementObject("project2.9","project2","mail.com");
 
 	   HttpEntity<ProjectManagementObject> entity = new HttpEntity<ProjectManagementObject>(projectManagementObject, headers);
        ResponseEntity<String> response = restTemplate.exchange(
                createURLWithPort("/Project/addproject"),
                HttpMethod.POST, entity, String.class);
        
-       ProjectManagementObject projectManagementObjectnew = new ProjectManagementObject("project1.9","project2.2","mail.com");
+       ProjectManagementObject projectManagementObjectnew = new ProjectManagementObject("project2.9","project2.2","mail.com");
 
        
         HttpEntity<ProjectManagementObject> entitynew = new HttpEntity<ProjectManagementObject>(projectManagementObjectnew, headers);
@@ -87,7 +87,7 @@ public class ProjectManagementControllerTest {
 
    @Test
    public void testdelete() throws Exception {
-  	 projectManagementObject = new ProjectManagementObject("project1.9","project2","mail.com");
+//  	 projectManagementObject = new ProjectManagementObject("project2.9","project2","mail.com");
 
 	   HttpEntity<ProjectManagementObject> entity = new HttpEntity<ProjectManagementObject>(projectManagementObject, headers);
        ResponseEntity<String> response = restTemplate.exchange(
@@ -95,7 +95,7 @@ public class ProjectManagementControllerTest {
                HttpMethod.POST, entity, String.class);
        
        ResponseEntity<String> responsenew = restTemplate.exchange(
-               createURLWithPort("/Project/delete/project1.9"),
+               createURLWithPort("/Project/delete/project2.9"),
                HttpMethod.DELETE, entity, String.class);
        assertNotNull(responsenew);
        String actual = responsenew.getBody();
