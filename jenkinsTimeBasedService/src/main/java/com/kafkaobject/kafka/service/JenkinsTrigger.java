@@ -16,7 +16,7 @@ public class JenkinsTrigger {
 	private String jobName;
 
 	
-	public  void timed(String jobName, String timeStamp){
+	public  void timed(final String jobName, String timeStamp){
 		  Timer timer = new Timer();
 		  int time = Integer.parseInt(timeStamp);
 		  int timeSpan = time*60000;
