@@ -37,8 +37,11 @@ public class RouterFilter  extends ZuulFilter{
     	HttpServletRequest request=ctx.getRequest();
     	if(request.getMethod().equalsIgnoreCase("post")) {
     		System.out.println("............ROuter filter executed...."+request.getRequestURI()+"....");
+<<<<<<< HEAD
 
     		System.out.println("............ROuter filter executed...."+request.getRequestURI()+"....");
+=======
+>>>>>>> f19262fceb8da6a57dbdd42ca2e2a8171893f09c
     	}
     	if(request.getMethod().equalsIgnoreCase("get")) {
     		System.out.println("............Router filter executed...."+request.getRequestURI());

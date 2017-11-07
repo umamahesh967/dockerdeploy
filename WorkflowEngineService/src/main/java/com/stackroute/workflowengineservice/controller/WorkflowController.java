@@ -160,12 +160,13 @@ public class WorkflowController {
     	
     	// create unique build id
     	String buildID = UUID.randomUUID().toString();
+    	System.out.println("************" + buildID);
     	
-		JenkinsJob modelJenkins = new JenkinsJob(buildID, 
+		JenkinsJob modelJenkins = new JenkinsJob(buildID.substring(0,5), 
 				cloned_repo_path.toString(), 
-				"https://github.com/Shekharrajak/PipelineExecution", "4th");
+				url, timespan);
 		// send to the kafka
-		
+		System.out.println("-------------"+modelJenkins.getProjectId());
 		producer.send(modelJenkins);
 		return ResponseEntity.ok("Repo cloned and Jenkinsfile is put into the cloned-repo");
 	}

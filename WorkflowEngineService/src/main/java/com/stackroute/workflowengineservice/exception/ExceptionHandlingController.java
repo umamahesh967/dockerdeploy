@@ -21,9 +21,7 @@ public class ExceptionHandlingController {
         
         return new ResponseEntity<CustomExceptionResponse>(exceptionresponse, HttpStatus.BAD_REQUEST);
 	}
-	
-	
-	
+
 	@ExceptionHandler(InternalRepositoryException.class)
 	public ResponseEntity<CustomExceptionResponse> repositoryException(InternalRepositoryException exception) {
         CustomExceptionResponse exceptionresponse = new CustomExceptionResponse();
@@ -67,6 +65,5 @@ public class ExceptionHandlingController {
         
         return new ResponseEntity<CustomExceptionResponse>(exceptionresponse, HttpStatus.SERVICE_UNAVAILABLE);
 	}
-		
-	
+
 }
