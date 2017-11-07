@@ -29,11 +29,11 @@ public class ReportingServiceConsumer {
 	@KafkaListener(topics="${spring.kafka.consumer.group-id}")
 	public void reportlistener(ManualModel data) throws ModelNotFoundException, ModelVariableNotFoundException, URISyntaxException, IOException {
 		
-//		puts in the data takens from kafka into the service (serviceManual)
+
 		
 	
-		System.out.println(data);
-		
+//		System.out.println(data + ": " + data.getProjectId() + " :" + data.getClonedPath());
+//		puts in the data takens from kafka into the service (serviceManual)
 		 try {
 			 serviceManual.put(data);
 			  }

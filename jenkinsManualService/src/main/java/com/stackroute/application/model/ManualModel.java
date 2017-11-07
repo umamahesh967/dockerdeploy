@@ -16,40 +16,40 @@ TODO: needed
 */
 @JsonDeserialize
 public class ManualModel {
-	private String projectID;
-	private String cloned_path;
-	private String repo_url; // git or svn url
+	private String projectId;
+	private String clonedPath;
+	private String repoUrl; // git or svn url
 	 private String timeStamp; // time stamp when to build the project
 	
-	 public ManualModel(String projectID, String cloned_path, String repo_url, String timeStamp) {
+	 public ManualModel(String projectId, String clonedPath, String repoUrl, String timeStamp) {
 			
 			
-			this.projectID = projectID;
-			this.cloned_path = cloned_path;
-			this.repo_url = repo_url;
+			this.projectId = projectId;
+			this.clonedPath = clonedPath;
+			this.repoUrl = repoUrl;
 			this.timeStamp = timeStamp;
 		}
 	 public ManualModel() {
 		 
 	 }
 	
-	public String getProjectID() {
-		return projectID;
+	public String getProjectId() {
+		return projectId;
 	}
-	public void setProjectID(String projectID) {
-		this.projectID = projectID;
+	public void setProjectId(String projectId) {
+		this.projectId = projectId;
 	}
-	public String getCloned_path() {
-		return cloned_path;
+	public String getClonedPath() {
+		return clonedPath;
 	}
-	public void setCloned_path(String cloned_path) {
-		this.cloned_path = cloned_path;
+	public void setClonedPath(String clonedPath) {
+		this.clonedPath = clonedPath;
 	}
-	public String getRepo_url() {
-		return repo_url;
+	public String getRepoUrl() {
+		return repoUrl;
 	}
-	public void setRepo_url(String repo_url) {
-		this.repo_url = repo_url;
+	public void setRepoUrl(String repoUrl) {
+		this.repoUrl = repoUrl;
 	}
 	public String getTimeStamp() {
 		return timeStamp;
