@@ -162,9 +162,9 @@ public class WorkflowController {
     	String buildID = UUID.randomUUID().toString();
     	System.out.println("************" + buildID);
     	
-		JenkinsJob modelJenkins = new JenkinsJob(buildID.substring(3), 
+		JenkinsJob modelJenkins = new JenkinsJob(buildID.substring(0,5), 
 				cloned_repo_path.toString(), 
-				"https://github.com/Shekharrajak/PipelineExecution", timespan);
+				url, timespan);
 		// send to the kafka
 		System.out.println("-------------"+modelJenkins.getProjectId());
 		producer.send(modelJenkins);
