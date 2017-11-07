@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.neo4j.ogm.annotation.GraphId;
+import org.neo4j.ogm.annotation.Index;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
@@ -19,6 +20,7 @@ public class UserModel {
 	@GraphId
 	private Long id;
 	
+	@Index(unique=true)
 	private String userId;
 	
 	private String userName;
@@ -28,8 +30,29 @@ public class UserModel {
 	private String gender;
 	 
 	private String userStatus;
+	
+	
 	 
-	 public Long getId() {
+	 public UserModel() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
+	public UserModel(Long id, String userId, String userName, String emailId, String gender, String userStatus,
+			List<ProjectModel> projects) {
+		super();
+		this.id = id;
+		this.userId = userId;
+		this.userName = userName;
+		this.emailId = emailId;
+		this.gender = gender;
+		this.userStatus = userStatus;
+		this.projects = projects;
+	}
+
+
+	public Long getId() {
 		return id;
 	}
 

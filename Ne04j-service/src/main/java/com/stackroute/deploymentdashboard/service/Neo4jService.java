@@ -21,7 +21,9 @@ public class Neo4jService {
 	
 	public void saveUser(UserModel userModel)
 	{
+		
 		userRepository.save(userModel);
+		
 	}
 	
 	public void saveProject(ProjectModel projectModel)
@@ -66,9 +68,15 @@ public class Neo4jService {
 		projectRepository.removeLink(userId, projectId);
 	}
 
-	public List<ProjectModel> findAll() {
-		// TODO Auto-generated method stub
+	public List<ProjectModel> findAllProject() {
+		
 		return (List<ProjectModel>) projectRepository.findAll();
 	}
+	
+	public List<UserModel> findAllUser() {
+		
+		return (List<UserModel>) userRepository.findAll();
+	}
+
 	
 }

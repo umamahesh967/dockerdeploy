@@ -152,7 +152,7 @@
     		<module>ProjectManagement</module>
     		<module>WorkflowEngineService</module>
     		<module>jenkinsManualService</module>
-    		<module>JenkinsTimeBasedService</module>
+    		<module>jenkinsTimeBasedService</module>
     		<module>SocketEventRelay</module>
     		<module>HtmlService</module>
     		<module>ReportManager</module>
@@ -181,7 +181,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
-
-
 </project>

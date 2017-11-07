@@ -8,62 +8,54 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 public class ProjectInfo {
 	@NotNull(message="project url cannot be null")
-	private String url;
+	private String repoUrl;
 	@NotNull(message="project id cannot be null")
-//	@Min(1)
-//	@Size(@Min(1))
-//	@NotEmpty(message="project id cannot be null")
-	private String pid;
-	private String path;
-	private String timeSpan;
+	private String projectId;
+	@NotNull(message="cloned path cannot be null")
+	private String clonedPath;
+
+	private String timeStamp; //in minutes
 	
+	public ProjectInfo(String projectId, String repoUrl,  String clonedPath, String timeStamp) {
+		
+		this.projectId = projectId;
+		this.repoUrl = repoUrl;		
+		this.clonedPath = clonedPath;
+		this.timeStamp = timeStamp;
+	}
+
+	public String getRepoUrl() {
+		return repoUrl;
+	}
+
+	public void setRepo_url(String repoUrl) {
+		this.repoUrl = repoUrl;
+	}
+
+	public String getProjectId() {
+		return projectId;
+	}
+
+	public void setProjectId(String projectId) {
+		this.projectId = projectId;
+	}
+
+	public String getClonedPath() {
+		return clonedPath;
+	}
+
+	public void setClonedPath(String clonedPath) {
+		this.clonedPath = clonedPath;
+	}
+
+	public String getTimeStamp() {
+		return timeStamp;
+	}
+
+	public void setTimeStamp(String timeStamp) {
+		this.timeStamp = timeStamp;
+	}
+
 	public ProjectInfo(){
 	}
-	
-	public ProjectInfo( String pid, String url,String path, String timespan){
-		
-		this.pid = pid;
-		this.url = url;
-		this.path = path;
-		this.timeSpan = timespan;
-	}
-	
-	public void setUrl(String url){
-		this.url = url;
-	}
-	
-	public String getUrl(){
-		return this.url;
-	}
-	
-	
-	
-	public String getPid() {
-		return pid;
-	}
-
-	public void setPid(String pid) {
-		this.pid = pid;
-	}
-
-	public String getPath() {
-		return path;
-	}
-
-	public void setPath(String path) {
-		this.path = path;
-	}
-
-	public String getTimeSpan() {
-		return timeSpan;
-	}
-
-	public void setTimeSpan(String timespan) {
-		this.timeSpan = timespan;
-	}
-
-//	public String toString(){
-//		String info = String.format("{ 'pid': %s, 'url': %s, 'path': %s, 'timeSpan': %s}", pid, url,path, timeSpan);
-//		return info;
-//	}
 }

@@ -21,7 +21,7 @@ public interface ProjectRepository extends Neo4jRepository<ProjectModel, Long>{
 	@Query("MATCH (u)-[r:WORKS_IN]-(p:ProjectModel{projectID:{projectId}}) DELETE r,p")
 	void deleteProject(@Param(value = "projectId") String projectId);
 
-	@Query("MATCH (u:UserModel{userId:{userId}}),(p:ProjectModel{projectID:{projectId}}) MERGE (u)-[r:WORKS_IN]-(p)")
+	@Query("MATCH (u:UserModel{userId:{userId}}),(p:ProjectModel{projectID:{projectId}}) MERGE (u)-[r:WORKS_IN]-(p),MERGE (p)-[r:WORKS_IN]-(u)")
 	void saveLink(String userId, String projectId);
 
 	@Query("MATCH (u:UserModel{userId:{userId}})-[r]-(p:ProjectModel{projectID:{projectId}}) REMOVE r")

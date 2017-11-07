@@ -73,7 +73,7 @@ public class UserManagementController {
 			} else if (!emailValidation(newData.getBody().getEmailId())) {
 				return new ResponseEntity<String>("EmailId not valid", HttpStatus.PARTIAL_CONTENT);
 			} else {
-				//this.kafkaProd.produce(newData.getBody());
+				this.kafkaProd.produce(newData.getBody());
 				this.userService.addUser(newData.getBody());
 				return new ResponseEntity<String>("User Added Successfully", HttpStatus.CREATED);
 			}

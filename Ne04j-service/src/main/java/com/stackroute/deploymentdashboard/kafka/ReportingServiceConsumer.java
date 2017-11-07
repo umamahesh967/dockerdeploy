@@ -3,6 +3,7 @@ package com.stackroute.deploymentdashboard.kafka;
 
 import java.util.concurrent.CountDownLatch;
 
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,10 +35,16 @@ public class ReportingServiceConsumer {
 	    System.out.println("Received Messasge in group foo: " + message);
 	}*/
 	   
-	
-
-	
-	@KafkaListener(topics = "${spring.kafka.consumer.group-id}", 
+	 
+	  @KafkaListener(topics = "${spring.kafka.consumer.group-id1}",
+			   containerFactory = "projectModelKafkaListenerContainerFactory")
+			   public void projectModellistener(ProjectModel projectModel) {
+				neo4jService.addProject(projectModel);
+				 latch.countDown();
+			   System.out.println(projectModel.getId());
+			   
+	 } 
+	  @KafkaListener(topics = "${spring.kafka.consumer.group-id}",
 	   containerFactory = "userModelKafkaListenerContainerFactory")
 	   public void projectModelListener(UserModel userModel) {
 		neo4jService.addUser(userModel);
@@ -46,13 +53,8 @@ public class ReportingServiceConsumer {
 	   System.out.println(userModel.getEmailId());
 	}
 
-	@KafkaListener(topics = "${spring.kafka.consumer.group-id}",
-	   containerFactory = "projectModelKafkaListenerContainerFactory")
-	   public void projectModellistener(ProjectModel projectModel) {
-		neo4jService.addProject(projectModel);
-		 latch.countDown();
-	   System.out.println(projectModel.getId());
+	
 	   
 	} 
 	
-}
+

@@ -24,19 +24,19 @@ public class App{
  
 	public static void main(String[] args) {
 		SpringApplication.run(App.class, args);
-		JenkinsService jenkinsService = new JenkinsService();
-		ProjectInfo model = new ProjectInfo( "23","/home/ankur/Downloads/gs-maven-master/complete", "/usr/", "60000");
-		try {
-			jenkinsService.put(model);
-		} catch (ModelNotFoundException | ModelVariableNotFoundException | URISyntaxException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+//		JenkinsService jenkinsService = new JenkinsService();
+//		ProjectInfo model = new ProjectInfo( "27","/home/ankur/Downloads/gs-maven-master/complete", "/usr/", "1");
+//		try {
+//			jenkinsService.put(model);
+//		} catch (ModelNotFoundException | ModelVariableNotFoundException | URISyntaxException | IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
 	}
 	
-	@Autowired
-	Sender producer;
+//	@Autowired
+//	Sender producer;
 	//for testing of send and receive
 //	@Override
 	

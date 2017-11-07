@@ -3,23 +3,25 @@ package com.kafkaobject.model;
 
 public class ProduceModel {
 	
-	private String pid; //project-id
+
 	private String buildSuccess; //status of the build
+	private String projectId; //project-id
 	
 	public ProduceModel() {
 		
 	}
 
-	public ProduceModel(String pid, String buildSuccess) {
+	public ProduceModel( String buildSuccess, String projectId) {
 		
-		this.pid = pid;
+	
 		this.buildSuccess = buildSuccess;
+		this.projectId = projectId;
 	}
-	public String getPid() {
-		return pid;
+	public String getProjectId() {
+		return projectId;
 	}
-	public void setPid(String pid) {
-		this.pid = pid;
+	public void setProjectId(String projectId) {
+		this.projectId = projectId;
 	}
 	public String getBuildSuccess() {
 		return buildSuccess;

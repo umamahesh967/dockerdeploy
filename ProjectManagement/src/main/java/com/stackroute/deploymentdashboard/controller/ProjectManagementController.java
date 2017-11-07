@@ -22,7 +22,7 @@ import com.stackroute.deploymentdashboard.Exceptions.CustomExceptionResponse;
 import com.stackroute.deploymentdashboard.Exceptions.ProjectAlreadyExistsException;
 import com.stackroute.deploymentdashboard.Exceptions.ProjectNotFoundException;
 import com.stackroute.deploymentdashboard.domains.ProjectManagementObject;
-import com.stackroute.deploymentdashboard.repository.ProjectManagementCRUDRepository;
+import com.stackroute.deploymentdashboard.messenger.KafkaProducer;
 import com.stackroute.deploymentdashboard.services.ProjectManagementServiceImpl;
 
 import org.springframework.data.mongodb.*;
@@ -43,6 +43,8 @@ public class ProjectManagementController {
 	@Autowired
 	private ProjectManagementServiceImpl projectservice;
 	
+	@Autowired
+	private KafkaProducer kafkaProd;
 	
 	@ApiOperation(value = "View a list of available projects",response = Iterable.class)
     @ApiResponses(value = {
@@ -79,6 +81,7 @@ public class ProjectManagementController {
 		
 		try {
 			this.projectservice.addProject(projectManagementObject);
+			kafkaProd.send(projectManagementObject );
 			
 			return new ResponseEntity<String>("Project added successfully",HttpStatus.OK);
 			}
@@ -106,23 +109,7 @@ public class ProjectManagementController {
 		
 	}
 	
-//	
-//	/* request handler for showing project by id*/
-//	@GetMapping(value="/show/{id}", produces= {"application/json"})
-//	@ApiOperation(value = "Search  project with an ID",response = ProjectManagementObject.class)
-//	public ResponseEntity<?> getone(@PathVariable("id")  String id)throws ProjectNotFoundException{
-//		
-//		
-//		try {
-//		ProjectManagementObject projectManagementObject=this.projectservice.getByid(id);
-//
-//	
-//		
-//		return new ResponseEntity<ProjectManagementObject>(projectManagementObject,HttpStatus.OK);}
-//		catch (ProjectNotFoundException exp) {
-//			return new ResponseEntity<String>(exp.getMessage(), HttpStatus.BAD_REQUEST);
-//		}
-//		}
+
 	
 	/* request handler for showing project by projectid*/
 	@GetMapping(value="/show/productid/{ProjectID}", produces= {"application/json"})
@@ -142,7 +129,7 @@ public class ProjectManagementController {
 	/* request handler for deleting a project by id*/
 	
 	@ApiOperation(value = "Delete a project")
-	@DeleteMapping(value="/delete/{projectID}", consumes="application/json")
+	@DeleteMapping(value="/delete/{projectID}")
 	 
 	public ResponseEntity<String> delete(@PathVariable("projectID")  String projectID)throws ProjectNotFoundException{
 		

@@ -7,7 +7,7 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.io.IOUtils;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 //import javax.servlet.http.HttpServletRequest;
@@ -36,11 +36,12 @@ public class RouterFilter  extends ZuulFilter{
     	RequestContext ctx= RequestContext.getCurrentContext();
     	HttpServletRequest request=ctx.getRequest();
     	if(request.getMethod().equalsIgnoreCase("post")) {
-    		try{
-    			System.out.println("............ROuter filter executed...."+request.getRequestURI()+"...."+IOUtils.toString(request.getReader()));
-    		}catch (IOException e) {
-    			e.printStackTrace();
-    		}
+    		System.out.println("............ROuter filter executed...."+request.getRequestURI()+"....");
+<<<<<<< HEAD
+
+    		System.out.println("............ROuter filter executed...."+request.getRequestURI()+"....");
+=======
+>>>>>>> f19262fceb8da6a57dbdd42ca2e2a8171893f09c
     	}
     	if(request.getMethod().equalsIgnoreCase("get")) {
     		System.out.println("............Router filter executed...."+request.getRequestURI());

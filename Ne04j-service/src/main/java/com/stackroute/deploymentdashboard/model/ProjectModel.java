@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.neo4j.ogm.annotation.GraphId;
+import org.neo4j.ogm.annotation.Index;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
@@ -18,6 +19,7 @@ public class ProjectModel {
 	@GraphId
 	private Long id;
 	
+	@Index(unique=true)
 	private String projectID;
 	
 	public Long getId() {

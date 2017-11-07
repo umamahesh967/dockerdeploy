@@ -3,11 +3,10 @@ package com.stackroute.deploymentdashboard.filter.pre;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 
-import org.apache.commons.io.IOUtils;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -34,11 +33,7 @@ public class PreFilter extends ZuulFilter {
     	RequestContext ctx= RequestContext.getCurrentContext();
     	HttpServletRequest request=ctx.getRequest();
     	if(request.getMethod().equalsIgnoreCase("post")) {
-    		try{
-    			System.out.println("............Pre filter executed...."+request.getRequestURI()+"...."+IOUtils.toString(request.getReader()));
-    		}catch (IOException e) {
-    			e.printStackTrace();
-    		}
+    		System.out.println("............Pre filter executed...."+request.getRequestURI()+"....");
     	}
     	if(request.getMethod().equalsIgnoreCase("get")) {
     		System.out.println("............Pre filter executed...."+request.getRequestURI());

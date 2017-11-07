@@ -2,17 +2,19 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.kafkaobject</groupId>
   <artifactId>JenkinsTimeBasedService</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  
+  <packaging>jar</packaging>
+ 
+ 
   <parent>
-		<groupId>com.stackroute.deploymentdashboard</groupId>
+	<groupId>com.stackroute.deploymentdashboard</groupId>
 		<artifactId>deployment_dashboard</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-		<relativePath /> <!-- lookup parent from repository -->
+		<relativePath>../</relativePath><!-- lookup parent from repository -->
 	</parent>
 
+
   <properties>
-    <java.version>1.8</java.version>
+    <java.version>1.7</java.version>
 
     <spring-kafka.version>1.2.2.RELEASE</spring-kafka.version>
   </properties>
@@ -60,15 +62,22 @@
       <version>2.2.1</version>
   </dependency>   
   </dependencies>
-
-  <build>
-    <plugins>
-      <!-- spring-boot-maven-plugin -->
-      <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-      </plugin>
-    </plugins>
-  </build>
+<build>
+	    <plugins>
+	        <plugin>
+	            <groupId>org.apache.maven.plugins</groupId>
+	            <artifactId>maven-compiler-plugin</artifactId>
+	            <configuration>
+	                <source>1.6</source>
+	                <target>1.6</target>
+	            </configuration>
+	        </plugin>
+	        
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+	    </plugins>
+	</build>
 
 </project>

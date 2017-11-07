@@ -6,6 +6,8 @@ import java.util.Map;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +24,8 @@ import com.stackroute.workflowengineservice.model.JenkinsJob;
 @Configuration
 public class WorkFlowEngineServiceConsumerConfig {
 
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	
     @Value("${spring.kafka.bootstrap-servers}")
     private String bootstrapServer;
     
