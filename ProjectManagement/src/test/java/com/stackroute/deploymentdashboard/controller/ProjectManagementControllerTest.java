@@ -46,7 +46,7 @@ public class ProjectManagementControllerTest {
 	}
     
     
-    
+    /*
     @Test
     public void testSaveProject() throws Exception {
 //    	 projectManagementObject = new ProjectManagementObject("project2.9","project2","mail.com");
@@ -60,7 +60,7 @@ public class ProjectManagementControllerTest {
         assertEquals("Project added successfully",actual);
     }
 
-    
+    */
    @Test
     public void testupdate() throws Exception {
 //  	 projectManagementObject = new ProjectManagementObject("project2.9","project2","mail.com");
@@ -83,7 +83,7 @@ public class ProjectManagementControllerTest {
         assertEquals("Project updated successfully",actual);
     }
     
-   
+/*   
 
    @Test
    public void testdelete() throws Exception {
@@ -103,5 +103,5 @@ public class ProjectManagementControllerTest {
        assertEquals("Deleted succesfully",actual);
    }
    
-
+*/
 }
