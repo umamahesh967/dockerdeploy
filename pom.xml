@@ -157,7 +157,6 @@
     		<module>HtmlService</module>
     		<module>ReportManager</module>
     		<module>EmailService</module>
-    		<module>neo4j-service</module>
     		<module>UserManagement</module>
     </modules>
 
