@@ -47,8 +47,8 @@ public class WorkflowControllerTest {
 	}
 	*/
 	
-	@LocalServerPort
-	private int port;
+//	@LocalServerPort
+	private int port = 8101;
 	
 	TestRestTemplate restTemplate = new TestRestTemplate();
 
@@ -149,7 +149,7 @@ public class WorkflowControllerTest {
 //	    
         HttpEntity<WorksetupJob> entity = new HttpEntity<WorksetupJob>(this.worksetupJob, headers);
         ResponseEntity<String> response = restTemplate.exchange(
-                createURLWithPort(this.WORKFLOW_URL + "returnToKafka"),
+                createURLWithPort("/v1/workflow/returnToKafka"),
                 HttpMethod.POST, entity, String.class);
 	    logger.info("**************Executing Test******************");
         assertNotNull(response);
