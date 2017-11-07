@@ -3,11 +3,11 @@ package com.stackroute.deploymentdashboard.filter.router;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 
-import java.io.IOException;
+
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.io.IOUtils;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 //import javax.servlet.http.HttpServletRequest;
@@ -36,11 +36,15 @@ public class RouterFilter  extends ZuulFilter{
     	RequestContext ctx= RequestContext.getCurrentContext();
     	HttpServletRequest request=ctx.getRequest();
     	if(request.getMethod().equalsIgnoreCase("post")) {
+<<<<<<< HEAD
     		try{
-    			System.out.println("............ROuter filter executed...."+request.getRequestURI()+"...."+IOUtils.toString(request.getReader()));
+    			System.out.println("............ROuter filter executed...."+request.getRequestURI()+"...."+request.getReader().toString());
     		}catch (IOException e) {
     			e.printStackTrace();
     		}
+=======
+    		System.out.println("............ROuter filter executed...."+request.getRequestURI()+"....");
+>>>>>>> a9715f00533b4ae992d71d8ce3c49a9c3d1ed9b9
     	}
     	if(request.getMethod().equalsIgnoreCase("get")) {
     		System.out.println("............Router filter executed...."+request.getRequestURI());

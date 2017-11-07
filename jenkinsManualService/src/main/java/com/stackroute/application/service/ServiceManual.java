@@ -17,6 +17,7 @@ import com.offbytwo.jenkins.model.JobWithDetails;
 import com.offbytwo.jenkins.model.QueueItem;
 import com.stackroute.application.exception.ModelNotFoundException;
 import com.stackroute.application.exception.ModelVariableNotFoundException;
+import com.stackroute.application.messenger.ReportingServiceProducer;
 import com.stackroute.application.model.ManualModel;
 import com.stackroute.application.model.ProduceManualModel;
 
@@ -25,7 +26,8 @@ public class ServiceManual {
 	
 	
 	ProduceManualModel produceManualModel=new ProduceManualModel(); 
-	
+	@Autowired
+	ReportingServiceProducer rp;
 	private String jobName;
 	
 	//we have taken a list of ManualModels.
@@ -35,22 +37,22 @@ private List<ManualModel> storage = new ArrayList<ManualModel>();
 	public void put(ManualModel message) throws ModelNotFoundException,ModelVariableNotFoundException, URISyntaxException, IOException{
 
 		if(message == null) throw new ModelNotFoundException("Message is empty");
-		if(message.getProjectID()==null) throw new ModelVariableNotFoundException("Please enter valid pid");
-		if(message.getCloned_path()==null) throw new ModelVariableNotFoundException("Please enter valid path");
-		if(message.getRepo_url()==null) throw new ModelVariableNotFoundException("Please enter valid url");
+		if(message.getProjectId()==null) throw new ModelVariableNotFoundException("Please enter valid project Id");
+		if(message.getClonedPath()==null) throw new ModelVariableNotFoundException("Please enter valid path");
+		if(message.getRepoUrl()==null) throw new ModelVariableNotFoundException("Please enter valid url");
 //		if(message.getTimeStamp()!=null) throw new ModelVariableNotFoundException("Please ensure that you are sending data without time span");
 		
 		storage.add(message);//Adds the message to the list
 		// sets the project-id of the message in produceManualModel in order to send
 		// data to kafaka
-		produceManualModel.setProjectID(message.getProjectID()); 
+		produceManualModel.setProjectId(message.getProjectId()); 
 		
 		
 		
 		//here "vamsi" is the username and "vamsi123" is the password for jenkins server
 	JenkinsServer jenkins = new JenkinsServer(new URI("http://localhost:8080"), "vamsi", "vamsi123");
 		
-		String url=message.getRepo_url(); //git or svn url comes from here
+		String url=message.getRepoUrl(); //git or svn url comes from here
 //		String url="https://github.com/spidervamsi/jenkinsTest";
 
 		
@@ -89,21 +91,30 @@ private List<ManualModel> storage = new ArrayList<ManualModel>();
 
 
 		//sets the jobName as "job"+project-id. So that every builds name is different
-		String jobName="job"+message.getProjectID();
+		String jobName="job"+message.getProjectId();
 		this.jobName=jobName;
 		try {
 		jenkins.createJob(jobName, config,true); //creates the job
 	   JobWithDetails job= jenkins.getJob(jobName);
+	    System.out.println(jobName);
           job.build(true);	
 		}
 		catch(HttpResponseException e) {
 			System.out.println("This job already exists");
 		}
-	    finally{
-	    	JobWithDetails y=jenkins.getJob(this.jobName);
-			if(y.isInQueue())
-				System.out.println("it's in queue");
-	    }
+		
+//		while(1>0) {
+//			JobWithDetails y=jenkins.getJob(this.jobName);//Gets the job details of a "jobName"
+//			 String buildResult="failed";
+//			if(y.hasLastSuccessfulBuildRun()) {
+//				buildResult="success"; // the we change the buildResult to success     
+//				produceManualModel.setBuildStatus(buildResult); //sets the buidlResult in produceMannualModel
+//				rp.sendMessage(produceManualModel);
+//				System.out.println("hey bro"+produceManualModel.getBuildStatus());
+//				break;
+//				}
+//		}
+		
 	}
 	
 	public List<ManualModel> getManualModel() {
@@ -123,7 +134,8 @@ private List<ManualModel> storage = new ArrayList<ManualModel>();
              
         if(y.hasLastSuccessfulBuildRun())// if the build is success
         	buildResult="success"; // the we change the buildResult to success
-		
+        
+        
         
 		produceManualModel.setBuildStatus(buildResult); //sets the buidlResult in produceMannualModel
 		return  produceManualModel;
