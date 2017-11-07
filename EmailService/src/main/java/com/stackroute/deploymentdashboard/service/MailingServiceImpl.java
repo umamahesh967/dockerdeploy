@@ -12,7 +12,7 @@ import org.springframework.mail.SimpleMailMessage;
 import com.stackroute.deploymentdashboard.model.EmailCredentials;
 
 
-
+//finma
 
 @Service
 public class MailingServiceImpl {
@@ -34,7 +34,7 @@ MailSender mailSender;
     	
 		message.setText(emailCredentials.getBuildStatus());
   
-    	message.setText("build status will show");
+//    	message.setText("build status will show");
 
     	message.setTo("saicharanpardhu@gmail.com ");
     	message.setFrom(" dashboard.stackroute@gmail.com");
@@ -51,21 +51,3 @@ MailSender mailSender;
 }
 	
 	
-//	public String Createmail() {
-//	 SimpleMailMessage message = new SimpleMailMessage();
-//     
-//   message.setText(report.getBuildStatus());
-//   
-////	 message.setText("build status will show");
-//
-//   message.setTo("saicharanpardhu@gmail.com ");
-//   message.setFrom(" dashboard.stackroute@gmail.com");
-//   try {
-//       mailSender.send(message);
-//       return "{\"message\": \"OK\"}";
-//   } catch (Exception e) {
-//       e.printStackTrace();
-//       return "{\"message\": \"Error\"}";
-//   }
-//}	
-
