@@ -35,8 +35,8 @@ public class App{
 //		
 	}
 	
-	@Autowired
-	Sender producer;
+//	@Autowired
+//	Sender producer;
 	//for testing of send and receive
 //	@Override
 	

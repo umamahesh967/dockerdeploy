@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
-
+import com.kafkaobject.model.ProduceModel;
 import com.kafkaobject.model.ProjectInfo;
  
 @Service
@@ -25,11 +25,11 @@ public class Sender {
 	  private static final Logger LOGGER = LoggerFactory.getLogger(Sender.class);
 	  //sending string, object instead of string, string
 	  @Autowired
-	  private KafkaTemplate<String, ProjectInfo> kafkaTemplate;
-		@Value("${kafka.topic.receiver}")
+	  private KafkaTemplate<String, ProduceModel> kafkaTemplate;
+		@Value("${kafka.topic.producer}")
 		private String kafkaTopic;
 		//send function for producer
-	  public void send( ProjectInfo payload) {
+	  public void send( ProduceModel payload) {
 	    LOGGER.info("sending payload='{}'", payload);
 	    kafkaTemplate.send(kafkaTopic,payload);
 	  }

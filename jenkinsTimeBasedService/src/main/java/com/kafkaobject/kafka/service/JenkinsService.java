@@ -127,23 +127,23 @@ private List<ProjectInfo> storage = new ArrayList<ProjectInfo>();
 		return storage;
 	}
 
-	public ProduceModel get() throws IOException, URISyntaxException, ModelVariableNotFoundException {
-		//here "ankur" is the username and "Monday123" is the password for jenkins server
-		JenkinsServer jenkins = new JenkinsServer(new URI("http://localhost:8080/jenkins/"), "ankur", "Monday123");
-		
-		if(this.jobName==null) throw new ModelVariableNotFoundException("Please give valid jobName");
-       
-		JobWithDetails y=jenkins.getJob(this.jobName);//Gets the job details of a "jobName"
-        if(y==null)throw new ModelVariableNotFoundException("Please wait for jenkinis");        
-             String buildResult="failed"; //by default we consider the build is failed
-             
-        if(y.hasLastSuccessfulBuildRun())// if the build is success
-        	buildResult="success"; // the we change the buildResult to success
-		
-		
-		produceModel.setBuildSuccess(buildResult); //sets the buidlResult in produceMannualModel
-		return  produceModel;
-	}
+//	public ProduceModel get() throws IOException, URISyntaxException {
+//		//here "ankur" is the username and "Monday123" is the password for jenkins server
+//		JenkinsServer jenkins = new JenkinsServer(new URI("http://localhost:8080/jenkins/"), "ankur", "Monday123");
+//		
+//		if(this.jobName==null) throw new ModelVariableNotFoundException("Please give valid jobName");
+//       
+//		JobWithDetails y=jenkins.getJob(this.jobName);//Gets the job details of a "jobName"
+//        if(y==null)throw new ModelVariableNotFoundException("Please wait for jenkinis");        
+//             String buildResult="failed"; //by default we consider the build is failed
+//             
+//        if(y.hasLastSuccessfulBuildRun())// if the build is success
+//        	buildResult="success"; // the we change the buildResult to success
+//		
+//		
+//		produceModel.setBuildSuccess(buildResult); //sets the buidlResult in produceMannualModel
+//		return  produceModel;
+//	}
 
 
 }
