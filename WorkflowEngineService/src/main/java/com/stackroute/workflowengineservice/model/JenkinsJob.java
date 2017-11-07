@@ -9,59 +9,46 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 @JsonSerialize
 public class JenkinsJob implements Serializable {
 
-	private String projectID;
-	private String cloned_path;
-	private String url;
-	private String timeSpan;	
-	
-	public String getPid() {
-		return projectID;
-	}
-	public void setPid(String pid) {
-		this.projectID = pid;
-	}
-	public String getPath() {
-		return cloned_path;
-	}
-	public void setPath(String path) {
-		this.cloned_path = path;
-	}
-	public String getUrl() {
-		return url;
-	}
-	public void setUrl(String url) {
-		this.url = url;
-	}
-	public String getTimeSpan() {
-		return timeSpan;
-	}
-	public void setTimeSpan(String timeSpan) {
-		this.timeSpan = timeSpan;
-	}
-
+	private String projectId;
+    private String clonedPath;
+    private String repoUrl; // git or svn url
+     private String timeStamp; // time stamp when to build the project
 	/**
-	 * @param projectID
+	 * @param projectId
+	 * @param clonedPath
+	 * @param repoUrl
+	 * @param timeStamp
 	 */
-
-	public JenkinsJob(String projectID, String p) {
-		this.projectID = projectID;
-		this.cloned_path = p;
-	}
-	/**
-	 * @param pid
-	 * @param path
-	 * @param url
-	 * @param timeSpan
-	 */
-
-	public JenkinsJob(String pid2, String path2, String url2, String timeSpan2) {
-		// TODO Auto-generated constructor stub
+	public JenkinsJob(String projectId, String clonedPath, String repoUrl, String timeStamp) {
 		super();
-		this.projectID = pid2;
-		this.cloned_path = path2;
-		this.url = url2;
-		this.timeSpan = null;
+		this.projectId = projectId;
+		this.clonedPath = clonedPath;
+		this.repoUrl = repoUrl;
+		this.timeStamp = timeStamp;
 	}
-	
-	
+	public String getProjectId() {
+		return projectId;
+	}
+	public void setProjectId(String projectId) {
+		this.projectId = projectId;
+	}
+	public String getClonedPath() {
+		return clonedPath;
+	}
+	public void setClonedPath(String clonedPath) {
+		this.clonedPath = clonedPath;
+	}
+	public String getRepoUrl() {
+		return repoUrl;
+	}
+	public void setRepoUrl(String repoUrl) {
+		this.repoUrl = repoUrl;
+	}
+	public String getTimeStamp() {
+		return timeStamp;
+	}
+	public void setTimeStamp(String timeStamp) {
+		this.timeStamp = timeStamp;
+	}
+     
 }
