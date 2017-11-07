@@ -6,7 +6,7 @@
 	<groupId>com.stackroute.deploymentdashboard.neo4j</groupId>
 	<artifactId>neo4j-service</artifactId>
 	<version>0.1.0</version>
-
+	<name>neo4j-service</name>
 	<parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
