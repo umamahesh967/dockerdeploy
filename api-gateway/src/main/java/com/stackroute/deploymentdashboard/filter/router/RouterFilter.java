@@ -39,6 +39,7 @@ public class RouterFilter  extends ZuulFilter{
 
     		//System.out.println("............ROuter filter executed...."+request.getRequestURI()+"....");
 
+    	}
     	if(request.getMethod().equalsIgnoreCase("get")) {
     		//System.out.println("............Router filter executed...."+request.getRequestURI());
     	}
