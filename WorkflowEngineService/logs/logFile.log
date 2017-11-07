@@ -1,0 +1,262 @@
+2017-11-07 15:12:40.648  INFO 716 --- [main] c.s.w.WorkflowEngineServiceApplication   : No active profile set, falling back to default profiles: default
+2017-11-07 15:12:40.664  INFO 716 --- [main] ationConfigEmbeddedWebApplicationContext : Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@27eedb64: startup date [Tue Nov 07 15:12:40 IST 2017]; parent: org.springframework.context.annotation.AnnotationConfigApplicationContext@243c4f91
+2017-11-07 15:12:41.343  WARN 716 --- [main] o.s.c.a.ConfigurationClassPostProcessor  : Cannot enhance @Configuration bean definition 'refreshScope' since its singleton instance has been created too early. The typical cause is a non-static @Bean method with a BeanDefinitionRegistryPostProcessor return type: Consider declaring such methods as 'static'.
+2017-11-07 15:12:41.431  INFO 716 --- [main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=66f769a2-f1ac-3052-a519-fe3dfd68d067
+2017-11-07 15:12:41.457  INFO 716 --- [main] f.a.AutowiredAnnotationBeanPostProcessor : JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2017-11-07 15:12:41.485  INFO 716 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.kafka.annotation.KafkaBootstrapConfiguration' of type [org.springframework.kafka.annotation.KafkaBootstrapConfiguration$$EnhancerBySpringCGLIB$$3fc34395] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2017-11-07 15:12:41.571  INFO 716 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$882b350f] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2017-11-07 15:12:41.745  INFO 716 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat initialized with port(s): 8101 (http)
+2017-11-07 15:12:41.755  INFO 716 --- [main] o.apache.catalina.core.StandardService   : Starting service Tomcat
+2017-11-07 15:12:41.756  INFO 716 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.11
+2017-11-07 15:12:41.828  INFO 716 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-11-07 15:12:41.829  INFO 716 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1164 ms
+2017-11-07 15:12:41.934  INFO 716 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2017-11-07 15:12:41.937  INFO 716 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2017-11-07 15:12:41.937  INFO 716 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2017-11-07 15:12:41.937  INFO 716 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2017-11-07 15:12:41.937  INFO 716 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2017-11-07 15:12:42.459  INFO 716 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/v1/workflow/returnToKafka],methods=[POST]}" onto public org.springframework.http.ResponseEntity<java.lang.String> com.stackroute.workflowengineservice.controller.WorkflowController.returnToKafka(com.stackroute.workflowengineservice.model.WorksetupJob) throws com.stackroute.workflowengineservice.exception.InternalUnixCommandException,com.stackroute.workflowengineservice.exception.FileGenerationException,java.io.IOException,org.eclipse.jgit.api.errors.NoHeadException,org.eclipse.jgit.api.errors.NoMessageException,org.eclipse.jgit.api.errors.UnmergedPathsException,org.eclipse.jgit.api.errors.ConcurrentRefUpdateException,org.eclipse.jgit.api.errors.WrongRepositoryStateException,org.eclipse.jgit.api.errors.GitAPIException
+2017-11-07 15:12:42.460  INFO 716 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/v1/workflow/generateJenkinsfile],methods=[POST]}" onto public java.lang.Object com.stackroute.workflowengineservice.controller.WorkflowController.generateJenkinsFile(com.stackroute.workflowengineservice.model.WorkflowJenkinsJob) throws com.stackroute.workflowengineservice.exception.FileGenerationException,java.io.IOException
+2017-11-07 15:12:42.460  INFO 716 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/v1/workflow/clone]}" onto public org.springframework.http.ResponseEntity<java.lang.String> com.stackroute.workflowengineservice.controller.WorkflowController.cloneIt() throws com.stackroute.workflowengineservice.exception.InternalUnixCommandException,com.stackroute.workflowengineservice.exception.JgitInternalException
+2017-11-07 15:12:42.460  INFO 716 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/v1/workflow/cloneFromGitCommand]}" onto public java.lang.Object com.stackroute.workflowengineservice.controller.WorkflowController.cloneItFromGitCommand()
+2017-11-07 15:12:42.461  INFO 716 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/v2/api-docs],methods=[GET],produces=[application/json || application/hal+json]}" onto public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)
+2017-11-07 15:12:42.464  INFO 716 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/swagger-resources/configuration/ui]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.UiConfiguration> springfox.documentation.swagger.web.ApiResourceController.uiConfiguration()
+2017-11-07 15:12:42.464  INFO 716 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/swagger-resources/configuration/security]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.SecurityConfiguration> springfox.documentation.swagger.web.ApiResourceController.securityConfiguration()
+2017-11-07 15:12:42.465  INFO 716 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/swagger-resources]}" onto org.springframework.http.ResponseEntity<java.util.List<springfox.documentation.swagger.web.SwaggerResource>> springfox.documentation.swagger.web.ApiResourceController.swaggerResources()
+2017-11-07 15:12:42.468  INFO 716 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-11-07 15:12:42.468  INFO 716 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2017-11-07 15:12:42.774  INFO 716 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@27eedb64: startup date [Tue Nov 07 15:12:40 IST 2017]; parent: org.springframework.context.annotation.AnnotationConfigApplicationContext@243c4f91
+2017-11-07 15:12:42.825  INFO 716 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-11-07 15:12:42.825  INFO 716 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-11-07 15:12:42.842  INFO 716 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : Detected @ExceptionHandler methods in exceptionHandlingController
+2017-11-07 15:12:42.862  INFO 716 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-11-07 15:12:43.120  WARN 716 --- [main] c.n.c.sources.URLConfigurationSource     : No URLs will be polled as dynamic configuration sources.
+2017-11-07 15:12:43.120  INFO 716 --- [main] c.n.c.sources.URLConfigurationSource     : To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2017-11-07 15:12:43.125  WARN 716 --- [main] c.n.c.sources.URLConfigurationSource     : No URLs will be polled as dynamic configuration sources.
+2017-11-07 15:12:43.125  INFO 716 --- [main] c.n.c.sources.URLConfigurationSource     : To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2017-11-07 15:12:43.189  INFO 716 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2017-11-07 15:12:43.197  INFO 716 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Bean with name 'refreshScope' has been autodetected for JMX exposure
+2017-11-07 15:12:43.197  INFO 716 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Bean with name 'environmentManager' has been autodetected for JMX exposure
+2017-11-07 15:12:43.198  INFO 716 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Bean with name 'configurationPropertiesRebinder' has been autodetected for JMX exposure
+2017-11-07 15:12:43.201  INFO 716 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Located managed bean 'environmentManager': registering with JMX server as MBean [org.springframework.cloud.context.environment:name=environmentManager,type=EnvironmentManager]
+2017-11-07 15:12:43.212  INFO 716 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Located managed bean 'refreshScope': registering with JMX server as MBean [org.springframework.cloud.context.scope.refresh:name=refreshScope,type=RefreshScope]
+2017-11-07 15:12:43.222  INFO 716 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Located managed bean 'configurationPropertiesRebinder': registering with JMX server as MBean [org.springframework.cloud.context.properties:name=configurationPropertiesRebinder,context=27eedb64,type=ConfigurationPropertiesRebinder]
+2017-11-07 15:12:43.350  INFO 716 --- [main] o.s.c.support.DefaultLifecycleProcessor  : Starting beans in phase 0
+2017-11-07 15:12:43.360  INFO 716 --- [main] o.a.k.clients.consumer.ConsumerConfig    : ConsumerConfig values: 
+	metric.reporters = []
+	metadata.max.age.ms = 300000
+	value.deserializer = class org.springframework.kafka.support.serializer.JsonDeserializer
+	group.id = something
+	partition.assignment.strategy = [org.apache.kafka.clients.consumer.RangeAssignor]
+	reconnect.backoff.ms = 50
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	max.partition.fetch.bytes = 1048576
+	bootstrap.servers = [172.23.238.155:9092]
+	retry.backoff.ms = 100
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	ssl.keystore.type = JKS
+	ssl.trustmanager.algorithm = PKIX
+	enable.auto.commit = true
+	ssl.key.password = null
+	fetch.max.wait.ms = 500
+	sasl.kerberos.min.time.before.relogin = 60000
+	connections.max.idle.ms = 540000
+	ssl.truststore.password = null
+	session.timeout.ms = 30000
+	metrics.num.samples = 2
+	client.id = 
+	ssl.endpoint.identification.algorithm = null
+	key.deserializer = class org.apache.kafka.common.serialization.StringDeserializer
+	ssl.protocol = TLS
+	check.crcs = true
+	request.timeout.ms = 40000
+	ssl.provider = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.1, TLSv1]
+	ssl.keystore.location = null
+	heartbeat.interval.ms = 3000
+	auto.commit.interval.ms = 5000
+	receive.buffer.bytes = 32768
+	ssl.cipher.suites = null
+	ssl.truststore.type = JKS
+	security.protocol = PLAINTEXT
+	ssl.truststore.location = null
+	ssl.keystore.password = null
+	ssl.keymanager.algorithm = SunX509
+	metrics.sample.window.ms = 30000
+	fetch.min.bytes = 1
+	send.buffer.bytes = 131072
+	auto.offset.reset = latest
+
+2017-11-07 15:12:43.427  INFO 716 --- [main] o.a.kafka.common.utils.AppInfoParser     : Kafka version : 0.9.0.1
+2017-11-07 15:12:43.427  INFO 716 --- [main] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId : 23c69d62a0cabf06
+2017-11-07 15:12:43.437  INFO 716 --- [main] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
+2017-11-07 15:12:43.564  INFO 716 --- [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-kafka-consumer-1] o.s.k.l.KafkaMessageListenerContainer    : partitions revoked:[]
+2017-11-07 15:12:43.587  INFO 716 --- [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-kafka-consumer-1] o.s.k.l.KafkaMessageListenerContainer    : partitions assigned:[userdata-0]
+2017-11-07 15:12:43.610  INFO 716 --- [main] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON encoding codec LegacyJacksonJson
+2017-11-07 15:12:43.611  INFO 716 --- [main] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON decoding codec LegacyJacksonJson
+2017-11-07 15:12:43.857  INFO 716 --- [main] c.n.d.provider.DiscoveryJerseyProvider   : Using XML encoding codec XStreamXml
+2017-11-07 15:12:43.857  INFO 716 --- [main] c.n.d.provider.DiscoveryJerseyProvider   : Using XML decoding codec XStreamXml
+2017-11-07 15:12:44.035  INFO 716 --- [main] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2017-11-07 15:12:44.054  INFO 716 --- [main] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2017-11-07 15:12:44.055  INFO 716 --- [main] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2017-11-07 15:12:44.055  INFO 716 --- [main] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2017-11-07 15:12:44.055  INFO 716 --- [main] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2017-11-07 15:12:44.055  INFO 716 --- [main] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2017-11-07 15:12:44.055  INFO 716 --- [main] com.netflix.discovery.DiscoveryClient    : Application version is -1: true
+2017-11-07 15:12:44.055  INFO 716 --- [main] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2017-11-07 15:12:44.195  INFO 716 --- [main] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2017-11-07 15:12:44.198  INFO 716 --- [main] com.netflix.discovery.DiscoveryClient    : Starting heartbeat executor: renew interval is: 30
+2017-11-07 15:12:44.200  INFO 716 --- [main] c.n.discovery.InstanceInfoReplicator     : InstanceInfoReplicator onDemand update allowed rate per min is 4
+2017-11-07 15:12:44.204  INFO 716 --- [main] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1510047764204 with initial instances count: 2
+2017-11-07 15:12:44.227  INFO 716 --- [main] c.n.e.EurekaDiscoveryClientConfiguration : Registering application workflow-engine with eureka with status UP
+2017-11-07 15:12:44.227  INFO 716 --- [main] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1510047764227, current=UP, previous=STARTING]
+2017-11-07 15:12:44.229  INFO 716 --- [main] o.s.c.support.DefaultLifecycleProcessor  : Starting beans in phase 2147483647
+2017-11-07 15:12:44.230  INFO 716 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2017-11-07 15:12:44.230  INFO 716 --- [DiscoveryClient-InstanceInfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_WORKFLOW-ENGINE/172.23.238.155:workflow-engine:8101: registering service...
+2017-11-07 15:12:44.252  INFO 716 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2017-11-07 15:12:44.269  INFO 716 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2017-11-07 15:12:44.277  INFO 716 --- [DiscoveryClient-InstanceInfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_WORKFLOW-ENGINE/172.23.238.155:workflow-engine:8101 - registration status: 204
+2017-11-07 15:12:44.473  INFO 716 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat started on port(s): 8101 (http)
+2017-11-07 15:12:44.474  INFO 716 --- [main] c.n.e.EurekaDiscoveryClientConfiguration : Updating port to 8101
+2017-11-07 15:12:44.479  INFO 716 --- [main] c.s.w.WorkflowEngineServiceApplication   : Started WorkflowEngineServiceApplication in 4.786 seconds (JVM running for 5.231)
+2017-11-07 15:13:55.433  INFO 716 --- [RMI TCP Connection(2)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2017-11-07 15:13:55.433  INFO 716 --- [RMI TCP Connection(2)-127.0.0.1] ationConfigEmbeddedWebApplicationContext : Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@27eedb64: startup date [Tue Nov 07 15:12:40 IST 2017]; parent: org.springframework.context.annotation.AnnotationConfigApplicationContext@243c4f91
+2017-11-07 15:13:55.434  INFO 716 --- [RMI TCP Connection(2)-127.0.0.1] c.n.e.EurekaDiscoveryClientConfiguration : Unregistering application workflow-engine with eureka with status DOWN
+2017-11-07 15:13:55.434  WARN 716 --- [RMI TCP Connection(2)-127.0.0.1] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1510047835434, current=DOWN, previous=UP]
+2017-11-07 15:13:55.434  INFO 716 --- [DiscoveryClient-InstanceInfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_WORKFLOW-ENGINE/172.23.238.155:workflow-engine:8101: registering service...
+2017-11-07 15:13:55.434  INFO 716 --- [RMI TCP Connection(2)-127.0.0.1] com.netflix.discovery.DiscoveryClient    : Shutting down DiscoveryClient ...
+2017-11-07 15:13:55.436  INFO 716 --- [RMI TCP Connection(2)-127.0.0.1] com.netflix.discovery.DiscoveryClient    : Unregistering ...
+2017-11-07 15:13:55.440  INFO 716 --- [DiscoveryClient-InstanceInfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_WORKFLOW-ENGINE/172.23.238.155:workflow-engine:8101 - registration status: 204
+2017-11-07 15:13:55.442  INFO 716 --- [RMI TCP Connection(2)-127.0.0.1] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_WORKFLOW-ENGINE/172.23.238.155:workflow-engine:8101 - deregister  status: 200
+2017-11-07 15:13:55.452  INFO 716 --- [RMI TCP Connection(2)-127.0.0.1] com.netflix.discovery.DiscoveryClient    : Completed shut down of DiscoveryClient
+2017-11-07 15:13:55.454  INFO 716 --- [RMI TCP Connection(2)-127.0.0.1] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147483647
+2017-11-07 15:13:55.455  INFO 716 --- [RMI TCP Connection(2)-127.0.0.1] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 0
+2017-11-07 15:13:55.610  INFO 716 --- [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-kafka-consumer-1] essageListenerContainer$ListenerConsumer : Consumer stopped
+2017-11-07 15:13:55.615  INFO 716 --- [RMI TCP Connection(2)-127.0.0.1] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown
+2017-11-07 15:13:55.616  INFO 716 --- [RMI TCP Connection(2)-127.0.0.1] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans
+2017-11-07 15:13:55.670  INFO 716 --- [RMI TCP Connection(2)-127.0.0.1] o.apache.catalina.core.StandardService   : Stopping service Tomcat
+2017-11-07 15:13:57.701  INFO 879 --- [main] c.s.w.WorkflowEngineServiceApplication   : No active profile set, falling back to default profiles: default
+2017-11-07 15:13:57.717  INFO 879 --- [main] ationConfigEmbeddedWebApplicationContext : Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@27eedb64: startup date [Tue Nov 07 15:13:57 IST 2017]; parent: org.springframework.context.annotation.AnnotationConfigApplicationContext@243c4f91
+2017-11-07 15:13:58.503  WARN 879 --- [main] o.s.c.a.ConfigurationClassPostProcessor  : Cannot enhance @Configuration bean definition 'refreshScope' since its singleton instance has been created too early. The typical cause is a non-static @Bean method with a BeanDefinitionRegistryPostProcessor return type: Consider declaring such methods as 'static'.
+2017-11-07 15:13:58.603  INFO 879 --- [main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=66f769a2-f1ac-3052-a519-fe3dfd68d067
+2017-11-07 15:13:58.634  INFO 879 --- [main] f.a.AutowiredAnnotationBeanPostProcessor : JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2017-11-07 15:13:58.667  INFO 879 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.kafka.annotation.KafkaBootstrapConfiguration' of type [org.springframework.kafka.annotation.KafkaBootstrapConfiguration$$EnhancerBySpringCGLIB$$3fc34395] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2017-11-07 15:13:58.769  INFO 879 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$882b350f] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2017-11-07 15:13:58.991  INFO 879 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat initialized with port(s): 8101 (http)
+2017-11-07 15:13:59.003  INFO 879 --- [main] o.apache.catalina.core.StandardService   : Starting service Tomcat
+2017-11-07 15:13:59.004  INFO 879 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.11
+2017-11-07 15:13:59.080  INFO 879 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-11-07 15:13:59.081  INFO 879 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1364 ms
+2017-11-07 15:13:59.215  INFO 879 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2017-11-07 15:13:59.218  INFO 879 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2017-11-07 15:13:59.219  INFO 879 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2017-11-07 15:13:59.220  INFO 879 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2017-11-07 15:13:59.220  INFO 879 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2017-11-07 15:13:59.836  INFO 879 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/v1/workflow/returnToKafka],methods=[POST]}" onto public org.springframework.http.ResponseEntity<java.lang.String> com.stackroute.workflowengineservice.controller.WorkflowController.returnToKafka(com.stackroute.workflowengineservice.model.WorksetupJob) throws com.stackroute.workflowengineservice.exception.InternalUnixCommandException,com.stackroute.workflowengineservice.exception.FileGenerationException,java.io.IOException,org.eclipse.jgit.api.errors.NoHeadException,org.eclipse.jgit.api.errors.NoMessageException,org.eclipse.jgit.api.errors.UnmergedPathsException,org.eclipse.jgit.api.errors.ConcurrentRefUpdateException,org.eclipse.jgit.api.errors.WrongRepositoryStateException,org.eclipse.jgit.api.errors.GitAPIException
+2017-11-07 15:13:59.837  INFO 879 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/v1/workflow/generateJenkinsfile],methods=[POST]}" onto public java.lang.Object com.stackroute.workflowengineservice.controller.WorkflowController.generateJenkinsFile(com.stackroute.workflowengineservice.model.WorkflowJenkinsJob) throws com.stackroute.workflowengineservice.exception.FileGenerationException,java.io.IOException
+2017-11-07 15:13:59.837  INFO 879 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/v1/workflow/clone]}" onto public org.springframework.http.ResponseEntity<java.lang.String> com.stackroute.workflowengineservice.controller.WorkflowController.cloneIt() throws com.stackroute.workflowengineservice.exception.InternalUnixCommandException,com.stackroute.workflowengineservice.exception.JgitInternalException
+2017-11-07 15:13:59.838  INFO 879 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/v1/workflow/cloneFromGitCommand]}" onto public java.lang.Object com.stackroute.workflowengineservice.controller.WorkflowController.cloneItFromGitCommand()
+2017-11-07 15:13:59.839  INFO 879 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/v2/api-docs],methods=[GET],produces=[application/json || application/hal+json]}" onto public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)
+2017-11-07 15:13:59.842  INFO 879 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/swagger-resources/configuration/security]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.SecurityConfiguration> springfox.documentation.swagger.web.ApiResourceController.securityConfiguration()
+2017-11-07 15:13:59.842  INFO 879 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/swagger-resources/configuration/ui]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.UiConfiguration> springfox.documentation.swagger.web.ApiResourceController.uiConfiguration()
+2017-11-07 15:13:59.843  INFO 879 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/swagger-resources]}" onto org.springframework.http.ResponseEntity<java.util.List<springfox.documentation.swagger.web.SwaggerResource>> springfox.documentation.swagger.web.ApiResourceController.swaggerResources()
+2017-11-07 15:13:59.846  INFO 879 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-11-07 15:13:59.846  INFO 879 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2017-11-07 15:14:00.137  INFO 879 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@27eedb64: startup date [Tue Nov 07 15:13:57 IST 2017]; parent: org.springframework.context.annotation.AnnotationConfigApplicationContext@243c4f91
+2017-11-07 15:14:00.184  INFO 879 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-11-07 15:14:00.185  INFO 879 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-11-07 15:14:00.203  INFO 879 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : Detected @ExceptionHandler methods in exceptionHandlingController
+2017-11-07 15:14:00.224  INFO 879 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-11-07 15:14:00.502  WARN 879 --- [main] c.n.c.sources.URLConfigurationSource     : No URLs will be polled as dynamic configuration sources.
+2017-11-07 15:14:00.502  INFO 879 --- [main] c.n.c.sources.URLConfigurationSource     : To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2017-11-07 15:14:00.506  WARN 879 --- [main] c.n.c.sources.URLConfigurationSource     : No URLs will be polled as dynamic configuration sources.
+2017-11-07 15:14:00.507  INFO 879 --- [main] c.n.c.sources.URLConfigurationSource     : To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2017-11-07 15:14:00.568  INFO 879 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2017-11-07 15:14:00.576  INFO 879 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Bean with name 'refreshScope' has been autodetected for JMX exposure
+2017-11-07 15:14:00.577  INFO 879 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Bean with name 'environmentManager' has been autodetected for JMX exposure
+2017-11-07 15:14:00.578  INFO 879 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Bean with name 'configurationPropertiesRebinder' has been autodetected for JMX exposure
+2017-11-07 15:14:00.581  INFO 879 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Located managed bean 'environmentManager': registering with JMX server as MBean [org.springframework.cloud.context.environment:name=environmentManager,type=EnvironmentManager]
+2017-11-07 15:14:00.595  INFO 879 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Located managed bean 'refreshScope': registering with JMX server as MBean [org.springframework.cloud.context.scope.refresh:name=refreshScope,type=RefreshScope]
+2017-11-07 15:14:00.606  INFO 879 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Located managed bean 'configurationPropertiesRebinder': registering with JMX server as MBean [org.springframework.cloud.context.properties:name=configurationPropertiesRebinder,context=27eedb64,type=ConfigurationPropertiesRebinder]
+2017-11-07 15:14:00.749  INFO 879 --- [main] o.s.c.support.DefaultLifecycleProcessor  : Starting beans in phase 0
+2017-11-07 15:14:00.760  INFO 879 --- [main] o.a.k.clients.consumer.ConsumerConfig    : ConsumerConfig values: 
+	metric.reporters = []
+	metadata.max.age.ms = 300000
+	value.deserializer = class org.springframework.kafka.support.serializer.JsonDeserializer
+	group.id = something
+	partition.assignment.strategy = [org.apache.kafka.clients.consumer.RangeAssignor]
+	reconnect.backoff.ms = 50
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	max.partition.fetch.bytes = 1048576
+	bootstrap.servers = [172.23.238.155:9092]
+	retry.backoff.ms = 100
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	ssl.keystore.type = JKS
+	ssl.trustmanager.algorithm = PKIX
+	enable.auto.commit = true
+	ssl.key.password = null
+	fetch.max.wait.ms = 500
+	sasl.kerberos.min.time.before.relogin = 60000
+	connections.max.idle.ms = 540000
+	ssl.truststore.password = null
+	session.timeout.ms = 30000
+	metrics.num.samples = 2
+	client.id = 
+	ssl.endpoint.identification.algorithm = null
+	key.deserializer = class org.apache.kafka.common.serialization.StringDeserializer
+	ssl.protocol = TLS
+	check.crcs = true
+	request.timeout.ms = 40000
+	ssl.provider = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.1, TLSv1]
+	ssl.keystore.location = null
+	heartbeat.interval.ms = 3000
+	auto.commit.interval.ms = 5000
+	receive.buffer.bytes = 32768
+	ssl.cipher.suites = null
+	ssl.truststore.type = JKS
+	security.protocol = PLAINTEXT
+	ssl.truststore.location = null
+	ssl.keystore.password = null
+	ssl.keymanager.algorithm = SunX509
+	metrics.sample.window.ms = 30000
+	fetch.min.bytes = 1
+	send.buffer.bytes = 131072
+	auto.offset.reset = latest
+
+2017-11-07 15:14:00.810  INFO 879 --- [main] o.a.kafka.common.utils.AppInfoParser     : Kafka version : 0.9.0.1
+2017-11-07 15:14:00.810  INFO 879 --- [main] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId : 23c69d62a0cabf06
+2017-11-07 15:14:00.821  INFO 879 --- [main] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
+2017-11-07 15:14:01.019  INFO 879 --- [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-kafka-consumer-1] o.s.k.l.KafkaMessageListenerContainer    : partitions revoked:[]
+2017-11-07 15:14:01.045  INFO 879 --- [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-kafka-consumer-1] o.s.k.l.KafkaMessageListenerContainer    : partitions assigned:[userdata-0]
+2017-11-07 15:14:01.062  INFO 879 --- [main] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON encoding codec LegacyJacksonJson
+2017-11-07 15:14:01.063  INFO 879 --- [main] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON decoding codec LegacyJacksonJson
+2017-11-07 15:14:01.322  INFO 879 --- [main] c.n.d.provider.DiscoveryJerseyProvider   : Using XML encoding codec XStreamXml
+2017-11-07 15:14:01.322  INFO 879 --- [main] c.n.d.provider.DiscoveryJerseyProvider   : Using XML decoding codec XStreamXml
+2017-11-07 15:14:01.494  INFO 879 --- [main] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2017-11-07 15:14:01.509  INFO 879 --- [main] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2017-11-07 15:14:01.510  INFO 879 --- [main] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2017-11-07 15:14:01.510  INFO 879 --- [main] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2017-11-07 15:14:01.510  INFO 879 --- [main] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2017-11-07 15:14:01.510  INFO 879 --- [main] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2017-11-07 15:14:01.510  INFO 879 --- [main] com.netflix.discovery.DiscoveryClient    : Application version is -1: true
+2017-11-07 15:14:01.510  INFO 879 --- [main] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2017-11-07 15:14:01.628  INFO 879 --- [main] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2017-11-07 15:14:01.630  INFO 879 --- [main] com.netflix.discovery.DiscoveryClient    : Starting heartbeat executor: renew interval is: 30
+2017-11-07 15:14:01.634  INFO 879 --- [main] c.n.discovery.InstanceInfoReplicator     : InstanceInfoReplicator onDemand update allowed rate per min is 4
+2017-11-07 15:14:01.637  INFO 879 --- [main] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1510047841637 with initial instances count: 1
+2017-11-07 15:14:01.658  INFO 879 --- [main] c.n.e.EurekaDiscoveryClientConfiguration : Registering application workflow-engine with eureka with status UP
+2017-11-07 15:14:01.659  INFO 879 --- [main] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1510047841659, current=UP, previous=STARTING]
+2017-11-07 15:14:01.662  INFO 879 --- [main] o.s.c.support.DefaultLifecycleProcessor  : Starting beans in phase 2147483647
+2017-11-07 15:14:01.662  INFO 879 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2017-11-07 15:14:01.665  INFO 879 --- [DiscoveryClient-InstanceInfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_WORKFLOW-ENGINE/172.23.238.155:workflow-engine:8101: registering service...
+2017-11-07 15:14:01.679  INFO 879 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2017-11-07 15:14:01.700  INFO 879 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2017-11-07 15:14:01.715  INFO 879 --- [DiscoveryClient-InstanceInfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_WORKFLOW-ENGINE/172.23.238.155:workflow-engine:8101 - registration status: 204
+2017-11-07 15:14:01.878  INFO 879 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat started on port(s): 8101 (http)
+2017-11-07 15:14:01.879  INFO 879 --- [main] c.n.e.EurekaDiscoveryClientConfiguration : Updating port to 8101
+2017-11-07 15:14:01.884  INFO 879 --- [main] c.s.w.WorkflowEngineServiceApplication   : Started WorkflowEngineServiceApplication in 5.119 seconds (JVM running for 5.575)
