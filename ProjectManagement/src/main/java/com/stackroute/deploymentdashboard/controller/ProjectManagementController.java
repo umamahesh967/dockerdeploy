@@ -142,7 +142,7 @@ public class ProjectManagementController {
 	/* request handler for deleting a project by id*/
 	
 	@ApiOperation(value = "Delete a project")
-	@DeleteMapping(value="/delete/{projectID}", consumes="application/json")
+	@DeleteMapping(value="/delete/{projectID}")
 	 
 	public ResponseEntity<String> delete(@PathVariable("projectID")  String projectID)throws ProjectNotFoundException{
 		
