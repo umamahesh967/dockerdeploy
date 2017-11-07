@@ -8,10 +8,11 @@
 	<version>0.1.0</version>
 	<name>neo4j-service</name>
 	<parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.3.RELEASE</version>
-    </parent>
+		<groupId>com.stackroute.deploymentdashboard</groupId>
+		<artifactId>deployment_dashboard</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../</relativePath>
+	</parent>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
