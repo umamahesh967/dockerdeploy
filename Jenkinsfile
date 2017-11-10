@@ -3,14 +3,10 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'mvn build'
+               echo 'hey uma stay cool'
             }
         }
-    stage('Test') {
-            steps {
-                sh 'mvn test'
-            }
-        }
+   
     stage('deploy') {
             steps {
                 sh 'docker-compose -f docker-compose.yml up'
