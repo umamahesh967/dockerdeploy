@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
-import com.stackroute.deploymentdashboard.model.UserCredentials;
+import com.stackroute.deploymentdashboard.model.ReportModel;
 import com.stackroute.deploymentdashboard.service.CassandraDatabaseServiceImpl;
  
 
@@ -27,15 +27,15 @@ public class ReportingServiceConsumer {
 	@Autowired
 	private CassandraDatabaseServiceImpl cassandraDatabaseServiceImpl;
     
-    @KafkaListener(topics="${spring.kafka.consumer.group-id}",
+    @KafkaListener(topics="${spring.kafka.consumer.name}",
     		containerFactory = "projectModelKafkaListenerContainerFactory")
-   public void processMessage(UserCredentials user) {
+   public void processMessage(ReportModel report) {
     	
-        System.out.println("received content = " + user.getBuildStatus());
-        LOGGER.info("received payload='{}'", user.getBuildStatus());
+        System.out.println("received content = " + report.getBuildStatus());
+        LOGGER.info("received payload='{}'", report.getBuildStatus());
         latch.countDown();
-    	cassandraDatabaseServiceImpl.SaveOrUpdate(user);
-        System.out.println("received content = " + user.getBuildStatus());
+    	cassandraDatabaseServiceImpl.SaveOrUpdate(report);
+        System.out.println("received content = " + report.getBuildStatus());
         
    }
     

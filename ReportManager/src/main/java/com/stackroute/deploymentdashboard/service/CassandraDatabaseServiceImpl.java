@@ -5,35 +5,35 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.stackroute.deploymentdashboard.model.UserCredentials;
-import com.stackroute.deploymentdashboard.repository.UserCredentialsCRUDRepository;
+import com.stackroute.deploymentdashboard.model.ReportModel;
+import com.stackroute.deploymentdashboard.repository.ReportModelCRUDRepository;
 
 @Service
 public class CassandraDatabaseServiceImpl implements DatabaseService {
 	@Autowired
-	private UserCredentialsCRUDRepository repoObject;
+	private ReportModelCRUDRepository repoObject;
 	
 	
 	
-	public UserCredentialsCRUDRepository getRepoObject() {
+	public ReportModelCRUDRepository getRepoObject() {
 		return repoObject;
 	}
 
-	public void setRepoObject(UserCredentialsCRUDRepository repoObject) {
+	public void setRepoObject(ReportModelCRUDRepository repoObject) {
 		this.repoObject = repoObject;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<UserCredentials> read() {
+	public List<ReportModel> read() {
 		@SuppressWarnings("unchecked")
-		List<UserCredentials> usercredentialsList = (List<UserCredentials>) repoObject.findAll();
+		List<ReportModel> usercredentialsList = (List<ReportModel>) repoObject.findAll();
 		return usercredentialsList;
 	}
 
 	@Override
-	public UserCredentials SaveOrUpdate(UserCredentials userCredentials) {
-		UserCredentials usrCredentials=repoObject.save(userCredentials);
+	public ReportModel SaveOrUpdate(ReportModel userCredentials) {
+		ReportModel usrCredentials=repoObject.save(userCredentials);
 		return usrCredentials;
 	}
 	

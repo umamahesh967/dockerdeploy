@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
-import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +14,8 @@ import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 
-import com.stackroute.deploymentdashboard.model.UserCredentials;
+import com.fasterxml.jackson.databind.ser.std.StringSerializer;
+import com.stackroute.deploymentdashboard.model.ReportModel;
 
 @EnableKafka
 @Configuration
@@ -60,33 +60,25 @@ public class ReportingServiceConsumerConfig {
     }
     
     @Bean
-    public ConsumerFactory<String, UserCredentials> ProjectModelconsumerFactory() {
+    public ConsumerFactory<String, ReportModel> ProjectModelconsumerFactory() {
         Map<String, Object> props = new HashMap<>();
-        props.put(
-          ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, 
-          bootstrapServer);
+        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServer);
+        props.put(ConsumerConfig.GROUP_ID_CONFIG,groupId);
+        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,StringDeserializer.class);
+        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,JsonDeserializer.class);
         
-        props.put(
-          ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, 
-          StringDeserializer.class);
-        props.put(
-          ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, 
-          JsonDeserializer.class);
-        props.put(
-                ConsumerConfig.GROUP_ID_CONFIG, 
-                groupId);
         return new DefaultKafkaConsumerFactory<>(
         	      props,
         	      new StringDeserializer(), 
-        	      new JsonDeserializer<>(UserCredentials.class));
+        	      new JsonDeserializer<>(ReportModel.class));
     }
  
 	@Bean
-	public ConcurrentKafkaListenerContainerFactory<String, UserCredentials> 
+	public ConcurrentKafkaListenerContainerFactory<String, ReportModel> 
 	  projectModelKafkaListenerContainerFactory() {
 	 
-	    ConcurrentKafkaListenerContainerFactory<String, UserCredentials> factory
-	      = new ConcurrentKafkaListenerContainerFactory<>();
+	    ConcurrentKafkaListenerContainerFactory<String, ReportModel> factory
+	      = new ConcurrentKafkaListenerContainerFactory<String, ReportModel>();
 	    factory.setConsumerFactory(ProjectModelconsumerFactory());
 	    return factory;
 	}

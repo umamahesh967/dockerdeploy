@@ -2,10 +2,10 @@ package com.stackroute.deploymentdashboard.service;
 
 import java.util.List;
 
-import com.stackroute.deploymentdashboard.model.UserCredentials;
+import com.stackroute.deploymentdashboard.model.ReportModel;
 
 public interface DatabaseService {
-	List<UserCredentials> read();
+	List<ReportModel> read();
 	
-	UserCredentials SaveOrUpdate(UserCredentials  userCredentials );
+	ReportModel SaveOrUpdate(ReportModel  userCredentials );
 }
